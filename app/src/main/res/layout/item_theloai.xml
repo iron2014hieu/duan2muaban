@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:backgroundTint="?attr/textcolor"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/backgroundcolor"
+        android:layout_weight="1"
+
+        android:gravity="center"
+        android:id="@+id/theloai_item">
+
+        <TextView
+            android:id="@+id/tvname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="name"
+            android:padding="15dp"
+            android:textColor="?attr/textcolor"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    <androidx.cardview.widget.CardView
+        android:layout_marginTop="20dp"
+        android:layout_width="300dp"
+        android:layout_height="170dp"
+        android:layout_margin="10dp"
+        app:cardCornerRadius="10dp">
+        <ImageView
+            android:src="@drawable/profile2"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/img_theloai"/>
+    </androidx.cardview.widget.CardView>
+
+
+    <TextView
+        android:id="@+id/tvMota"
+        android:layout_width="wrap_content"
+        android:textColor="?attr/textcolor"
+        android:gravity="center"
+        android:text=""
+        android:textSize="15dp"
+        android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

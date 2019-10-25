@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="120dp"
+    android:layout_margin="2dp"
+    android:background="?attr/backgroundcolor"
+   >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="?attr/backgroundcolor"
+        android:padding="5dp"
+        android:gravity="center"
+        android:id="@+id/contact_item">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:background="?attr/backgroundcolor"
+        android:src="@drawable/book"
+        android:id="@+id/img_book_iv"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1"
+        android:background="?attr/backgroundcolor"
+        android:layout_marginLeft="16dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/textcolor"
+            android:text=" Contact name"
+            android:textStyle="bold"
+            android:layout_weight="1"
+            android:id="@+id/books_name"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact phone"
+            android:textColor="?attr/textcolor"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:id="@+id/books_chitiet"/>
+    </LinearLayout>
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="3"
+    android:visibility="gone"
+    android:gravity="end">
+    <ImageView
+        android:id="@+id/favorite"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_favorite_border_black_24dp"
+        android:layout_gravity="center"
+        />
+    <ImageView
+        android:id="@+id/un_favorite"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:src="@drawable/ic_fatevori"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        />
+</RelativeLayout>
+</LinearLayout>
+</androidx.cardview.widget.CardView>

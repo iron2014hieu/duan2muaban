@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Activity.BookDetailActivity"
+    android:background="?attr/backgroundcolor"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="?attr/backgroundcolor">
+        <RatingBar
+            android:id="@+id/ratingbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:numStars="5" />
+        <TextView
+            android:id="@+id/txtDiemdanhgia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 sao"
+            android:layout_below="@id/ratingbar"
+            android:layout_centerHorizontal="true"
+            android:textColor="?attr/textcolor" />
+        <ImageView
+            android:id="@+id/imgBook"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/gmbapdful"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/txtDiemdanhgia"
+            />
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout1"
+            android:layout_marginTop="12dp"
+            app:boxBackgroundColor="?attr/textcolor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColorHint="?attr/textcolor"
+            android:layout_below="@id/imgBook">
+
+            <EditText
+                android:id="@+id/edtTensach"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/textcolor"
+                android:enabled="false"
+                android:hint="Tên sách" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout2"
+            android:layout_width="match_parent"
+            android:textColorHint="?attr/textcolor"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout1">
+
+            <EditText
+                android:id="@+id/edtGiaban"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/textcolor"
+                android:enabled="false"
+                android:hint="Giá bán"  />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout3"
+            android:layout_width="match_parent"
+            app:boxBackgroundColor="?attr/textcolor"
+            android:textColorHint="?attr/textcolor"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layout2"
+            >
+
+            <EditText
+                android:id="@+id/extractEditTextChitiet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/layout4"
+                android:layout_alignBottom="@+id/layout4"
+                android:enabled="false"
+                android:textColorHint="?attr/textcolor"
+                android:textColor="?attr/textcolor"
+                android:hint="Mô tả sách" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <TextView
+            android:id="@+id/txtTongtien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/layout3"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="37dp"
+            android:layout_marginEnd="7dp"
+            android:text="Tổng tiền: 000 VNĐ"
+            android:textColor="#FF0000"
+            android:textSize="15dp"
+            android:textStyle="bold" />
+        <Button
+            android:id="@+id/btnThemvaogio"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_below="@id/txtTongtien"
+            android:text="Thêm vào giỏ hàng"
+            android:textColor="?attr/textcolor"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:background="?attr/buttoncolor"/>
+
+        <TextView
+            android:id="@+id/btn_view_book_when_bill"
+            android:layout_marginTop="25dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="?attr/textcolor"
+            android:layout_below="@id/txtTongtien"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:drawableLeft="@drawable/ic_chevron_left"
+            android:gravity="center"
+            android:text="Quay lại cửa hàng "/>
+    </RelativeLayout>
+</ScrollView>

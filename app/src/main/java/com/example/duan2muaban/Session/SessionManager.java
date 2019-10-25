@@ -1,0 +1,177 @@
+package com.example.duan2muaban.Session;
+
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+
+
+import com.example.duan2muaban.LoginRegister.LoginActivity;
+import com.example.duan2muaban.LoginRegister.ProfileActivity;
+
+import java.util.HashMap;
+
+public class SessionManager {
+    SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
+    public Context context;
+    int PRIVATE_MODE =0;
+
+    public static final String PREF_NAMR = "LOGIN";
+    public static final String LOGIN = "IS_LOGIN";
+    public static final String EMAIL = "EMAIL";
+    public static final String NAME = "NAME";
+    public static final String ID = "ID";
+    public static final String QUYEN = "QUYEN";
+    // get matheloai --> get sach theo the loai
+
+    public static final String ID_BILL = "ID_BILL";
+    public static final String TEN_USER = "TEN_USER";
+
+    public static final String TEN_THELOAI = "TENTHELOAI";
+    //get book
+    public static final String ID_BOOK = "ID_BOOK";
+    public  static final String MATHELOAI = "MATHELOAI";
+    public static final String MACUAHANG = "MACUAHANG";
+    public static final String TENSACH = "TENSACH";
+    public static final String HINHANH = "HINHANH";
+    public static final String CHITIET = "CHITIET";
+    public static final String GIABAN = "GIABAN";
+    public static final String TONGDIEM = "TONGDIEM";
+    public static final String SOLUONG = "SOLUONG";
+    public static final String LANDANHGIA = "LANDANHGIA";
+
+//    public static final String SOLUONGMUA = "SOLUONGMUA";
+    public static final String DATHANHTOAN = "DATHANHTOAN";
+
+    public static final String LINK_BOOK_READ = "LINK_BOOK_READ";
+
+
+
+    public SessionManager(Context context) {
+        this.context = context;
+        sharedPreferences = context.getSharedPreferences(PREF_NAMR, PRIVATE_MODE);
+        editor=sharedPreferences.edit();
+    }
+
+    public void createSession(String id,String email, String name, String quyen){
+        editor.putBoolean(LOGIN, true);
+        editor.putString(ID, id);
+        editor.putString(EMAIL, email);
+        editor.putString(NAME, name);
+        editor.putString(QUYEN, quyen);
+        editor.apply();
+    }
+    public void createSessionGuimatheloai(String matheloai,String tentheloai){
+        editor.putString(MATHELOAI, matheloai);
+        editor.putString(TEN_THELOAI, tentheloai);
+        editor.apply();
+    }
+
+    public void createSessionSendInfomationBook(String id,String matheloai,
+                                                String macuahang, String tensach,
+                                                String hinhanh,String chitiet,
+                                                String giaban, String tongdiem,
+                                                String landanhgia){
+        editor.putString(ID_BOOK, id);
+        editor.putString(MATHELOAI, matheloai);
+        editor.putString(MACUAHANG, macuahang);
+        editor.putString(TENSACH, tensach);
+        editor.putString(HINHANH, hinhanh);
+        editor.putString(CHITIET, chitiet);
+        editor.putString(GIABAN, giaban);
+        editor.putString(TONGDIEM, tongdiem);
+        editor.putString(LANDANHGIA, landanhgia);
+
+        editor.apply();
+    }
+    public void createCart(String idSach, String iduser,String tensach, String giaban, String dathnahtoan){
+        editor.putString(ID_BOOK, idSach);
+        editor.putString(ID, iduser);
+        editor.putString(TENSACH, tensach);
+        editor.putString(GIABAN, giaban);
+        editor.putString(DATHANHTOAN, dathnahtoan);
+        editor.apply();
+    }
+    public void createBill(String idBill, String idBook, String nameUser){
+        editor.putString(ID_BILL, idBill);
+        editor.putString(ID_BOOK, idBook);
+        editor.putString(TEN_USER, nameUser);
+        editor.apply();
+    }
+    public void createGuiLinkBook(String tensach, String linkbook){
+        editor.putString(TENSACH, tensach);
+        editor.putString(LINK_BOOK_READ, linkbook);
+        editor.apply();
+    }
+    public boolean isLOggin(){
+        return sharedPreferences.getBoolean(LOGIN, false);
+    }
+    public void Checklogin(){
+        if (!this.isLOggin()){
+            Intent i = new Intent(context, LoginActivity.class);
+            context.startActivity(i);
+            ((ProfileActivity)context).finish();
+        }
+    }
+    public HashMap<String, String> getUserDetail(){
+        HashMap<String, String> user = new HashMap<>();
+        user.put(ID, sharedPreferences.getString(ID, null));
+        user.put(EMAIL, sharedPreferences.getString(EMAIL, null));
+        user.put(NAME, sharedPreferences.getString(NAME, null));
+        user.put(QUYEN, sharedPreferences.getString(QUYEN, null));
+        return user;
+    }
+    public HashMap<String, String> getMAtheloai(){
+        HashMap<String, String> theloai = new HashMap<>();
+        theloai.put(MATHELOAI, sharedPreferences.getString(MATHELOAI, null));
+        theloai.put(TEN_THELOAI, sharedPreferences.getString(TEN_THELOAI, null));
+        return theloai;
+    }
+    public HashMap<String, String> getCart(){
+        HashMap<String, String> cart = new HashMap<>();
+        cart.put(ID_BOOK, sharedPreferences.getString(ID_BOOK, null));
+        cart.put(ID, sharedPreferences.getString(ID, null));
+        cart.put(TENSACH, sharedPreferences.getString(TENSACH, null));
+        cart.put(GIABAN, sharedPreferences.getString(GIABAN, null));
+        cart.put(DATHANHTOAN, sharedPreferences.getString(DATHANHTOAN, null));
+        return cart;
+    }
+    public HashMap<String, String> getBookDetail(){
+        HashMap<String, String> book = new HashMap<>();
+        book.put(ID_BOOK, sharedPreferences.getString(ID_BOOK,null));
+
+        book.put(MATHELOAI, sharedPreferences.getString(MATHELOAI,null));
+        book.put(MACUAHANG, sharedPreferences.getString(MACUAHANG,null));
+
+        book.put(TENSACH, sharedPreferences.getString(TENSACH, null));
+        book.put(HINHANH, sharedPreferences.getString(HINHANH,null));
+        book.put(CHITIET, sharedPreferences.getString(CHITIET,null));
+        book.put(GIABAN, sharedPreferences.getString(GIABAN,null));
+        book.put(TONGDIEM, sharedPreferences.getString(TONGDIEM,null));
+        book.put(SOLUONG, sharedPreferences.getString(SOLUONG,null));
+        book.put(LANDANHGIA, sharedPreferences.getString(LANDANHGIA,null));
+        return book;
+    }
+    public HashMap<String, String> getDetailBill(){
+        HashMap<String, String> bill = new HashMap<>();
+
+        bill.put(ID_BILL, sharedPreferences.getString(ID_BILL, null));
+        bill.put(ID_BOOK, sharedPreferences.getString(ID_BOOK, null));
+        bill.put(TEN_USER, sharedPreferences.getString(TEN_USER, null));
+        return bill;
+    }
+    public HashMap<String, String> getLinkbook(){
+        HashMap<String, String> book = new HashMap<>();
+
+        book.put(TENSACH, sharedPreferences.getString(TENSACH, null));
+        book.put(LINK_BOOK_READ, sharedPreferences.getString(LINK_BOOK_READ, null));
+        return book;
+    }
+    public void Logout(){
+        editor.clear();
+        editor.commit();
+        Intent i = new Intent(context, LoginActivity.class);
+        context.startActivity(i);
+        ((ProfileActivity)context).finish();
+    }
+}

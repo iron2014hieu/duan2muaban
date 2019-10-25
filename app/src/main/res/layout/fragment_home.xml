@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/backgroundcolor"
+    tools:context=".fragmentMain.HomeFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="?attr/backgroundcolor"
+        android:padding="10dp"
+        >
+    <TextView
+        android:id="@+id/txtTrangthai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textColor="?attr/textcolor"
+        android:textSize="30dp"
+        android:layout_marginLeft="0dp"
+        android:textStyle="bold"
+        android:drawableRight="@drawable/ic_person_outline"
+        android:text="Đang đọc"/>
+
+        <TextView
+        android:id="@+id/txtThongbaonull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="?attr/textcolor"
+        android:text="Danh sách trống, bạn phải thêm để có dữ liệu"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:visibility="gone"
+        />
+        <View
+            android:layout_width="match_parent"
+            android:background="?attr/textcolor"
+            android:padding="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="1dp"/>
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:textColor="?attr/textcolor"
+            android:layout_marginTop="20dp"
+            android:text="Khám phá thể loại khác"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:src="@drawable/ic_add"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            android:id="@+id/img_themtheloai"/>
+
+    </GridLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/contact_recyclerview_theloai"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+
+
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/nav_home"
+        android:iconTint="?attr/textcolor"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Trang chủ"/>
+    <item
+        android:id="@+id/nav_library"
+        android:icon="@drawable/ic_library_books_black_24dp"
+        android:iconTint="?attr/textcolor"
+        android:title="Thư viện"/>
+    <item
+        android:id="@+id/nav_store"
+        android:icon="@drawable/ic_store_black_24dp"
+        android:iconTint="?attr/textcolor"
+        android:title="Cửa hàng"/>
+    <item
+        android:id="@+id/nav_search"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:iconTint="?attr/textcolor"
+        android:title="Tìm kiếm"
+        android:titleCondensed="#555"/>
+</menu>

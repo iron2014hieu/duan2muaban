@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/backgroundcolor"
+    tools:context=".LoginRegister.SettingsActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_setting"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:titleTextColor="?attr/textcolor"
+            android:background="?attr/backgroundcolor"
+            app:title="Cài đặt"
+            app:navigationIcon="@drawable/ic_close"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="?attr/cardbackground"
+        android:padding="10dp">
+        <TextView
+            android:id="@+id/txtCardview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Card view"
+            android:textColor="?attr/textcolor"
+            android:textSize="25sp"
+            />
+        <TextView
+            android:padding="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:textColor="?attr/textcolor"
+
+            android:text="DDay la trang cai dat, hay adlk adsmas nasd "/>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardbackground"
+        android:layout_marginTop="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/cardbackground"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="?attr/textcolor"
+
+                android:text="Some Compenets"
+                android:gravity="center"
+                />
+            <RadioButton
+                android:textColor="?attr/textcolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Radio Button"
+                android:textColorHint="?attr/textcolor"
+                android:layout_marginTop="10dp"
+                android:buttonTint="?attr/tincolor"/>
+            <CheckBox
+                android:textColor="?attr/textcolor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Check Box"
+                android:buttonTint="?attr/tincolor"/>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?attr/buttoncolor"
+                android:layout_marginTop="25sp"
+                android:textColor="?attr/textcolor"
+                android:text="Button"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/cardbackground"
+        android:padding="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="?attr/cardbackground"
+            android:padding="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enable Dark Mode"
+                android:textColor="?attr/textcolor"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+            <Switch
+                android:id="@+id/mySwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Night Mode"
+                android:textColor="?attr/textcolor"/>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

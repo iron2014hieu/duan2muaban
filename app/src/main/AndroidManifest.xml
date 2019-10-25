@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.duan2muaban">
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/book"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".CartDetailActivity"></activity>
+        <activity android:name=".QLTKActivity" />
+        <activity android:name=".Activity.RatingBookCommentActivity" />
+        <activity android:name=".Activity.ThemTheloaiSachActivity" />
+        <activity android:name=".Activity.BookDetailPayActivity" />
+        <activity android:name=".Activity.BookDetailActivity" />
+        <activity android:name=".Activity.GetBookByTheloaiActivity" />
+        <activity android:name=".LoginRegister.ProfileActivity" />
+        <activity android:name=".Activity.ViewBookActivity" />
+        <activity android:name=".Activity.ThemSachActivity" />
+        <activity android:name=".Main2Activity" />
+        <activity
+            android:name=".Activity.TheloaiChitietActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".LoginRegister.RegisterActivity"
+            android:hardwareAccelerated="false"
+            android:parentActivityName=".LoginRegister.LoginActivity" />
+        <activity android:name=".LoginRegister.LoginActivity" />
+        <activity
+            android:name=".LoginRegister.SettingsActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.SEARCH" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+    </application>
+
+</manifest>

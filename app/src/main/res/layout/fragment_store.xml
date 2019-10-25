@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="?attr/backgroundcolor"
+    tools:context=".fragmentMain.StoreFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:background="?attr/backgroundcolor"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:textColor="?attr/textcolor"
+        android:drawableRight="@drawable/ic_view_list"
+        android:text="Cửa Hàng Sách"/>
+    <TextView
+        android:id="@+id/txtThongbaonull"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="?attr/textcolor"
+        android:text="Danh sách trống, bạn phải thêm để có dữ liệu"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:background="?attr/backgroundcolor"
+        android:visibility="gone"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/book_recyclerview"
+        android:layout_marginTop="10dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:textColor="?attr/textcolor"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:padding="5dp"
+        android:text="Bảng Xếp Hạng"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_book_top123"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/backgroundcolor"
+        android:layout_marginTop="10dp"/>
+
+    </LinearLayout>
+</ScrollView>

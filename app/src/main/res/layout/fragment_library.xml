@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".fragmentMain.LibraryFragment"
+    android:padding="0.5dp"
+    android:background="?attr/backgroundcolor">
+
+    <TextView
+        android:id="@+id/txtLoigioithieu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textcolor"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:visibility="gone"
+        android:gravity="center"
+        android:text="Hiện bạn chưa có cuốn sách nào ở đây, hãy mua cho mình một cuôn sách tròn cửa hàng để chúng xuất hiện ở đây nhé!"/>
+    <TextView
+        android:id="@+id/txtDencuahang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:visibility="gone"
+        android:textSize="25sp"
+        android:textStyle="italic"
+        android:textColor="?attr/textcolor"
+        android:text="Đi đến cửa hàng nào!"
+        android:drawableRight="@drawable/ic_chevron_right"/>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_bills"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+</LinearLayout>

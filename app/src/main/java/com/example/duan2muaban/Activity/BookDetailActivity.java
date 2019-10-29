@@ -3,9 +3,13 @@ package com.example.duan2muaban.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -13,7 +17,9 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -35,11 +41,11 @@ public class BookDetailActivity extends AppCompatActivity {
     SharedPref sharedPref;
     private ImageView img_book;
     private String idBook, tensach,chitiet,
-            hinhanh, giaban, soluong, landanhgia, tongdiem;
+            hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage;
     private Float diemdanhgia;
     SessionManager sessionManager;
     private EditText edtTensach, edtGiaban,edtChitiet;
-    private TextView txtDiemdanhgia,txtTongtien,btn_view_book_when_bill;
+    private TextView txtDiemdanhgia,txtTongtien,btn_view_book_when_bill, textNotify;
 
     private RatingBar ratingBar;
     private Button btnThemvaogio;
@@ -48,6 +54,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private String URL_INSERT ="http://hieuttpk808.000webhostapp.com/books/cart_bill/insert.php";
     private String URL_CHECK ="https://hieuttpk808.000webhostapp.com/books/cart_bill/checklibrary.php";
     String idUser, name, quyen;
+    private int item_count =1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -55,6 +62,12 @@ public class BookDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
         addcontrols();
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
+        toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
+        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
 
         sessionManager = new SessionManager(BookDetailActivity.this);
 
@@ -67,9 +80,11 @@ public class BookDetailActivity extends AppCompatActivity {
 
         tongdiem= (book.get(sessionManager.TONGDIEM));
         landanhgia=book.get(sessionManager.LANDANHGIA);
+        linkImage = book.get(sessionManager.HINHANH);
 
-        Picasso.with(this).load(book.get(sessionManager.HINHANH)).into(img_book);
-
+        Picasso.with(this)
+                .load(linkImage).into(img_book);
+        textNotify.setText(String.valueOf(item_count));
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             quyen = user.get(sessionManager.QUYEN);
@@ -156,7 +171,9 @@ public class BookDetailActivity extends AppCompatActivity {
                             Toast.makeText(BookDetailActivity.this, "Bạn đã mua sách này", Toast.LENGTH_SHORT).show();
                         }else if (response.trim().equals("success")){
                             Toast.makeText(BookDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(BookDetailActivity.this, Main2Activity.class));
+                            item_count +=1;
+                            textNotify.setText(String.valueOf(item_count));
+//                            startActivity(new Intent(BookDetailActivity.this, Main2Activity.class));
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -227,5 +244,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
         txtTongtien = findViewById(R.id.txtTongtien);
         img_book=findViewById(R.id.imgBook);
+        textNotify= findViewById(R.id.textNotify);
     }
 }

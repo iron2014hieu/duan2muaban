@@ -24,6 +24,7 @@ import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.CartAdapter;
 import com.example.duan2muaban.model.Cart;
+import com.example.duan2muaban.publicString.URL.UrlSql;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,7 +39,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class CartListFragment extends Fragment {
-
+    private UrlSql urlSql;
     private SessionManager sessionManager;
     String tensach,idBook,giaBan, iduser;
     private TextView txtTongtienall;
@@ -103,9 +104,9 @@ public class CartListFragment extends Fragment {
         iduser = user.get(sessionManager.ID);
 
 
-        String URl_GETDATA = "http://hieuttpk808.000webhostapp.com/books/cart_bill/getdatacart.php/?mauser="+iduser;
+        String URl_GETDATA = urlSql.URl_GETDATA_CART+iduser;
         GetData(URl_GETDATA);
-        GetAlltongtien("https://hieuttpk808.000webhostapp.com/books/cart_bill/getdata_cart_money.php/?mauser="+iduser);
+        GetAlltongtien(urlSql.URl_GETDATA_CART_ALL_MONEY+iduser);
 
     }
 
@@ -123,6 +124,7 @@ public class CartListFragment extends Fragment {
 //                            recyclerView.setVisibility(View.GONE);
 //                            textViewTB.setVisibility(View.VISIBLE);
 //                        }
+                        Toast.makeText(getContext(), ""+response.length(), Toast.LENGTH_SHORT).show();
                         double tongtien=0.0;
                         for (int i = 0; i < response.length(); i++){
                             try {

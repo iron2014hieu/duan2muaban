@@ -65,7 +65,7 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_search, container, false);
         sessionManager = new SessionManager(getContext());
-        searchView=view.findViewById(R.id.search_view);
+        searchView=view.findViewById(R.id.searchview);
         progressBar = view.findViewById(R.id.progress);
         recyclerView=view.findViewById(R.id.recyclerview_search_book);
 
@@ -97,6 +97,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 Books books =   listBooks.get(position);
+
                 String id = String.valueOf(books.getId());
                 String matheloai = String.valueOf(books.getMatheloai());
                 String macuahang = String.valueOf(books.getMacuahang());
@@ -105,9 +106,8 @@ public class SearchFragment extends Fragment {
                 String chitiet =books.getChitiet();
                 String giaban = String.valueOf( books.getGiaban());
                 String tongdiem= String.valueOf(books.getTongdiem());
+                String linkbook = books.getLinkbook();
                 String landanhgia = String.valueOf(books.getLandanhgia());
-
-//                Toast.makeText(getContext(), "Ten sach "+tensach+" ma sach: "+id, Toast.LENGTH_SHORT).show();
                 sessionManager.createSessionSendInfomationBook(id,matheloai,macuahang,tensach,hinhanh,chitiet,giaban,tongdiem,landanhgia);
                 startActivity(new Intent(getContext(), BookDetailActivity.class));
             }

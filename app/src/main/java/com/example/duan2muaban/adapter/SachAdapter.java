@@ -24,12 +24,15 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
     Context context;
     List<Books> mData;
     Dialog myDialog;
+    private ProductItemActionListener actionListener;
 
     public SachAdapter(Context context, List<Books> mData) {
         this.context = context;
         this.mData = mData;
     }
-
+    public void setActionListener(ProductItemActionListener actionListener) {
+        this.actionListener = actionListener;
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -46,7 +49,13 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         myViewHolder.tv_name.setText(mData.get(i).getTensach());
         myViewHolder.tv_phone.setText(mData.get(i).getChitiet());
-
+        myViewHolder.img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(actionListener!=null)
+                    actionListener.onItemTap(myViewHolder.img);
+            }
+        });
         try {
             String urlImage = mData.get(i).getHinhanh();
             if (urlImage==null){
@@ -57,8 +66,6 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
         }catch (Exception e){
             Log.e("IMG", e.toString());
         }
-
-
 
     }
 
@@ -79,9 +86,12 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
             item_contact=(LinearLayout)itemView.findViewById(R.id.contact_item);
             tv_name=(TextView)itemView.findViewById(R.id.books_name);
             tv_phone=(TextView)itemView.findViewById(R.id.books_chitiet);
-            img=(ImageView) itemView.findViewById(R.id.img_contact);
+            img=(ImageView) itemView.findViewById(R.id.img_book_iv);
             favorite=(ImageView) itemView.findViewById(R.id.favorite);
             un_favorite=(ImageView) itemView.findViewById(R.id.un_favorite);
         }
+    }
+    public interface ProductItemActionListener{
+        void onItemTap(ImageView imageView);
     }
 }

@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundcolor"
     tools:context=".fragmentMain.SearchFragment">
     <ProgressBar
         android:id="@+id/progress"
@@ -11,13 +12,14 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"/>
     <androidx.appcompat.widget.SearchView
-        android:id="@+id/search-view"
+        android:id="@+id/searchview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:showDividers="beginning"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_search_book"
-        android:layout_below="@id/search-view"
+        android:layout_below="@+id/searchview"
+        android:backgroundTint="?attr/backgroundcolor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </RelativeLayout>

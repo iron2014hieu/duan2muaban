@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -14,6 +18,12 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.LoginRegister.ProfileActivity;
 import com.example.duan2muaban.LoginRegister.SettingsActivity;
 import com.example.duan2muaban.Session.SessionManager;
@@ -22,23 +32,30 @@ import com.example.duan2muaban.fragmentMain.HomeFragment;
 import com.example.duan2muaban.fragmentMain.LibraryFragment;
 import com.example.duan2muaban.fragmentMain.SearchFragment;
 import com.example.duan2muaban.fragmentMain.StoreFragment;
+import com.example.duan2muaban.model.Cart;
 import com.example.duan2muaban.nighmode.SharedPref;
+import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     SharedPref sharedPref;
     SessionManager sessionManager;
     BottomNavigationView navigation;
     ViewPager viewPager;
-
-    private static final String TAG = "MainActivity";
+    private TextView titleToolbar, textNotify;
+    private ImageButton cartButtonIV;
     private MenuItem mSearchMenuItem;
     private SearchView mSearchView;
     private String mSearchString;
     private static final String SEARCH_KEY = "search";
     SearchFragment searchFragment;
+    private UrlSql urlSql;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -46,11 +63,18 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        titleToolbar = findViewById(R.id.titleToolbar);
+        textNotify=findViewById(R.id.textNotify);
+        cartButtonIV= findViewById(R.id.cartButtonIV);
+
+
+        //Toobar đã như ActionBar
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
-        //Toobar đã như ActionBar
-
+        // lúc chưa đăng nhập --> ẩn nút giỏ hàng
+        cartButtonIV.setVisibility(View.GONE);
+        textNotify.setVisibility(View.GONE);
 
         sessionManager = new SessionManager(this);
         navigation = findViewById(R.id.bottom_navigation);
@@ -62,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(0); //Set Currrent Item When Activity Start
         viewPager.setOnPageChangeListener(new PageChange()); //Listeners For Viewpager When Page Changed
 
+
         // if you saved something on outState you can recover them here
 //        if (savedInstanceState != null) {
 //            mSearchString = savedInstanceState.getString(SEARCH_KEY);
@@ -70,15 +95,22 @@ public class MainActivity extends AppCompatActivity {
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             String name = user.get(sessionManager.NAME);
+            String id = user.get(sessionManager.ID);
             if (name==null){
-                setTitle("Doc sach - bạn chưa đăng nhập");
+                titleToolbar.setText("Doc sach - bạn chưa đăng nhập");
+                cartButtonIV.setVisibility(View.GONE);
+                textNotify.setVisibility(View.GONE);
             }else {
-                setTitle("Doc sach - "+name);
+                titleToolbar.setText("Doc sach - "+name);
+                GetDataCouterCart(urlSql.URl_GETDATA_CART+id);
+                cartButtonIV.setVisibility(View.VISIBLE);
+                textNotify.setVisibility(View.VISIBLE);
             }
 
         }catch (Exception e){
             Log.e("LOG", e.toString());
         }
+        cartButtonIV.setOnClickListener(this);
     }
     // This is called before the activity is destroyed
 //    @Override
@@ -117,6 +149,16 @@ public class MainActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.cartButtonIV:
+                startActivity(new Intent(getBaseContext(), Main2Activity.class));
+                break;
+        }
+    }
+
     public class PageChange implements ViewPager.OnPageChangeListener {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -189,7 +231,22 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
+    public void GetDataCouterCart(String url){
+        RequestQueue requestQueue = Volley.newRequestQueue(MainActivity.this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        textNotify.setText(String.valueOf(response.length()));
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(MainActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
     @Override
     public void onBackPressed() {
 

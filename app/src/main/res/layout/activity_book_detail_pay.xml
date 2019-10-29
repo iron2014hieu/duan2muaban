@@ -127,6 +127,7 @@
                 android:drawableTop="@drawable/ic_arrow_drop_up"
                 android:layout_gravity="center"
                 android:visibility="gone"
+                android:textColor="?attr/textcolor"
                 android:text="Ẩn bới nhận xét"/>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

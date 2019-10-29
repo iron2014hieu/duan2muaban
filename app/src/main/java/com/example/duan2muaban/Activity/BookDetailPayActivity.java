@@ -30,6 +30,7 @@ import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.NhanxetAdapter;
 import com.example.duan2muaban.model.Hoadon;
+import com.example.duan2muaban.nighmode.SharedPref;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,6 +42,7 @@ import java.util.List;
 import java.util.Map;
 
 public class BookDetailPayActivity extends AppCompatActivity {
+    SharedPref sharedPref;
     private SessionManager sessionManager;
     String idBook, idBill, nameuser;
     private String URL_READ_DEATIL ="http://hieuttpk808.000webhostapp.com/books/sach/read_detail_book.php";
@@ -60,6 +62,8 @@ public class BookDetailPayActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_book_detail_pay);
         AddControl();
         sessionManager = new SessionManager(this);
@@ -252,6 +256,11 @@ public class BookDetailPayActivity extends AppCompatActivity {
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
     }
     private void AddControl(){
         txtTensach_detail_view = findViewById(R.id.txtTensach_detail_view);

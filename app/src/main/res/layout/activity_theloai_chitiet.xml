@@ -28,6 +28,7 @@
             android:textColor="?attr/textcolor"
             android:textColorHint="?attr/textcolor"
             android:hint="Tên thể loại sách"
+            android:background="@android:color/transparent"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
@@ -43,6 +44,7 @@
             android:textColor="?attr/textcolor"
             android:textColorHint="?attr/textcolor"
             android:hint="Mô tả thể loại sách"
+            android:background="@android:color/transparent"
             />
     </com.google.android.material.textfield.TextInputLayout>
     <Button

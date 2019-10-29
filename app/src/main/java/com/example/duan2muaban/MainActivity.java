@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String SEARCH_KEY = "search";
     SearchFragment searchFragment;
     private UrlSql urlSql;
+    private int item_count = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -237,7 +238,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        textNotify.setText(String.valueOf(response.length()));
+                        item_count = response.length();
+                        textNotify.setText(String.valueOf(item_count));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -249,6 +251,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     @Override
     public void onBackPressed() {
+
+    }
+
+    @Override
+    protected void onResume() {
+        Toast.makeText(this, "on Resume", Toast.LENGTH_SHORT).show();
+        textNotify.setText(String.valueOf(item_count));
+        super.onResume();
+
 
     }
 }

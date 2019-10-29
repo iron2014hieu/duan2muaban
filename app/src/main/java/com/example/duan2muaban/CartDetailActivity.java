@@ -19,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Session.SessionManager;
+import com.example.duan2muaban.nighmode.SharedPref;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CartDetailActivity extends AppCompatActivity {
+    SharedPref sharedPref;
     private TextView txtTensach, txtGiaban, txtSoluongmua, txtThanhtien, txtDathanhtoan;
     private TextView btnThanhtoan, btnXoagiohang;
     String idSach,tensach, giaban, soluongmua, idCart;
@@ -37,6 +39,8 @@ public class CartDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_cart_detail);
         AddControls();
         sessionManager = new SessionManager(CartDetailActivity.this);
@@ -188,6 +192,12 @@ public class CartDetailActivity extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(CartDetailActivity.this);
         requestQueue.add(stringRequest);
     }
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
+    }
+
     private void AddControls(){
         txtTensach=findViewById(R.id.txtTensach);
         txtGiaban=findViewById(R.id.txtGiaban);

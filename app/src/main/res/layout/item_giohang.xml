@@ -2,10 +2,12 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:backgroundTint="?attr/backgroundcolor"
     android:layout_margin="3dp">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/backgroundcolor"
         android:orientation="horizontal">
     <ImageView
         android:layout_width="75dp"
@@ -14,6 +16,7 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/backgroundcolor"
         android:orientation="vertical"
         android:layout_marginLeft="16dp">
         <TextView
@@ -34,6 +37,7 @@
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundcolor"
     android:gravity="end">
     <ImageView
         android:id="@+id/img_delete_cart"

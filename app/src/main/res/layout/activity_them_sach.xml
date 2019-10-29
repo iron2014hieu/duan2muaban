@@ -21,6 +21,7 @@
             android:id="@+id/edtTensach"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:inputType="textPersonName"
             android:hint="Tên sách"/>
     </com.google.android.material.textfield.TextInputLayout>
@@ -34,6 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number"
+            android:background="@android:color/transparent"
             android:hint="Giá bán"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -46,6 +48,7 @@
             android:id="@+id/edtChitiet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
             android:hint="Chi tiết"/>
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -52,8 +52,9 @@
                 android:background="@drawable/notification_circle"
                 android:gravity="center"
                 android:text="0"
+                android:textStyle="bold"
                 android:textColor="?attr/backgroundcolor"
-                android:textSize="8sp" />
+                android:textSize="10dp" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 </com.google.android.material.appbar.AppBarLayout>

@@ -54,10 +54,10 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/layout1"
                 android:layout_marginTop="12dp"
-                app:boxBackgroundColor="?attr/textcolor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="?attr/textcolor"
+
                 android:layout_below="@id/imgBook">
 
                 <EditText
@@ -67,6 +67,7 @@
                     android:textColor="?attr/textcolor"
                     android:textColorHint="?attr/textcolor"
                     android:enabled="false"
+                    android:background="@android:color/transparent"
                     android:hint="Tên sách" />
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -82,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="?attr/textcolor"
+                    android:background="@android:color/transparent"
                     android:textColorHint="?attr/textcolor"
                     android:enabled="false"
                     android:hint="Giá bán"  />
@@ -104,6 +106,7 @@
                     android:layout_alignStart="@+id/layout4"
                     android:layout_alignBottom="@+id/layout4"
                     android:enabled="false"
+                    android:background="@android:color/transparent"
                     android:textColorHint="?attr/textcolor"
                     android:textColor="?attr/textcolor"
                     android:hint="Mô tả sách" />

@@ -55,7 +55,7 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.My
         holder.un_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Thêm yêu thich "+users.get(position).getTensach(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Thêm yêu thich "+users.get(position).getTensach(), Toast.LENGTH_SHORT).show();
                 holder.un_favorite.setVisibility(View.GONE);
                 holder.favorite.setVisibility(View.VISIBLE);
             }
@@ -63,7 +63,7 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.My
         holder.favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Xóa yêu thich "+users.get(position).getTensach(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Xóa yêu thich "+users.get(position).getTensach(), Toast.LENGTH_SHORT).show();
                 holder.un_favorite.setVisibility(View.VISIBLE);
                 holder.favorite.setVisibility(View.GONE);
             }

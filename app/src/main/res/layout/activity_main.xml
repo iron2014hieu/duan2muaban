@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:id="@+id/linearLayoutMain">
     <include layout="@layout/toolbarlayout"/>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

@@ -112,7 +112,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(context,"loi e "+e, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(context,"loi e "+e, Toast.LENGTH_SHORT).show();
                             progressDialog.dismiss();
                         }
 
@@ -122,7 +122,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(context, "Error reading"+error.toString(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, "Error reading"+error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {

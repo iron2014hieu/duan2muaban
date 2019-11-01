@@ -124,7 +124,7 @@ public class CartListFragment extends Fragment {
 //                            recyclerView.setVisibility(View.GONE);
 //                            textViewTB.setVisibility(View.VISIBLE);
 //                        }
-                        Toast.makeText(getContext(), ""+response.length(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getContext(), ""+response.length(), Toast.LENGTH_SHORT).show();
                         double tongtien=0.0;
                         for (int i = 0; i < response.length(); i++){
                             try {
@@ -141,7 +141,7 @@ public class CartListFragment extends Fragment {
                                 tongtien+= Double.valueOf(giaBan);
                             }catch (JSONException e){
                                 e.printStackTrace();
-                                Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         cartAdapter.notifyDataSetChanged();
@@ -151,7 +151,7 @@ public class CartListFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -173,7 +173,7 @@ public class CartListFragment extends Fragment {
 
                             }catch (JSONException e){
                                 e.printStackTrace();
-                                Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -181,7 +181,7 @@ public class CartListFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jsonArrayRequest);

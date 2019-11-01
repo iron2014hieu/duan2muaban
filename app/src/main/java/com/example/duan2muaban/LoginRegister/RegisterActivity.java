@@ -91,23 +91,22 @@ public class RegisterActivity extends AppCompatActivity {
                                 if (success.equals("1")){
                                     loading.setVisibility(View.GONE);
                                     btnRegis.setVisibility(View.VISIBLE);
-                                    Toast.makeText(RegisterActivity.this, "Register success", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterActivity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                                 }else {
-                                    Toast.makeText(RegisterActivity.this, "Register error", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RegisterActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
                                 }
                             }else {
-                                Toast.makeText(RegisterActivity.this, "datontai", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegisterActivity.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(RegisterActivity.this, "Register error: "+e.toString(), Toast.LENGTH_SHORT).show();
                             Log.e("printStackTrace", e.toString());
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(RegisterActivity.this, "Register error: "+error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("VolleyError regis ", error.toString());
             }
         }){
             @Override

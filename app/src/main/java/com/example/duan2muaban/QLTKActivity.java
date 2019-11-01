@@ -79,7 +79,7 @@ public class QLTKActivity extends AppCompatActivity {
                                 ));
                             }catch (JSONException e){
                                 e.printStackTrace();
-                                Toast.makeText(QLTKActivity.this, ""+e.toString(), Toast.LENGTH_SHORT).show();
+                               // Toast.makeText(QLTKActivity.this, ""+e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         usersAdapter.notifyDataSetChanged();
@@ -88,7 +88,7 @@ public class QLTKActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(QLTKActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(QLTKActivity.this, error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jsonArrayRequest);

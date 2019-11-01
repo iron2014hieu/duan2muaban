@@ -3,6 +3,7 @@ package com.example.duan2muaban.fragmentMain;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -190,7 +191,8 @@ public class StoreFragment extends Fragment {
                                 ));
                             }catch (JSONException e){
                                 e.printStackTrace();
-                                Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
+                                Log.e("Error e: ", e.toString());
+                                //Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                         sachTop123Adapter.notifyDataSetChanged();

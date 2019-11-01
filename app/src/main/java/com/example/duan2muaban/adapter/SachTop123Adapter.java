@@ -74,7 +74,7 @@ public class SachTop123Adapter extends RecyclerView.Adapter<SachTop123Adapter.My
         myViewHolder.img_un_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Thêm yêu thich "+mData.get(i).getTensach(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Thêm yêu thich "+mData.get(i).getTensach(), Toast.LENGTH_SHORT).show();
                 myViewHolder.img_un_favorite.setVisibility(View.GONE);
                 myViewHolder.img_favorite.setVisibility(View.VISIBLE);
             }
@@ -82,7 +82,7 @@ public class SachTop123Adapter extends RecyclerView.Adapter<SachTop123Adapter.My
         myViewHolder.img_favorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(context, "Xóa yêu thich "+mData.get(i).getTensach(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "Xóa yêu thich "+mData.get(i).getTensach(), Toast.LENGTH_SHORT).show();
                 myViewHolder.img_un_favorite.setVisibility(View.VISIBLE);
                 myViewHolder.img_favorite.setVisibility(View.GONE);
             }

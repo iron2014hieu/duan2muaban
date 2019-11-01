@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Sách</string>
     <string name="hello_blank_fragment">ddd</string>
+    <string name="string_internet_connection_not_available">Không có kết nối internet!</string>
 </resources>

@@ -138,7 +138,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Books>> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Error on: "+t.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("Error Search:","Error on: "+t.toString());
             }
         });
     }

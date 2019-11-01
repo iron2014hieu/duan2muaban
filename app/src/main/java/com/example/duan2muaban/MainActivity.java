@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import com.example.duan2muaban.model.Cart;
 import com.example.duan2muaban.nighmode.SharedPref;
 import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SearchFragment searchFragment;
     private UrlSql urlSql;
     private int item_count = 0;
+    LinearLayout linearLayoutMain;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -67,7 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         titleToolbar = findViewById(R.id.titleToolbar);
         textNotify=findViewById(R.id.textNotify);
         cartButtonIV= findViewById(R.id.cartButtonIV);
-
+        linearLayoutMain= findViewById(R.id.linearLayoutMain);
 
         //Toobar đã như ActionBar
         setSupportActionBar(toolbar);
@@ -97,15 +100,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             HashMap<String,String> user = sessionManager.getUserDetail();
             String name = user.get(sessionManager.NAME);
             String id = user.get(sessionManager.ID);
-            if (name==null){
-                titleToolbar.setText("Doc sach - bạn chưa đăng nhập");
-                cartButtonIV.setVisibility(View.GONE);
-                textNotify.setVisibility(View.GONE);
+            if (InternetConnection.checkConnection(getApplicationContext())) {
+                if (name == null) {
+                    titleToolbar.setText("Doc sach - bạn chưa đăng nhập");
+                    cartButtonIV.setVisibility(View.GONE);
+                    textNotify.setVisibility(View.GONE);
+                } else {
+                    titleToolbar.setText("Doc sach - " + name);
+                    GetDataCouterCart(urlSql.URl_GETDATA_CART + id);
+                    cartButtonIV.setVisibility(View.VISIBLE);
+                    textNotify.setVisibility(View.VISIBLE);
+                }
             }else {
-                titleToolbar.setText("Doc sach - "+name);
-                GetDataCouterCart(urlSql.URl_GETDATA_CART+id);
-                cartButtonIV.setVisibility(View.VISIBLE);
-                textNotify.setVisibility(View.VISIBLE);
+                Snackbar.make(linearLayoutMain,
+                        R.string.string_internet_connection_not_available,
+                        Snackbar.LENGTH_LONG).show();
             }
 
         }catch (Exception e){
@@ -256,7 +265,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-        Toast.makeText(this, "on Resume", Toast.LENGTH_SHORT).show();
         textNotify.setText(String.valueOf(item_count));
         super.onResume();
 

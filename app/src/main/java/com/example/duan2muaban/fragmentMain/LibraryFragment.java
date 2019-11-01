@@ -3,6 +3,7 @@ package com.example.duan2muaban.fragmentMain;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -101,7 +102,7 @@ public class LibraryFragment extends Fragment {
         String URL_GET_HOADOWN = "https://hieuttpk808.000webhostapp.com/books/cart_bill/getdatabill.php/?mauser="+mauser;
         GetData(URL_GET_HOADOWN);
 
-        Toast.makeText(getContext(), ""+listBill.size(), Toast.LENGTH_SHORT).show();
+       // Toast.makeText(getContext(), ""+listBill.size(), Toast.LENGTH_SHORT).show();
     }
 
     public void GetData(String url){
@@ -137,7 +138,7 @@ public class LibraryFragment extends Fragment {
                                 ));
                             }catch (JSONException e){
                                 e.printStackTrace();
-                                Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
+                                Log.e("Loi e: ", e.toString());
                             }
                         }
                         billAdapter.notifyDataSetChanged();
@@ -146,7 +147,7 @@ public class LibraryFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("Error: ", error.toString());
             }
         });
         requestQueue.add(jsonArrayRequest);

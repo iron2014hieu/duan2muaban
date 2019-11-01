@@ -180,7 +180,7 @@ public class HomeFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
@@ -212,7 +212,7 @@ public class HomeFragment extends Fragment {
 
                             }catch (JSONException e){
                                 e.printStackTrace();
-                                Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
 
@@ -222,7 +222,7 @@ public class HomeFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jsonArrayRequest);

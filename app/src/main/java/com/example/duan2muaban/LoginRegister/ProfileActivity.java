@@ -149,7 +149,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(ProfileActivity.this, "Error reading"+error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.e("Error reading: ", error.toString());
                         txtEmail.setText(error.toString());
                     }
                 })
@@ -251,13 +251,13 @@ public class ProfileActivity extends AppCompatActivity {
                             String success = jsonObject.getString("success");
 
                             if (success.equals("1")){
-                                Toast.makeText(ProfileActivity.this, "tc", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "Lưu thành công!", Toast.LENGTH_SHORT).show();
 
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.dismiss();
-                            Toast.makeText(ProfileActivity.this, "err   "+e.toString(), Toast.LENGTH_SHORT).show();
+                            Log.e("Error saveProfile on: ", e.toString());
                         }
                     }
                 },
@@ -265,7 +265,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(ProfileActivity.this, "err   "+error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.e("Error: ", error.toString());
                     }
                 })
         {
@@ -320,12 +320,11 @@ public class ProfileActivity extends AppCompatActivity {
 
                             if (success.equals("1")){
                                 progressDialog.dismiss();
-                                Toast.makeText(ProfileActivity.this, "tc", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "Thành công", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
                             progressDialog.dismiss();
-                            Toast.makeText(ProfileActivity.this, "Loi e! "+e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -333,7 +332,7 @@ public class ProfileActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         progressDialog.dismiss();
-                        Toast.makeText(ProfileActivity.this, "Error ! "+error.toString(), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ProfileActivity.this, "Error ! "+error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 })
         {

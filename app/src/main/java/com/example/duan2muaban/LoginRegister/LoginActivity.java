@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -112,18 +113,18 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
                                 }
                             }else {
-                                Toast.makeText(LoginActivity.this, "Sai tk hoac mk", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            Toast.makeText(LoginActivity.this, "Login error: "+e.toString(), Toast.LENGTH_SHORT).show();
+                            Log.e("Login error: ", e.toString());
                         }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(LoginActivity.this, "Login error: "+error.toString(), Toast.LENGTH_SHORT).show();
+                        Log.e("Login error: ", error.toString());
                     }
                 })
         {

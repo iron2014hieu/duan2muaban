@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         viewPager.setCurrentItem(0); //Set Currrent Item When Activity Start
         viewPager.setOnPageChangeListener(new PageChange()); //Listeners For Viewpager When Page Changed
 
-        Toast.makeText(this, "Luân óc chó", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Trieu óc chó", Toast.LENGTH_SHORT).show();
         // if you saved something on outState you can recover them here
 //        if (savedInstanceState != null) {
 //            mSearchString = savedInstanceState.getString(SEARCH_KEY);

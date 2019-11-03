@@ -6,25 +6,25 @@
     android:layout_height="wrap_content"
     android:background="?attr/backgroundcolor"
     tools:context=".fragmentMain.HomeFragment">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="?attr/backgroundcolor"
-        android:padding="10dp"
+        android:background="?attr/backgroundcolor2"
         >
-    <TextView
-        android:id="@+id/txtTrangthai"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:textColor="?attr/textcolor"
-        android:textSize="30dp"
-        android:layout_marginLeft="0dp"
-        android:textStyle="bold"
-        android:drawableRight="@drawable/ic_person_outline"
-        android:text="Đang đọc"/>
-
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/backgroundcolor">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?attr/backgroundcolor"
+            android:orientation="vertical">
         <TextView
         android:id="@+id/txtThongbaonull"
         android:layout_width="match_parent"
@@ -36,40 +36,52 @@
         android:textStyle="bold"
         android:visibility="gone"
         />
-        <View
-            android:layout_width="match_parent"
-            android:background="?attr/textcolor"
-            android:padding="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_height="1dp"/>
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
         <TextView
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textSize="25sp"
+            android:textSize="15dp"
             android:textColor="?attr/textcolor"
             android:layout_marginTop="20dp"
             android:text="Khám phá thể loại khác"/>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:src="@drawable/ic_add"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:visibility="visible"
-            android:id="@+id/img_themtheloai"/>
-
-    </GridLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/contact_recyclerview_theloai"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />
+        </LinearLayout>
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="?attr/backgroundcolor"
+            android:layout_marginTop="5dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="200dp"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:textColor="?attr/textcolor"
+                    android:layout_marginTop="20dp"
+                    android:text="Dich vụ khác"/>
 
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_book_home"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
     </LinearLayout>
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
 </ScrollView>

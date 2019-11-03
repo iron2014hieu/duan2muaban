@@ -29,18 +29,18 @@ public class SessionManager {
 
     public static final String TEN_THELOAI = "TENTHELOAI";
     //get book
-    public static final String ID_BOOK = "ID_BOOK";
-    public  static final String MATHELOAI = "MATHELOAI";
-    public static final String MACUAHANG = "MACUAHANG";
+    public static final String MASACH = "ID_BOOK";
     public static final String TENSACH = "TENSACH";
-    public static final String HINHANH = "HINHANH";
-    public static final String CHITIET = "CHITIET";
-    public static final String GIABAN = "GIABAN";
-    public static final String TONGDIEM = "TONGDIEM";
+    public static final String MANXB = "MANXB";
+    public  static final String MATHELOAI = "MATHELOAI";
+    public static final String NGAYXB = "NGAYXB";
+    public static final String NOIDUNG = "NOIDUNG";
+    public static final String ANHBIA = "ANHBIA";
+    public static final String GIA = "GIA";
+    public static final String TENNXB = "TENNXB";
     public static final String SOLUONG = "SOLUONG";
-    public static final String LANDANHGIA = "LANDANHGIA";
+    public static final String TACGIA = "TACGIA";
 
-//    public static final String SOLUONGMUA = "SOLUONGMUA";
     public static final String DATHANHTOAN = "DATHANHTOAN";
 
     public static final String LINK_BOOK_READ = "LINK_BOOK_READ";
@@ -67,34 +67,34 @@ public class SessionManager {
         editor.apply();
     }
 
-    public void createSessionSendInfomationBook(String id,String matheloai,
-                                                String macuahang, String tensach,
-                                                String hinhanh,String chitiet,
-                                                String giaban, String tongdiem,
-                                                String landanhgia){
-        editor.putString(ID_BOOK, id);
-        editor.putString(MATHELOAI, matheloai);
-        editor.putString(MACUAHANG, macuahang);
+    public void createSessionSendInfomationBook(String masach,String tensach,
+                                                String manxb,String matheloai,String ngayxb,
+                                                String noidung,String anhbia,String gia,
+                                                String tennxb,String soluong,String tacgia){
+        editor.putString(MASACH, masach);
         editor.putString(TENSACH, tensach);
-        editor.putString(HINHANH, hinhanh);
-        editor.putString(CHITIET, chitiet);
-        editor.putString(GIABAN, giaban);
-        editor.putString(TONGDIEM, tongdiem);
-        editor.putString(LANDANHGIA, landanhgia);
-
+        editor.putString(MANXB, manxb);
+        editor.putString(MATHELOAI, matheloai);
+        editor.putString(NGAYXB, ngayxb);
+        editor.putString(NOIDUNG, noidung);
+        editor.putString(ANHBIA, anhbia);
+        editor.putString(GIA, gia);
+        editor.putString(TENNXB, tennxb);
+        editor.putString(SOLUONG, soluong);
+        editor.putString(TACGIA, tacgia);
         editor.apply();
     }
     public void createCart(String idSach, String iduser,String tensach, String giaban, String dathnahtoan){
-        editor.putString(ID_BOOK, idSach);
+        editor.putString(MASACH, idSach);
         editor.putString(ID, iduser);
         editor.putString(TENSACH, tensach);
-        editor.putString(GIABAN, giaban);
+        editor.putString(GIA, giaban);
         editor.putString(DATHANHTOAN, dathnahtoan);
         editor.apply();
     }
     public void createBill(String idBill, String idBook, String nameUser){
         editor.putString(ID_BILL, idBill);
-        editor.putString(ID_BOOK, idBook);
+        editor.putString(MASACH, idBook);
         editor.putString(TEN_USER, nameUser);
         editor.apply();
     }
@@ -129,34 +129,33 @@ public class SessionManager {
     }
     public HashMap<String, String> getCart(){
         HashMap<String, String> cart = new HashMap<>();
-        cart.put(ID_BOOK, sharedPreferences.getString(ID_BOOK, null));
+        cart.put(MASACH, sharedPreferences.getString(MASACH, null));
         cart.put(ID, sharedPreferences.getString(ID, null));
         cart.put(TENSACH, sharedPreferences.getString(TENSACH, null));
-        cart.put(GIABAN, sharedPreferences.getString(GIABAN, null));
+        cart.put(GIA, sharedPreferences.getString(GIA, null));
         cart.put(DATHANHTOAN, sharedPreferences.getString(DATHANHTOAN, null));
         return cart;
     }
     public HashMap<String, String> getBookDetail(){
         HashMap<String, String> book = new HashMap<>();
-        book.put(ID_BOOK, sharedPreferences.getString(ID_BOOK,null));
-
-        book.put(MATHELOAI, sharedPreferences.getString(MATHELOAI,null));
-        book.put(MACUAHANG, sharedPreferences.getString(MACUAHANG,null));
-
-        book.put(TENSACH, sharedPreferences.getString(TENSACH, null));
-        book.put(HINHANH, sharedPreferences.getString(HINHANH,null));
-        book.put(CHITIET, sharedPreferences.getString(CHITIET,null));
-        book.put(GIABAN, sharedPreferences.getString(GIABAN,null));
-        book.put(TONGDIEM, sharedPreferences.getString(TONGDIEM,null));
+        book.put(MASACH, sharedPreferences.getString(MASACH,null));
+        book.put(TENSACH, sharedPreferences.getString(TENSACH,null));
+        book.put(MANXB, sharedPreferences.getString(MANXB,null));
+        book.put(MATHELOAI, sharedPreferences.getString(MATHELOAI, null));
+        book.put(NGAYXB, sharedPreferences.getString(NGAYXB,null));
+        book.put(NOIDUNG, sharedPreferences.getString(NOIDUNG,null));
+        book.put(ANHBIA, sharedPreferences.getString(ANHBIA,null));
+        book.put(GIA, sharedPreferences.getString(GIA,null));
+        book.put(TENNXB, sharedPreferences.getString(TENNXB,null));
         book.put(SOLUONG, sharedPreferences.getString(SOLUONG,null));
-        book.put(LANDANHGIA, sharedPreferences.getString(LANDANHGIA,null));
+        book.put(TACGIA, sharedPreferences.getString(TACGIA,null));
         return book;
     }
     public HashMap<String, String> getDetailBill(){
         HashMap<String, String> bill = new HashMap<>();
 
         bill.put(ID_BILL, sharedPreferences.getString(ID_BILL, null));
-        bill.put(ID_BOOK, sharedPreferences.getString(ID_BOOK, null));
+        bill.put(MASACH, sharedPreferences.getString(MASACH, null));
         bill.put(TEN_USER, sharedPreferences.getString(TEN_USER, null));
         return bill;
     }

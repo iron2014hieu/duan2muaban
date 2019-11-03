@@ -46,9 +46,9 @@ public class CartDetailActivity extends AppCompatActivity {
         sessionManager = new SessionManager(CartDetailActivity.this);
         HashMap<String,String> cart = sessionManager.getCart();
 
-        idSach = cart.get(sessionManager.ID_BOOK);
+        idSach = cart.get(sessionManager.MASACH);
         tensach = cart.get(sessionManager.TENSACH);
-        giaban = cart.get(sessionManager.GIABAN);
+        giaban = cart.get(sessionManager.GIA);
         dathanhtoan = Integer.valueOf(cart.get(sessionManager.DATHANHTOAN));
 
         txtTensach.setText(tensach);

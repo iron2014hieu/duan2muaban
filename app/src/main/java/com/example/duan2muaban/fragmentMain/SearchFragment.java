@@ -9,17 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
 import com.example.duan2muaban.Activity.BookDetailActivity;
-import com.example.duan2muaban.LiveSearch.ApiClient;
-import com.example.duan2muaban.LiveSearch.ApiInTerFace;
+import com.example.duan2muaban.ApiRetrofit.ApiClient;
+import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFace;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
@@ -68,9 +67,9 @@ public class SearchFragment extends Fragment {
         searchView=view.findViewById(R.id.searchview);
         progressBar = view.findViewById(R.id.progress);
         recyclerView=view.findViewById(R.id.recyclerview_search_book);
-
-        layoutManager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(layoutManager);
+        StaggeredGridLayoutManager gridLayoutManagerVeticl =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManagerVeticl);
         recyclerView.setHasFixedSize(true);
         try {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -98,17 +97,20 @@ public class SearchFragment extends Fragment {
             public void onClick(View view, int position) {
                 Books books =   listBooks.get(position);
 
-                String id = String.valueOf(books.getId());
+                String masach = String.valueOf(books.getMasach());
+                String tensach = String.valueOf(books.getTensach());
+                String manxb = String.valueOf(books.getManxb());
                 String matheloai = String.valueOf(books.getMatheloai());
-                String macuahang = String.valueOf(books.getMacuahang());
-                String tensach = books.getTensach();
-                String hinhanh = books.getHinhanh();
-                String chitiet =books.getChitiet();
-                String giaban = String.valueOf( books.getGiaban());
-                String tongdiem= String.valueOf(books.getTongdiem());
-                String linkbook = books.getLinkbook();
-                String landanhgia = String.valueOf(books.getLandanhgia());
-                sessionManager.createSessionSendInfomationBook(id,matheloai,macuahang,tensach,hinhanh,chitiet,giaban,tongdiem,landanhgia);
+                String ngayxb = books.getNgayxb();
+                String noidung = books.getNoidung();
+                String anhbia =books.getAnhbia();
+                String gia = String.valueOf( books.getGia());
+                String tennxb= String.valueOf(books.getTennxb());
+                String soluong = String.valueOf(books.getSoluong());
+                String tacgia = books.getTacgia();
+
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,
+                        ngayxb,noidung,anhbia,gia,tennxb,soluong,tacgia);
                 startActivity(new Intent(getContext(), BookDetailActivity.class));
             }
 

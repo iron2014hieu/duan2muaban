@@ -37,11 +37,11 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.My
     @Override
     public void onBindViewHolder(final MyViewHolder holder, final int position) {
         holder.name.setText(users.get(position).getTensach());
-        holder.email.setText(users.get(position).getChitiet());
+        holder.email.setText("d"+users.get(position).getGia());
 
 
         try {
-            String urlImage = users.get(position).getHinhanh();
+            String urlImage = users.get(position).getAnhbia();
             if (urlImage==null){
                 holder.img.setImageResource(R.drawable.book);
             }else {
@@ -52,22 +52,6 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.My
             Log.e("IMG", e.toString());
         }
 
-        holder.un_favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(context, "Thêm yêu thich "+users.get(position).getTensach(), Toast.LENGTH_SHORT).show();
-                holder.un_favorite.setVisibility(View.GONE);
-                holder.favorite.setVisibility(View.VISIBLE);
-            }
-        });
-        holder.favorite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Toast.makeText(context, "Xóa yêu thich "+users.get(position).getTensach(), Toast.LENGTH_SHORT).show();
-                holder.un_favorite.setVisibility(View.VISIBLE);
-                holder.favorite.setVisibility(View.GONE);
-            }
-        });
     }
 
     @Override
@@ -82,8 +66,6 @@ public class SearchBookAdapter extends RecyclerView.Adapter<SearchBookAdapter.My
             super(itemView);
             name = itemView.findViewById(R.id.books_name);
             email = itemView.findViewById(R.id.books_chitiet);
-            favorite=(ImageView) itemView.findViewById(R.id.favorite);
-            un_favorite=(ImageView) itemView.findViewById(R.id.un_favorite);
             img = itemView.findViewById(R.id.img_book_iv);
         }
     }

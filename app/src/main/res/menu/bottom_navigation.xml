@@ -22,4 +22,10 @@
         android:iconTint="?attr/textcolor"
         android:title="Tìm kiếm"
         android:titleCondensed="#555"/>
+    <item
+        android:id="@+id/nav_notif"
+        android:icon="@drawable/ic_notifications"
+        android:iconTint="?attr/textcolor"
+        android:title="Thông báo"
+        android:titleCondensed="#555"/>
 </menu>

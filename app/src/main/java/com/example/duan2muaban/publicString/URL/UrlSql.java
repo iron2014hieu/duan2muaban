@@ -6,6 +6,8 @@ public class UrlSql {
 
     public String URl_GETDATA_CART =baseURL+"books/cart_bill/getdatacart.php/?mauser=";
     public  String URl_GETDATA_CART_ALL_MONEY=baseURL+"books/cart_bill/getdata_cart_money.php/?mauser=";
-
+    //Thể loại sách
     public String URL_GETDATA_THELOAI =baseURL_LOCAL+"book/books/theloai/getdata.php";
+    //sách
+    public String URL_GETDATA_BY_MATHELOAI =baseURL_LOCAL+"book/books/sach/getdatabymatheloai.php/?matheloai=";
 }

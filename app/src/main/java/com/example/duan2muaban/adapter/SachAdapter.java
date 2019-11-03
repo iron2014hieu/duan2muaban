@@ -48,7 +48,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         myViewHolder.tv_name.setText(mData.get(i).getTensach());
-        myViewHolder.tv_phone.setText(mData.get(i).getChitiet());
+        myViewHolder.tv_phone.setText(String.valueOf("₫"+mData.get(i).getGia()));
         myViewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,7 +57,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
             }
         });
         try {
-            String urlImage = mData.get(i).getHinhanh();
+            String urlImage = mData.get(i).getAnhbia();
             if (urlImage==null){
                 myViewHolder.img.setImageResource(R.drawable.profile2);
             }else {
@@ -78,7 +78,8 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
         private LinearLayout item_contact;
         private TextView tv_name;
         private TextView tv_phone;
-        ImageView img, favorite, un_favorite;
+        private TextView tv_sldaban;
+        ImageView img, favorite;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -87,8 +88,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
             tv_name=(TextView)itemView.findViewById(R.id.books_name);
             tv_phone=(TextView)itemView.findViewById(R.id.books_chitiet);
             img=(ImageView) itemView.findViewById(R.id.img_book_iv);
-            favorite=(ImageView) itemView.findViewById(R.id.favorite);
-            un_favorite=(ImageView) itemView.findViewById(R.id.un_favorite);
+            tv_sldaban=(TextView) itemView.findViewById(R.id.iv_sldabans);
         }
     }
     public interface ProductItemActionListener{

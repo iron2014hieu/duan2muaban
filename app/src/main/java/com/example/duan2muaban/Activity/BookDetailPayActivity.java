@@ -76,7 +76,7 @@ public class BookDetailPayActivity extends AppCompatActivity {
         });
 
         HashMap<String,String> user = sessionManager.getDetailBill();
-        idBook = user.get(sessionManager.ID_BOOK);
+        idBook = user.get(sessionManager.MASACH);
         nameuser = user.get(sessionManager.TEN_USER);
         idBill = user.get(sessionManager.ID_BILL);
         getDetailBookPay(idBook);
@@ -148,7 +148,7 @@ public class BookDetailPayActivity extends AppCompatActivity {
                             txtTensach_detail_view.setText(tensach);
                             txtChitiet_detail_view.setText(chitiet);
 
-                            sessionManager.createSessionSendInfomationBook(String.valueOf(id),matheloai,macuahang,tensach,hinhanh,chitiet,giaban,tongdiem,landanhgia);
+//                            sessionManager.createSessionSendInfomationBook(String.valueOf(id),matheloai,macuahang,tensach,hinhanh,chitiet,giaban,tongdiem,landanhgia);
 
                             ratingbar_book_view.setRating(Float.valueOf(tongdiem)/Float.valueOf(landanhgia));
 

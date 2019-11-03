@@ -45,13 +45,13 @@ public class SachTop123Adapter extends RecyclerView.Adapter<SachTop123Adapter.My
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         myViewHolder.tv_name.setText(mData.get(i).getTensach());
-        myViewHolder.tv_phone.setText(mData.get(i).getChitiet());
-        Double tongDiem = (mData.get(i).getTongdiem());
-        String lanDanhgia = String.valueOf(mData.get(i).getLandanhgia());
-
-        String diemanhgia =  String.valueOf((tongDiem)/Double.valueOf(lanDanhgia));
-        myViewHolder.ratingBar.setRating(Float.valueOf(diemanhgia));
-        myViewHolder.txtDanhgia.setText(diemanhgia+" điểm(với "+lanDanhgia+" đánh giá)");
+        myViewHolder.tv_phone.setText(mData.get(i).getGia());
+//        Double tongDiem = (mData.get(i).getTongdiem());
+//        String lanDanhgia = String.valueOf(mData.get(i).getLandanhgia());
+//
+//        String diemanhgia =  String.valueOf((tongDiem)/Double.valueOf(lanDanhgia));
+//        myViewHolder.ratingBar.setRating(Float.valueOf(diemanhgia));
+//        myViewHolder.txtDanhgia.setText(diemanhgia+" điểm(với "+lanDanhgia+" đánh giá)");
         int stt = i+1;
         if (stt==1){
             myViewHolder.img_rank.setImageResource(R.drawable.gold);

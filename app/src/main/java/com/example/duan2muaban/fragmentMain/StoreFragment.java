@@ -76,18 +76,20 @@ public class StoreFragment extends Fragment {
             @Override
         public void onClick(View view, int position) {
             Books books =   listBook.get(position);
-            String id = String.valueOf(books.getId());
-            String matheloai = String.valueOf(books.getMatheloai());
-            String macuahang = String.valueOf(books.getMacuahang());
-            String tensach = books.getTensach();
-            String hinhanh = books.getHinhanh();
-            String chitiet =books.getChitiet();
-            String giaban = String.valueOf( books.getGiaban());
-            String tongdiem= String.valueOf(books.getTongdiem());
-            String landanhgia = String.valueOf(books.getLandanhgia());
+                String masach = String.valueOf(books.getMasach());
+                String tensach = String.valueOf(books.getTensach());
+                String manxb = String.valueOf(books.getManxb());
+                String matheloai = String.valueOf(books.getMatheloai());
+                String ngayxb = books.getNgayxb();
+                String noidung = books.getNoidung();
+                String anhbia =books.getAnhbia();
+                String gia = String.valueOf( books.getGia());
+                String tennxb= String.valueOf(books.getTennxb());
+                String soluong = String.valueOf(books.getSoluong());
+                String tacgia = books.getTacgia();
 
 //                Toast.makeText(getContext(), "Ten sach "+tensach+" ma sach: "+id, Toast.LENGTH_SHORT).show();
-            sessionManager.createSessionSendInfomationBook(id,matheloai,macuahang,tensach,hinhanh,chitiet,giaban,tongdiem,landanhgia);
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,anhbia,gia,tennxb,soluong,tacgia);
             startActivity(new Intent(getContext(), BookDetailActivity.class));
 //                goToBookDetail();
         }
@@ -110,8 +112,8 @@ public class StoreFragment extends Fragment {
         listBook = new ArrayList<>();
         listBookTop123 = new ArrayList<>();
 
-        GetData(URL_GETDATA);
-        GetDataTop123(URL_GETDATA_TOP123);
+//        GetData(URL_GETDATA);
+//        GetDataTop123(URL_GETDATA_TOP123);
 
 
     }
@@ -133,16 +135,17 @@ public class StoreFragment extends Fragment {
                             try {
                                 JSONObject object = response.getJSONObject(i);
                                 listBook.add(new Books(
-                                        object.getInt("ID"),
-                                        object.getInt("MaTheLoai"),
-                                        object.getInt("MaCuaHang"),
+                                        object.getInt("MaSach"),
                                         object.getString("TenSach"),
-                                        object.getString("HinhAnh"),
-                                        object.getString("ChiTiet"),
-                                        object.getDouble("GiaBan"),
-                                        object.getDouble("TongDiem"),
-                                        object.getInt("LanDanhGia"),
-                                        object.getString("LinkBook")
+                                        object.getInt("MaNXB"),
+                                        object.getInt("MaTheLoai"),
+                                        object.getString("NgayXB"),
+                                        object.getString("NoiDung"),
+                                        object.getString("AnhBia"),
+                                        object.getInt("Gia"),
+                                        object.getString("TenNXB"),
+                                        object.getInt("SoLuong"),
+                                        object.getString("TacGia")
                                 ));
                             }catch (JSONException e){
                                 e.printStackTrace();
@@ -178,16 +181,17 @@ public class StoreFragment extends Fragment {
                             try {
                                 JSONObject object = response.getJSONObject(i);
                                 listBookTop123.add(new Books(
-                                        object.getInt("ID"),
-                                        object.getInt("MaTheLoai"),
-                                        object.getInt("MaCuaHang"),
+                                        object.getInt("MaSach"),
                                         object.getString("TenSach"),
-                                        object.getString("HinhAnh"),
-                                        object.getString("ChiTiet"),
-                                        object.getDouble("GiaBan"),
-                                        object.getDouble("TongDiem"),
-                                        object.getInt("LanDanhGia"),
-                                        object.getString("LinkBook")
+                                        object.getInt("MaNXB"),
+                                        object.getInt("MaTheLoai"),
+                                        object.getString("NgayXB"),
+                                        object.getString("NoiDung"),
+                                        object.getString("AnhBia"),
+                                        object.getInt("Gia"),
+                                        object.getString("TenNXB"),
+                                        object.getInt("SoLuong"),
+                                        object.getString("TacGia")
                                 ));
                             }catch (JSONException e){
                                 e.printStackTrace();

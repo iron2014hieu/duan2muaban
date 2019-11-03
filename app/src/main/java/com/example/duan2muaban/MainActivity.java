@@ -31,17 +31,15 @@ import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.FragmentAdapter;
 import com.example.duan2muaban.fragmentMain.HomeFragment;
 import com.example.duan2muaban.fragmentMain.LibraryFragment;
+import com.example.duan2muaban.fragmentMain.NotificationFragment;
 import com.example.duan2muaban.fragmentMain.SearchFragment;
 import com.example.duan2muaban.fragmentMain.StoreFragment;
-import com.example.duan2muaban.model.Cart;
 import com.example.duan2muaban.nighmode.SharedPref;
 import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 
@@ -75,6 +73,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Toobar đã như ActionBar
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+
+//        DisplayMetrics displayMetrics = new DisplayMetrics();
+//
+//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+//        //chiều cao
+//        int height = displayMetrics.heightPixels;
+//        // chiều rộng
+//        int width = displayMetrics.widthPixels;
+//
+//        Toast.makeText(this, "w "+width +" h "+height, Toast.LENGTH_SHORT).show();
 
         // lúc chưa đăng nhập --> ẩn nút giỏ hàng
         cartButtonIV.setVisibility(View.GONE);
@@ -134,6 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Adapter.add(new LibraryFragment(), "Thư viện");
         Adapter.add(new StoreFragment(), "Cửa hàng");
         Adapter.add(new SearchFragment(), "Tìm kiếm");
+        Adapter.add(new NotificationFragment(), "Thông báo");
         viewPager.setAdapter(Adapter);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -152,6 +161,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     return true;
                 case R.id.nav_search:
                     viewPager.setCurrentItem(3);
+                    return true;
+                case R.id.nav_notif:
+                    viewPager.setCurrentItem(4);
                     return true;
             }
             return false;
@@ -185,6 +197,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
                 case 3:
                     navigation.setSelectedItemId(R.id.nav_search);
+                    break;
+                case 4:
+                    navigation.setSelectedItemId(R.id.nav_notif);
                     break;
             }
         }

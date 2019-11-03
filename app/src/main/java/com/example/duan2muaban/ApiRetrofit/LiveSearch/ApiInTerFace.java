@@ -1,4 +1,4 @@
-package com.example.duan2muaban.LiveSearch;
+package com.example.duan2muaban.ApiRetrofit.LiveSearch;
 
 
 import com.example.duan2muaban.model.Books;
@@ -10,6 +10,6 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiInTerFace {
-    @GET("getBooks.php")
+    @GET("sach/getBooksBytensach.php")
     Call<List<Books>> getUsers(@Query("key") String keyword);
 }

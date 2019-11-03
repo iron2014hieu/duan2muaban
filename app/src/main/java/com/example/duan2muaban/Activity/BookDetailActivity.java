@@ -44,8 +44,8 @@ public class BookDetailActivity extends AppCompatActivity {
             hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage;
     private Float diemdanhgia;
     SessionManager sessionManager;
-    private EditText edtTensach, edtGiaban,edtChitiet;
-    private TextView txtDiemdanhgia,txtTongtien,btn_view_book_when_bill, textNotify, titleToolbar;
+    private TextView edtTensach, edtGiaban,edtChitiet;
+    private TextView txtDiemdanhgia,btn_view_book_when_bill, textNotify, titleToolbar;
 
     private RatingBar ratingBar;
     private Button btnThemvaogio;
@@ -72,15 +72,15 @@ public class BookDetailActivity extends AppCompatActivity {
         sessionManager = new SessionManager(BookDetailActivity.this);
 
         HashMap<String,String> book = sessionManager.getBookDetail();
-        idBook = book.get(sessionManager.ID_BOOK);
-        chitiet=book.get(sessionManager.CHITIET);
-        giaban = (book.get(sessionManager.GIABAN));
+        idBook = book.get(sessionManager.MASACH);
+        chitiet=book.get(sessionManager.NOIDUNG);
+        giaban = (book.get(sessionManager.GIA));
         soluong = (book.get(sessionManager.SOLUONG));
         tensach = book.get(sessionManager.TENSACH);
 
-        tongdiem= (book.get(sessionManager.TONGDIEM));
-        landanhgia=book.get(sessionManager.LANDANHGIA);
-        linkImage = book.get(sessionManager.HINHANH);
+//        tongdiem= (book.get(sessionManager.TONGDIEM));
+//        landanhgia=book.get(sessionManager.LANDANHGIA);
+        linkImage = book.get(sessionManager.ANHBIA);
 
         Picasso.with(this)
                 .load(linkImage).into(img_book);
@@ -102,17 +102,16 @@ public class BookDetailActivity extends AppCompatActivity {
             Log.e("LOG", e.toString());
         }
 
-        diemdanhgia =(Float.parseFloat(tongdiem)/Float.parseFloat(landanhgia));
-        ratingBar.setRating(diemdanhgia);
+//        diemdanhgia =(Float.parseFloat(tongdiem)/Float.parseFloat(landanhgia));
+//        ratingBar.setRating(diemdanhgia);
 
-        txtDiemdanhgia.setText("Đánh giá "+(diemdanhgia)+" (với "+landanhgia+" đánh giá)");
+//        txtDiemdanhgia.setText("Đánh giá "+(diemdanhgia)+" (với "+landanhgia+" đánh giá)");
 
         edtTensach.setText(tensach);
         edtGiaban.setText(giaban+" VNĐ");
         edtChitiet.setText(chitiet);
 
         giabansach = Double.valueOf(giaban);
-        txtTongtien.setText(giaban);
 
 
 
@@ -242,7 +241,6 @@ public class BookDetailActivity extends AppCompatActivity {
         btn_view_book_when_bill=findViewById(R.id.btn_view_book_when_bill);
         ratingBar = findViewById(R.id.ratingbar);
 
-        txtTongtien = findViewById(R.id.txtTongtien);
         img_book=findViewById(R.id.imgBook);
         textNotify= findViewById(R.id.textNotify);
         titleToolbar= findViewById(R.id.titleToolbar);

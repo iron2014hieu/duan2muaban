@@ -61,14 +61,14 @@ public class RatingBookCommentActivity extends AppCompatActivity {
         try {
             HashMap<String,String> user = sessionManager.getDetailBill();
             idbill = user.get(sessionManager.ID_BILL);
-            idBook =user.get(sessionManager.ID_BOOK);
+            idBook =user.get(sessionManager.MASACH);
 
             HashMap<String,String> usermm = sessionManager.getUserDetail();
             nameuser = usermm.get(sessionManager.NAME);
 
             HashMap<String, String> book = sessionManager.getBookDetail();
-            tongDiem = Double.valueOf(book.get(sessionManager.TONGDIEM));
-            lanDanhgia = Integer.valueOf(book.get(sessionManager.LANDANHGIA));
+//            tongDiem = Double.valueOf(book.get(sessionManager.TONGDIEM));
+//            lanDanhgia = Integer.valueOf(book.get(sessionManager.LANDANHGIA));
 
         }catch (Exception e){
             Log.e("RATING", e.toString());

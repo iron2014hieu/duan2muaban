@@ -1,47 +1,38 @@
 package com.example.duan2muaban.model;
 
 public class Books {
-    private int id, matheloai, macuahang;
-    private String tensach, hinhanh, chitiet;
-    private Double giaban, tongdiem;
-    private int  landanhgia;
-    private String linkbook;
+    int masach;
+    String tensach;
+    int manxb;
+    int matheloai;
+    String ngayxb;
+    String noidung;
+    String anhbia;
+    int gia;
+    String tennxb;
+    int soluong;
+    String tacgia;
 
-    public Books(int id, int matheloai, int macuahang, String tensach, String hinhanh, String chitiet, Double giaban, Double tongdiem, int landanhgia, String linkbook) {
-        this.id = id;
-        this.matheloai = matheloai;
-        this.macuahang = macuahang;
+    public Books(int masach, String tensach, int manxb, int matheloai, String ngayxb, String noidung, String anhbia, int gia, String tennxb, int soluong, String tacgia) {
+        this.masach = masach;
         this.tensach = tensach;
-        this.hinhanh = hinhanh;
-        this.chitiet = chitiet;
-        this.giaban = giaban;
-        this.tongdiem = tongdiem;
-        this.landanhgia = landanhgia;
-        this.linkbook = linkbook;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getMatheloai() {
-        return matheloai;
-    }
-
-    public void setMatheloai(int matheloai) {
+        this.manxb = manxb;
         this.matheloai = matheloai;
+        this.ngayxb = ngayxb;
+        this.noidung = noidung;
+        this.anhbia = anhbia;
+        this.gia = gia;
+        this.tennxb = tennxb;
+        this.soluong = soluong;
+        this.tacgia = tacgia;
     }
 
-    public int getMacuahang() {
-        return macuahang;
+    public int getMasach() {
+        return masach;
     }
 
-    public void setMacuahang(int macuahang) {
-        this.macuahang = macuahang;
+    public void setMasach(int masach) {
+        this.masach = masach;
     }
 
     public String getTensach() {
@@ -52,51 +43,75 @@ public class Books {
         this.tensach = tensach;
     }
 
-    public String getHinhanh() {
-        return hinhanh;
+    public int getManxb() {
+        return manxb;
     }
 
-    public void setHinhanh(String hinhanh) {
-        this.hinhanh = hinhanh;
+    public void setManxb(int manxb) {
+        this.manxb = manxb;
     }
 
-    public String getChitiet() {
-        return chitiet;
+    public int getMatheloai() {
+        return matheloai;
     }
 
-    public void setChitiet(String chitiet) {
-        this.chitiet = chitiet;
+    public void setMatheloai(int matheloai) {
+        this.matheloai = matheloai;
     }
 
-    public Double getGiaban() {
-        return giaban;
+    public String getNgayxb() {
+        return ngayxb;
     }
 
-    public void setGiaban(Double giaban) {
-        this.giaban = giaban;
+    public void setNgayxb(String ngayxb) {
+        this.ngayxb = ngayxb;
     }
 
-    public Double getTongdiem() {
-        return tongdiem;
+    public String getNoidung() {
+        return noidung;
     }
 
-    public void setTongdiem(Double tongdiem) {
-        this.tongdiem = tongdiem;
+    public void setNoidung(String noidung) {
+        this.noidung = noidung;
     }
 
-    public int getLandanhgia() {
-        return landanhgia;
+    public String getAnhbia() {
+        return anhbia;
     }
 
-    public void setLandanhgia(int landanhgia) {
-        this.landanhgia = landanhgia;
+    public void setAnhbia(String anhbia) {
+        this.anhbia = anhbia;
     }
 
-    public String getLinkbook() {
-        return linkbook;
+    public int getGia() {
+        return gia;
     }
 
-    public void setLinkbook(String linkbook) {
-        this.linkbook = linkbook;
+    public void setGia(int gia) {
+        this.gia = gia;
+    }
+
+    public String getTennxb() {
+        return tennxb;
+    }
+
+    public void setTennxb(String tennxb) {
+        this.tennxb = tennxb;
+    }
+
+    public int getSoluong() {
+        return soluong;
+    }
+
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
+    }
+
+    public String getTacgia() {
+        return tacgia;
+    }
+
+    public void setTacgia(String tacgia) {
+        this.tacgia = tacgia;
     }
 }

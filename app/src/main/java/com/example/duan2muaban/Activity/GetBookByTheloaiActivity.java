@@ -24,6 +24,7 @@ import com.example.duan2muaban.adapter.SachAdapter;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.nighmode.SharedPref;
+import com.example.duan2muaban.publicString.URL.UrlSql;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,6 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GetBookByTheloaiActivity extends AppCompatActivity {
     SharedPref sharedPref;
+    UrlSql urlSql = new UrlSql();
     String matheloai;
     public String URL_GETDATA ="https://hieuttpk808.000webhostapp.com/books/sach/getdata.php";
     public String URL_GETDATABYMATHELOAI;
@@ -64,7 +66,7 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             String quyen = user.get(sessionManager.QUYEN);
-            Toast.makeText(GetBookByTheloaiActivity.this, ""+quyen, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(GetBookByTheloaiActivity.this, ""+quyen, Toast.LENGTH_SHORT).show();
             if (quyen==null){
                 circleImageView.setVisibility(View.GONE);
             }else if (quyen.equals("user")){
@@ -84,7 +86,8 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
         HashMap<String,String> theloai = sessionManager.getMAtheloai();
         matheloai = theloai.get(sessionManager.MATHELOAI);
         tentheloai = theloai.get(sessionManager.TEN_THELOAI);
-        URL_GETDATABYMATHELOAI = "https://hieuttpk808.000webhostapp.com/books/sach/getdatabymatheloai.php/?matheloai="+matheloai;
+        URL_GETDATABYMATHELOAI = urlSql.URL_GETDATA_BY_MATHELOAI+matheloai;
+        Toast.makeText(GetBookByTheloaiActivity.this, ""+matheloai, Toast.LENGTH_SHORT).show();
         GetData(URL_GETDATABYMATHELOAI);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
@@ -92,19 +95,20 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
                 Books books =   listBook.get(position);
-
-                String id = String.valueOf(books.getId());
+                String masach = String.valueOf(books.getMasach());
+                String tensach = String.valueOf(books.getTensach());
+                String manxb = String.valueOf(books.getManxb());
                 String matheloai = String.valueOf(books.getMatheloai());
-                String macuahang = String.valueOf(books.getMacuahang());
-                String tensach = books.getTensach();
-                String hinhanh = books.getHinhanh();
-                String chitiet =books.getChitiet();
-                String giaban = String.valueOf( books.getGiaban());
-                String tongdiem= String.valueOf(books.getTongdiem());
-                String linkbook = books.getLinkbook();
-                String landanhgia = String.valueOf(books.getLandanhgia());
-                sessionManager.createSessionSendInfomationBook(id,matheloai,macuahang,tensach,hinhanh,chitiet,giaban,tongdiem,landanhgia);
-                Toast.makeText(GetBookByTheloaiActivity.this, ""+id, Toast.LENGTH_SHORT).show();
+                String ngayxb = books.getNgayxb();
+                String noidung = books.getNoidung();
+                String anhbia =books.getAnhbia();
+                String gia = String.valueOf( books.getGia());
+                String tennxb= String.valueOf(books.getTennxb());
+                String soluong = String.valueOf(books.getSoluong());
+                String tacgia = books.getTacgia();
+
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,anhbia,gia,tennxb,soluong,tacgia);
+                Toast.makeText(GetBookByTheloaiActivity.this, ""+masach, Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(GetBookByTheloaiActivity.this, BookDetailActivity.class));
             }
@@ -159,16 +163,17 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
                             try {
                                 JSONObject object = response.getJSONObject(i);
                                 listBook.add(new Books(
-                                        object.getInt("ID"),
-                                        object.getInt("MaTheLoai"),
-                                        object.getInt("MaCuaHang"),
+                                        object.getInt("MaSach"),
                                         object.getString("TenSach"),
-                                        object.getString("HinhAnh"),
-                                        object.getString("ChiTiet"),
-                                        object.getDouble("GiaBan"),
-                                        object.getDouble("TongDiem"),
-                                        object.getInt("LanDanhGia"),
-                                        object.getString("LinkBook")
+                                        object.getInt("MaNXB"),
+                                        object.getInt("MaTheLoai"),
+                                        object.getString("NgayXB"),
+                                        object.getString("NoiDung"),
+                                        object.getString("AnhBia"),
+                                        object.getInt("Gia"),
+                                        object.getString("TenNXB"),
+                                        object.getInt("SoLuong"),
+                                        object.getString("TacGia")
                                 ));
                             }catch (JSONException e){
                                 e.printStackTrace();

@@ -38,8 +38,8 @@ public class TheLoaiAdapter extends RecyclerView.Adapter<TheLoaiAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.tv_name.setText(mData.get(i).getTenTheLoai());
-        String urlImage = mData.get(i).getPhoTo();
+        myViewHolder.tv_name.setText(mData.get(i).getTenLoai());
+        String urlImage = mData.get(i).getImage();
         Picasso.with(context).load(urlImage).into(myViewHolder.img);
     }
 

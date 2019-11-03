@@ -29,6 +29,7 @@ import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.TheLoai;
+import com.example.duan2muaban.publicString.URL.UrlSql;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +46,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    public String URL_GETDATA ="http://hieuttpk808.000webhostapp.com/books/theloai/getdata.php";
+    UrlSql urlSql;
     public String URL_GETBYMACUAHNG = "http://hieuttpk808.000webhostapp.com/books/theloai/getdatabymacuahang.php/?macuahang=";
     String name,id,quyen;
     TheLoaiAdapter theLoaiAdapter;
@@ -90,8 +91,8 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 TheLoai theloai =   listTheloai.get(position);
-                String id = String.valueOf(theloai.getID());
-                String ten = theloai.getTenTheLoai();
+                String id = String.valueOf(theloai.getMaLoai());
+                String ten = theloai.getTenLoai();
 
                 sessionManager.createSessionGuimatheloai(id,ten);
                 startActivity(new Intent(getContext(), GetBookByTheloaiActivity.class));
@@ -115,14 +116,13 @@ public class HomeFragment extends Fragment {
            quyen = user.get(sessionManager.QUYEN);
            name = user.get(sessionManager.NAME);
            id = user.get(sessionManager.ID);
-
            if (id==null){
-               GetAllData(URL_GETDATA);
+               GetAllData(urlSql.URL_GETDATA_THELOAI);
            }else if (quyen.equals("user") || quyen.equals("admin")){
-               GetAllData(URL_GETDATA);
+               GetAllData(urlSql.URL_GETDATA_THELOAI);
            }else if (quyen.equals("store")){
-               GetDataBymacuahang(URL_GETBYMACUAHNG+id);
-           }
+              // GetDataBymacuahang(URL_GETBYMACUAHNG+id);
+       }
 
            if (quyen==null){
                circleImageViewThemtheloai.setVisibility(View.GONE);
@@ -162,11 +162,9 @@ public class HomeFragment extends Fragment {
                             try {
                                 JSONObject object = response.getJSONObject(i);
                                 listTheloai.add(new TheLoai(
-                                        object.getInt("ID"),
-                                        object.getInt("MaCuaHang"),
-                                        object.getString("TenTheLoai"),
-                                        object.getString("MoTa"),
-                                        object.getString("PhoTo")
+                                        object.getInt("MaLoai"),
+                                        object.getString("TenLoai"),
+                                        object.getString("Image")
                                 ));
 
                             }catch (JSONException e){
@@ -203,11 +201,9 @@ public class HomeFragment extends Fragment {
                             try {
                                 JSONObject object = response.getJSONObject(i);
                                 listTheloai.add(new TheLoai(
-                                        object.getInt("ID"),
-                                        object.getInt("MaCuaHang"),
-                                        object.getString("TenTheLoai"),
-                                        object.getString("MoTa"),
-                                        object.getString("PhoTo")
+                                        object.getInt("MaLoai"),
+                                        object.getString("tenLoai"),
+                                        object.getString("Image")
                                 ));
 
                             }catch (JSONException e){

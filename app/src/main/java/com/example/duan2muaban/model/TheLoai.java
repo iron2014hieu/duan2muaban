@@ -1,57 +1,37 @@
 package com.example.duan2muaban.model;
 
 public class TheLoai {
-    private int ID;
-    private int MaCuaHang;
-    private String TenTheLoai;
-    private String MoTa;
-    private String PhoTo;
+    private int maLoai;
+    private String tenLoai;
+    private String image;
 
-    public TheLoai(int ID, int maCuaHang, String tenTheLoai, String moTa, String phoTo) {
-        this.ID = ID;
-        MaCuaHang = maCuaHang;
-        TenTheLoai = tenTheLoai;
-        MoTa = moTa;
-        PhoTo = phoTo;
+    public TheLoai(int maLoai, String tenLoai, String image) {
+        this.maLoai = maLoai;
+        this.tenLoai = tenLoai;
+        this.image = image;
     }
 
-    public int getID() {
-        return ID;
+    public int getMaLoai() {
+        return maLoai;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setMaLoai(int maLoai) {
+        this.maLoai = maLoai;
     }
 
-    public int getMaCuaHang() {
-        return MaCuaHang;
+    public String getTenLoai() {
+        return tenLoai;
     }
 
-    public void setMaCuaHang(int maCuaHang) {
-        MaCuaHang = maCuaHang;
+    public void setTenLoai(String tenLoai) {
+        this.tenLoai = tenLoai;
     }
 
-    public String getTenTheLoai() {
-        return TenTheLoai;
+    public String getImage() {
+        return image;
     }
 
-    public void setTenTheLoai(String tenTheLoai) {
-        TenTheLoai = tenTheLoai;
-    }
-
-    public String getMoTa() {
-        return MoTa;
-    }
-
-    public void setMoTa(String moTa) {
-        MoTa = moTa;
-    }
-
-    public String getPhoTo() {
-        return PhoTo;
-    }
-
-    public void setPhoTo(String phoTo) {
-        PhoTo = phoTo;
+    public void setImage(String image) {
+        this.image = image;
     }
 }

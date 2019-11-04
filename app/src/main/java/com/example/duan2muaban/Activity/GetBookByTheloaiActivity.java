@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -41,7 +42,7 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
     UrlSql urlSql = new UrlSql();
     String matheloai;
     public String URL_GETDATABYMATHELOAI;
-    TheLoaiAdapter theLoaiAdapter;
+
     private List<Books> listBook =new ArrayList<>();
     private RecyclerView recyclerView;
     private CircleImageView circleImageView;
@@ -79,14 +80,16 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
         }
 
         recyclerViewAdapter = new SachAdapter(this, listBook);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        StaggeredGridLayoutManager gridLayoutManagerVeticl =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(gridLayoutManagerVeticl);
         recyclerView.setAdapter(recyclerViewAdapter);
 
         HashMap<String,String> theloai = sessionManager.getMAtheloai();
         matheloai = theloai.get(sessionManager.MATHELOAI);
         tentheloai = theloai.get(sessionManager.TEN_THELOAI);
         URL_GETDATABYMATHELOAI = urlSql.URL_GETDATA_BY_MATHELOAI+matheloai;
-        Toast.makeText(GetBookByTheloaiActivity.this, ""+matheloai, Toast.LENGTH_SHORT).show();
         GetData(URL_GETDATABYMATHELOAI);
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
@@ -138,26 +141,25 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONArray response) {
                         listBook.clear();
-                        if (response.length() > 0){
-                            recyclerView.setVisibility(View.VISIBLE);
-                            textViewTB.setVisibility(View.GONE);
-                        }else{
-                            recyclerView.setVisibility(View.GONE);
-                            textViewTB.setVisibility(View.VISIBLE);
-                            try {
-                                HashMap<String,String> user = sessionManager.getUserDetail();
-                                String quyen = user.get(sessionManager.QUYEN);
-                                if (quyen.equals("store")||quyen.equals("admin")){
-                                    textViewTB.setText("Chưa có sách trong thể loại "+tentheloai+ ", bạn hãy thêm để chúng xuất hiện ở đây!");
-                                }else {
-                                    textViewTB.setText("Chưa có sách trong thể loại "+tentheloai+ ", vui lòng quay lại sau!");
-                                }
-
-                            }catch (Exception e){
-                                Log.e("LOG", e.toString());
-                            }
-
-                        }
+//                        if (response.length() > 0){
+//                            recyclerView.setVisibility(View.VISIBLE);
+//                            textViewTB.setVisibility(View.GONE);
+//                        }else{
+//                            recyclerView.setVisibility(View.GONE);
+//                            textViewTB.setVisibility(View.VISIBLE);
+//                            try {
+//                                HashMap<String,String> user = sessionManager.getUserDetail();
+//                                String quyen = user.get(sessionManager.QUYEN);
+//                                if (quyen.equals("store")||quyen.equals("admin")){
+//                                    textViewTB.setText("Chưa có sách trong thể loại "+tentheloai+ ", bạn hãy thêm để chúng xuất hiện ở đây!");
+//                                }else {
+//                                    textViewTB.setText("Chưa có sách trong thể loại "+tentheloai+ ", vui lòng quay lại sau!");
+//                                }
+//
+//                            }catch (Exception e){
+//                                Log.e("LOG", e.toString());
+//                            }
+//                        }
                         for (int i = 0; i < response.length(); i++){
                             try {
                                 JSONObject object = response.getJSONObject(i);

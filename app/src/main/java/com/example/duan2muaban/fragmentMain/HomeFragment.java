@@ -9,10 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.ViewFlipper;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
@@ -55,8 +53,6 @@ import retrofit2.Callback;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    ViewFlipper v_vflipper;
-
     private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;
     SachAdapter sachAdapter;
@@ -81,25 +77,20 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
-        int images[] = {R.drawable.sach1, R.drawable.sach2, R.drawable.sach3};
-        v_vflipper= view.findViewById(R.id.v_flipper);
-
-        for (int i= 0; i < images.length;i++) {
-            flipperImages(images[i]);
-        }
-
-        // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_search, container, false);
-        sessionManager = new SessionManager(getContext());
+        recyclerview_book_home=view.findViewById(R.id.recyclerview_book_home);
         searchView=view.findViewById(R.id.searchview);
         progressBar = view.findViewById(R.id.progress);
-        recyclerview_book_home=view.findViewById(R.id.recyclerview_search_book);
+
+        sessionManager = new SessionManager(getContext());
+        sachAdapter = new SachAdapter(getContext(), listBookhome);
+
 
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerview_book_home.setLayoutManager(gridLayoutManagerVeticl);
         recyclerview_book_home.setHasFixedSize(true);
+
+
 
         try {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -119,16 +110,6 @@ public class HomeFragment extends Fragment {
             Log.e("SEARCH", e.toString());
         }
         return view;
-    }
-
-    private void flipperImages(int image) {
-        ImageView imageView = new ImageView(getContext());
-        imageView.setBackgroundResource(image);
-        v_vflipper.addView(imageView);
-        v_vflipper.setFlipInterval(3000);
-        v_vflipper.setAutoStart(true);
-        v_vflipper.setInAnimation(getContext(),android.R.anim.slide_in_left);
-        v_vflipper.setOutAnimation(getContext(),android.R.anim.slide_out_right  );
     }
 
     public void fetchUser(String key){

@@ -1,17 +1,29 @@
 package com.example.duan2muaban.fragmentMain;
 
 
+import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.speech.RecognitionListener;
+import android.speech.RecognizerIntent;
+import android.speech.SpeechRecognizer;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.ViewFlipper;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -27,6 +39,7 @@ import com.example.duan2muaban.model.TheLoai;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -46,6 +59,8 @@ public class HomeFragment extends Fragment {
     private List<Books> listBookhome = new ArrayList<>();
     private RecyclerView recyclerview_book_home;
     private ApiInTerFaceTensach apiInTerFaceTensach;
+
+    ImageButton buttonRecord;
     View view;
 
     SessionManager sessionManager;
@@ -67,6 +82,9 @@ public class HomeFragment extends Fragment {
         recyclerview_book_home=view.findViewById(R.id.recyclerview_book_home);
         searchView=view.findViewById(R.id.searchview);
         progressBar = view.findViewById(R.id.progress);
+        buttonRecord =view.findViewById(R.id.buttonSpeech);
+
+        buttonRecord.setVisibility(View.GONE);
 
         int images[] = {R.drawable.sach1, R.drawable.sach2, R.drawable.sach3};
         v_vflipper= view.findViewById(R.id.v_flipper);
@@ -103,6 +121,103 @@ public class HomeFragment extends Fragment {
         }catch (Exception e){
             Log.e("SEARCH", e.toString());
         }
+
+        //speech to text
+        final SpeechRecognizer mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
+        searchView.clearFocus();
+        final Intent mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
+                Locale.getDefault());
+
+        searchView.setOnSearchClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchView.clearFocus(); // close the keyboard on load
+                buttonRecord.setVisibility(View.VISIBLE);
+            }
+        });
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                buttonRecord.setVisibility(View.GONE);
+                return false;
+            }
+        });
+
+        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
+            @Override
+            public void onReadyForSpeech(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onBeginningOfSpeech() {
+
+            }
+
+            @Override
+            public void onRmsChanged(float v) {
+
+            }
+
+            @Override
+            public void onBufferReceived(byte[] bytes) {
+
+            }
+
+            @Override
+            public void onEndOfSpeech() {
+
+            }
+
+            @Override
+            public void onError(int i) {
+
+            }
+
+            @Override
+            public void onResults(Bundle bundle) {
+                //getting all the matches
+                ArrayList<String> matches = bundle
+                        .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
+
+                //displaying the first match
+                if (matches != null)
+                    searchView.setQuery(String.valueOf(matches.get(0)), false);
+            }
+
+            @Override
+            public void onPartialResults(Bundle bundle) {
+
+            }
+
+            @Override
+            public void onEvent(int i, Bundle bundle) {
+
+            }
+        });
+
+        buttonRecord.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                switch (motionEvent.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        mSpeechRecognizer.stopListening();
+                        searchView.setQueryHint("You will see input here");
+                        break;
+
+                    case MotionEvent.ACTION_DOWN:
+                        mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
+                        searchView.setQueryHint("");
+//                        editText.setHint("Listening...");
+                        break;
+                }
+                return false;
+            }
+        });
+
         return view;
     }
 
@@ -139,7 +254,6 @@ public class HomeFragment extends Fragment {
             }
         });
     }
-
 
 
     @Override

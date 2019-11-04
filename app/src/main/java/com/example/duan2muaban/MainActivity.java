@@ -1,7 +1,12 @@
 package com.example.duan2muaban;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +21,7 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -68,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        titleToolbar = findViewById(R.id.titleToolbar);
 //        textNotify=findViewById(R.id.textNotify);
 //        cartButtonIV= findViewById(R.id.cartButtonIV);
+        checkPermission();
         linearLayoutMain= findViewById(R.id.linearLayoutMain);
 
         //Toobar đã như ActionBar
@@ -270,6 +277,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         requestQueue.add(jsonArrayRequest);
+    }
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                finish();
+            }
+        }
     }
     @Override
     public void onBackPressed() {

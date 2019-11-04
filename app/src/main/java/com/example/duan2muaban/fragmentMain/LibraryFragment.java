@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,12 +23,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.BookDetailPayActivity;
+import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.BillAdapter;
+import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.Hoadon;
+import com.example.duan2muaban.model.TheLoai;
+import com.example.duan2muaban.publicString.URL.UrlSql;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -43,14 +48,13 @@ import java.util.List;
  */
 public class LibraryFragment extends Fragment {
     private TextView txtLoikhuyen, txtDencuahang;
-    private RecyclerView recyclerview_bills;
-    private List<Hoadon> listBill = new ArrayList<>();
-    private List<Books> listBooks = new ArrayList<>();
-    private BillAdapter billAdapter;
+    private RecyclerView recyclerViewTheloai;
+    private List<TheLoai> listTheloai = new ArrayList<>();
+    private TheLoaiAdapter theLoaiAdapter;
     private SessionManager sessionManager;
     private String mauser;
+    private UrlSql urlSql = new UrlSql();
     View view;
-
 
 
     public LibraryFragment() {
@@ -65,25 +69,31 @@ public class LibraryFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_library, container, false);
         addControls();
         sessionManager = new SessionManager(getContext());
-        billAdapter = new BillAdapter(getContext(), listBill);
-        recyclerview_bills.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerview_bills.setAdapter(billAdapter);
+        theLoaiAdapter = new TheLoaiAdapter(getContext(), listTheloai);
 
-        recyclerview_bills.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
-                recyclerview_bills, new RecyclerTouchListener.ClickListener() {
+        //danh sách thể loại
+        StaggeredGridLayoutManager gridLayoutManager =
+                new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+        recyclerViewTheloai.setLayoutManager(gridLayoutManager);
+        recyclerViewTheloai.setAdapter(theLoaiAdapter);
+        recyclerViewTheloai.setHasFixedSize(true);
+
+        recyclerViewTheloai.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
+                recyclerViewTheloai, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-                Hoadon hoadon =   listBill.get(position);
-                String idBill = String.valueOf(hoadon.getId());
-                String idSach =String.valueOf(hoadon.getMasach());
-                String tenUser = hoadon.getTenUser();
+                TheLoai theloai =   listTheloai.get(position);
+                String id = String.valueOf(theloai.getMaLoai());
+                String ten = theloai.getTenLoai();
 
-                sessionManager.createBill(idBill,idSach, tenUser);
-                startActivity(new Intent(getContext(), BookDetailPayActivity.class));
+                sessionManager.createSessionGuimatheloai(id,ten);
+                startActivity(new Intent(getContext(), GetBookByTheloaiActivity.class));
+
             }
 
             @Override
             public void onLongClick(View view, int position) {
+                TheLoai theloai =   listTheloai.get(position);
 
             }
         }));
@@ -99,64 +109,50 @@ public class LibraryFragment extends Fragment {
         HashMap<String,String> user = sessionManager.getUserDetail();
         mauser = user.get(sessionManager.ID);
 
-        String URL_GET_HOADOWN = "https://hieuttpk808.000webhostapp.com/books/cart_bill/getdatabill.php/?mauser="+mauser;
-        GetData(URL_GET_HOADOWN);
+        GetAllData(urlSql.URL_GETDATA_THELOAI);
 
        // Toast.makeText(getContext(), ""+listBill.size(), Toast.LENGTH_SHORT).show();
     }
 
-    public void GetData(String url){
+    public void GetAllData(String url){
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        listBill.clear();
+                        listTheloai.clear();
                         if (response.length() > 0){
-                            recyclerview_bills.setVisibility(View.VISIBLE);
-                            txtDencuahang.setVisibility(View.GONE);
-                            txtLoikhuyen.setVisibility(View.GONE);
+                            recyclerViewTheloai.setVisibility(View.VISIBLE);
                         }else{
-                            recyclerview_bills.setVisibility(View.GONE);
-                            txtDencuahang.setVisibility(View.VISIBLE);
-                            txtLoikhuyen.setVisibility(View.VISIBLE);
+                            recyclerViewTheloai.setVisibility(View.GONE);
                         }
                         for (int i = 0; i < response.length(); i++){
                             try {
                                 JSONObject object = response.getJSONObject(i);
-                                listBill.add(new Hoadon(
-                                        object.getInt("ID"),
-                                        object.getInt("MaSach"),
-                                        object.getInt("MaUser"),
-                                        object.getString("TenSach"),
-                                        object.getString("TenUser"),
-                                        object.getString("GiaBan"),
-                                        object.getString("NhanXet"),
-                                        object.getInt("DaThanhToan"),
-                                        object.getDouble("DiemDanhGia"),
-                                        object.getInt("HienThi")
+                                listTheloai.add(new TheLoai(
+                                        object.getInt("MaLoai"),
+                                        object.getString("TenLoai"),
+                                        object.getString("Image")
                                 ));
+
                             }catch (JSONException e){
                                 e.printStackTrace();
-                                Log.e("Loi e: ", e.toString());
                             }
                         }
-                        billAdapter.notifyDataSetChanged();
+
+                        theLoaiAdapter.notifyDataSetChanged();
 
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("Error: ", error.toString());
+//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
         requestQueue.add(jsonArrayRequest);
     }
 
     private void addControls(){
-        txtLoikhuyen=view.findViewById(R.id.txtLoigioithieu);
-        txtDencuahang=view.findViewById(R.id.txtDencuahang);
-
-        recyclerview_bills = view.findViewById(R.id.recyclerview_bills);
+        recyclerViewTheloai = view.findViewById(R.id.contact_recyclerview_theloai);
     }
 }

@@ -10,28 +10,17 @@
     android:background="?attr/backgroundcolor">
 
     <TextView
-        android:id="@+id/txtLoigioithieu"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:textColor="?attr/textcolor"
         android:textStyle="bold"
-        android:textSize="20dp"
-        android:visibility="gone"
-        android:gravity="center"
-        android:text="Hiện bạn chưa có cuốn sách nào ở đây, hãy mua cho mình một cuôn sách tròn cửa hàng để chúng xuất hiện ở đây nhé!"/>
-    <TextView
-        android:id="@+id/txtDencuahang"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:visibility="gone"
-        android:textSize="25sp"
-        android:textStyle="italic"
+        android:textSize="15dp"
         android:textColor="?attr/textcolor"
-        android:text="Đi đến cửa hàng nào!"
-        android:drawableRight="@drawable/ic_chevron_right"/>
+        android:layout_marginTop="10dp"
+        android:text="Khám phá thể loại khác"/>
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerview_bills"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:id="@+id/contact_recyclerview_theloai"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        />
 </LinearLayout>

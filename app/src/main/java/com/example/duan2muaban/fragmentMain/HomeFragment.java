@@ -58,7 +58,7 @@ public class HomeFragment extends Fragment {
     ProgressBar progressBar;
     private List<TheLoai> listTheloai = new ArrayList<>();
     private List<Books> listBookhome = new ArrayList<>();
-    private RecyclerView recyclerViewTheloai,recyclerview_book_home;
+    private RecyclerView recyclerview_book_home;
     private Button btnDencuahangHome;
     private ApiInTerFace apiInTerFace;
     View v;
@@ -75,7 +75,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         v = inflater.inflate(R.layout.fragment_home, container, false);
-        recyclerViewTheloai=v.findViewById(R.id.contact_recyclerview_theloai);
+
         recyclerview_book_home = v.findViewById(R.id.recyclerview_book_home);
         textViewTB=v.findViewById(R.id.txtThongbaonull);
         progressBar= v.findViewById(R.id.progress);
@@ -84,12 +84,7 @@ public class HomeFragment extends Fragment {
         theLoaiAdapter = new TheLoaiAdapter(getActivity(), listTheloai);
         sachAdapter = new SachAdapter(getActivity(), listBookhome);
 
-        //danh sách thể loại
-        StaggeredGridLayoutManager gridLayoutManager =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
-        recyclerViewTheloai.setLayoutManager(gridLayoutManager);
-        recyclerViewTheloai.setAdapter(theLoaiAdapter);
-        recyclerViewTheloai.setHasFixedSize(true);
+
 
         //ds sách
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
@@ -98,25 +93,7 @@ public class HomeFragment extends Fragment {
         recyclerview_book_home.setAdapter(sachAdapter);
         recyclerview_book_home.setHasFixedSize(true);
 
-        recyclerViewTheloai.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
-                recyclerViewTheloai, new RecyclerTouchListener.ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                TheLoai theloai =   listTheloai.get(position);
-                String id = String.valueOf(theloai.getMaLoai());
-                String ten = theloai.getTenLoai();
 
-                sessionManager.createSessionGuimatheloai(id,ten);
-                startActivity(new Intent(getContext(), GetBookByTheloaiActivity.class));
-
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-                TheLoai theloai =   listTheloai.get(position);
-
-            }
-        }));
 
        try {
            HashMap<String,String> user = sessionManager.getUserDetail();
@@ -124,10 +101,10 @@ public class HomeFragment extends Fragment {
            name = user.get(sessionManager.NAME);
            id = user.get(sessionManager.ID);
            if (id==null){
-               GetAllData(urlSql.URL_GETDATA_THELOAI);
+//               GetAllData(urlSql.URL_GETDATA_THELOAI);
                fetchUser("");
            }else if (quyen.equals("user") || quyen.equals("admin")){
-               GetAllData(urlSql.URL_GETDATA_THELOAI);
+//               GetAllData(urlSql.URL_GETDATA_THELOAI);
        }
        }catch (Exception e){
            Log.e("LOG", e.toString());
@@ -141,45 +118,7 @@ public class HomeFragment extends Fragment {
 
 
     }
-    public void GetAllData(String url){
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        listTheloai.clear();
-                        if (response.length() > 0){
-                            recyclerViewTheloai.setVisibility(View.VISIBLE);
-                            textViewTB.setVisibility(View.GONE);
-                        }else{
-                            recyclerViewTheloai.setVisibility(View.GONE);
-                            textViewTB.setVisibility(View.VISIBLE);
-                        }
-                        for (int i = 0; i < response.length(); i++){
-                            try {
-                                JSONObject object = response.getJSONObject(i);
-                                listTheloai.add(new TheLoai(
-                                        object.getInt("MaLoai"),
-                                        object.getString("TenLoai"),
-                                        object.getString("Image")
-                                ));
 
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        theLoaiAdapter.notifyDataSetChanged();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
     public void fetchUser(String key){
         apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
         Call<List<Books>> call = apiInTerFace.getUsers(key);

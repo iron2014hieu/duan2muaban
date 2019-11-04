@@ -36,20 +36,7 @@
         android:textStyle="bold"
         android:visibility="gone"
         />
-        <TextView
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="15dp"
-            android:textColor="?attr/textcolor"
-            android:layout_marginTop="20dp"
-            android:text="Khám phá thể loại khác"/>
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/contact_recyclerview_theloai"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+
         </LinearLayout>
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView

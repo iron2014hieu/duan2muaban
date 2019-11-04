@@ -40,7 +40,6 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
     SharedPref sharedPref;
     UrlSql urlSql = new UrlSql();
     String matheloai;
-    public String URL_GETDATA ="https://hieuttpk808.000webhostapp.com/books/sach/getdata.php";
     public String URL_GETDATABYMATHELOAI;
     TheLoaiAdapter theLoaiAdapter;
     private List<Books> listBook =new ArrayList<>();
@@ -163,17 +162,17 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
                             try {
                                 JSONObject object = response.getJSONObject(i);
                                 listBook.add(new Books(
-                                        object.getInt("MaSach"),
-                                        object.getString("TenSach"),
-                                        object.getInt("MaNXB"),
-                                        object.getInt("MaTheLoai"),
-                                        object.getString("NgayXB"),
-                                        object.getString("NoiDung"),
-                                        object.getString("AnhBia"),
-                                        object.getInt("Gia"),
-                                        object.getString("TenNXB"),
-                                        object.getInt("SoLuong"),
-                                        object.getString("TacGia")
+                                        object.getInt("masach"),
+                                        object.getString("tensach"),
+                                        object.getInt("manxb"),
+                                        object.getInt("matheloai"),
+                                        object.getString("ngayxb"),
+                                        object.getString("noidung"),
+                                        object.getString("anhbia"),
+                                        object.getInt("gia"),
+                                        object.getString("tennxb"),
+                                        object.getInt("soluong"),
+                                        object.getString("tacgia")
                                 ));
                             }catch (JSONException e){
                                 e.printStackTrace();

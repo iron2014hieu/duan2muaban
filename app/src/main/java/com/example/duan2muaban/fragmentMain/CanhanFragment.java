@@ -1,47 +1,26 @@
 package com.example.duan2muaban.fragmentMain;
 
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.duan2muaban.Activity.BookDetailActivity;
+import com.example.duan2muaban.LoginRegister.ProfileActivity;
+import com.example.duan2muaban.LoginRegister.SettingsActivity;
 import com.example.duan2muaban.R;
-import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
-import com.example.duan2muaban.Session.SessionManager;
-import com.example.duan2muaban.adapter.SachAdapter;
-import com.example.duan2muaban.adapter.SachTop123Adapter;
-import com.example.duan2muaban.model.Books;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class CanhanFragment extends Fragment {
-
+    private TextView txtSetting,txtTaikhoan;
     public CanhanFragment() {
         // Required empty public constructor
     }
@@ -50,6 +29,22 @@ public class CanhanFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        v = inflater.inflate(R.layout.fragment_canhan, container, false);
+        txtSetting=v.findViewById(R.id.txtSetting);
+        txtTaikhoan=v.findViewById(R.id.txtTaikhoan);
+
+        txtTaikhoan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), ProfileActivity.class));
+            }
+        });
+        txtSetting.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getContext(), SettingsActivity.class));
+            }
+        });
         return v;
     }
     @Override

@@ -17,12 +17,12 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="130dp"
+        android:layout_height="wrap_content"
         android:layout_margin="1dp">
         <ImageView
             android:src="@drawable/profile2"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:scaleType="centerCrop"
             android:id="@+id/img_theloai"/>
     </androidx.cardview.widget.CardView>

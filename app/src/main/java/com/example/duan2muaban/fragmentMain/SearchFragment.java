@@ -67,10 +67,12 @@ public class SearchFragment extends Fragment {
         searchView=view.findViewById(R.id.searchview);
         progressBar = view.findViewById(R.id.progress);
         recyclerView=view.findViewById(R.id.recyclerview_search_book);
+
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(gridLayoutManagerVeticl);
         recyclerView.setHasFixedSize(true);
+
         try {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override

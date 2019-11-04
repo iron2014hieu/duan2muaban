@@ -1,6 +1,7 @@
 package com.example.duan2muaban.fragmentMain;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -25,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFace;
+import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceDesc;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
@@ -50,83 +53,73 @@ import retrofit2.Callback;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    UrlSql urlSql = new UrlSql();
-    public String URL_GETBYMACUAHNG = "http://hieuttpk808.000webhostapp.com/books/theloai/getdatabymacuahang.php/?macuahang=";
-    String name,id,quyen;
+    private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;
     SachAdapter sachAdapter;
     ProgressBar progressBar;
     private List<TheLoai> listTheloai = new ArrayList<>();
     private List<Books> listBookhome = new ArrayList<>();
     private RecyclerView recyclerview_book_home;
-    private Button btnDencuahangHome;
-    private ApiInTerFace apiInTerFace;
-    View v;
-    private TextView textViewTB;
+    private ApiInTerFaceDesc apiInTerFaceDesc;
+    View view;
 
     SessionManager sessionManager;
     public HomeFragment() {
         // Required empty public constructor
     }
-
+    public static SearchFragment newInstance() {
+        SearchFragment fragment = new SearchFragment();
+        return fragment;
+    }
 
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        v = inflater.inflate(R.layout.fragment_home, container, false);
+        view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        recyclerview_book_home = v.findViewById(R.id.recyclerview_book_home);
-        textViewTB=v.findViewById(R.id.txtThongbaonull);
-        progressBar= v.findViewById(R.id.progress);
-
+        // Inflate the layout for this fragment
+        view = inflater.inflate(R.layout.fragment_search, container, false);
         sessionManager = new SessionManager(getContext());
-        theLoaiAdapter = new TheLoaiAdapter(getActivity(), listTheloai);
-        sachAdapter = new SachAdapter(getActivity(), listBookhome);
+        searchView=view.findViewById(R.id.searchview);
+        progressBar = view.findViewById(R.id.progress);
+        recyclerview_book_home=view.findViewById(R.id.recyclerview_search_book);
 
-
-
-        //ds sách
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerview_book_home.setLayoutManager(gridLayoutManagerVeticl);
-        recyclerview_book_home.setAdapter(sachAdapter);
         recyclerview_book_home.setHasFixedSize(true);
 
 
 
-       try {
-           HashMap<String,String> user = sessionManager.getUserDetail();
-           quyen = user.get(sessionManager.QUYEN);
-           name = user.get(sessionManager.NAME);
-           id = user.get(sessionManager.ID);
-           if (id==null){
-//               GetAllData(urlSql.URL_GETDATA_THELOAI);
-               fetchUser("");
-           }else if (quyen.equals("user") || quyen.equals("admin")){
-//               GetAllData(urlSql.URL_GETDATA_THELOAI);
-       }
-       }catch (Exception e){
-           Log.e("LOG", e.toString());
-       }
+        try {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    fetchUser(query);
+                    return false;
+                }
 
-        return v;
-    }
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    fetchUser(newText);
+                    return false;
+                }
+            });
+        }catch (Exception e){
+            Log.e("SEARCH", e.toString());
+        }
+        return view;
     }
 
     public void fetchUser(String key){
-        apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
-        Call<List<Books>> call = apiInTerFace.getUsers(key);
+        apiInTerFaceDesc = ApiClient.getApiClient().create(ApiInTerFaceDesc.class);
+        Call<List<Books>> call = apiInTerFaceDesc.getUsers(key);
 
         call.enqueue(new Callback<List<Books>>() {
             @Override
             public void onResponse(Call<List<Books>> call, retrofit2.Response<List<Books>> response) {
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 listBookhome= response.body();
                 sachAdapter = new SachAdapter(getContext(),listBookhome);
                 recyclerview_book_home.setAdapter(sachAdapter);
@@ -135,9 +128,22 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Books>> call, Throwable t) {
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 Log.e("Error Search:","Error on: "+t.toString());
             }
         });
     }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
+
+//    public void refreshString(String string) {
+//        mTextView.setText(string);
+//    }
 }

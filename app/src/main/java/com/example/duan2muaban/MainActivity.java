@@ -64,15 +64,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         theme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        titleToolbar = findViewById(R.id.titleToolbar);
-        textNotify=findViewById(R.id.textNotify);
-        cartButtonIV= findViewById(R.id.cartButtonIV);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        titleToolbar = findViewById(R.id.titleToolbar);
+//        textNotify=findViewById(R.id.textNotify);
+//        cartButtonIV= findViewById(R.id.cartButtonIV);
         linearLayoutMain= findViewById(R.id.linearLayoutMain);
 
         //Toobar đã như ActionBar
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
+//        setSupportActionBar(toolbar);
+//        ActionBar actionBar = getSupportActionBar();
 
 //        DisplayMetrics displayMetrics = new DisplayMetrics();
 //
@@ -85,13 +85,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        Toast.makeText(this, "w "+width +" h "+height, Toast.LENGTH_SHORT).show();
 
         // lúc chưa đăng nhập --> ẩn nút giỏ hàng
-        cartButtonIV.setVisibility(View.GONE);
-        textNotify.setVisibility(View.GONE);
+//        cartButtonIV.setVisibility(View.GONE);
+//        textNotify.setVisibility(View.GONE);
 
         sessionManager = new SessionManager(this);
         navigation = findViewById(R.id.bottom_navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        viewPager = findViewById(R.id.viewpager); //Init Viewpager
+        viewPager = findViewById(R.id.viewpager); //Idnit Viewpager
         viewPager.setPageTransformer(true, new CubeTransformer());
 
         setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
@@ -108,11 +108,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String id = user.get(sessionManager.ID);
             if (InternetConnection.checkConnection(getApplicationContext())) {
                 if (name == null) {
-                    titleToolbar.setText("Doc sach - bạn chưa đăng nhập");
+//                    titleToolbar.setText("Doc sach - bạn chưa đăng nhập");
                     cartButtonIV.setVisibility(View.GONE);
                     textNotify.setVisibility(View.GONE);
                 } else {
-                    titleToolbar.setText("Doc sach - " + name);
+//                    titleToolbar.setText("Doc sach - " + name);
                     GetDataCouterCart(urlSql.URl_GETDATA_CART + id);
                     cartButtonIV.setVisibility(View.VISIBLE);
                     textNotify.setVisibility(View.VISIBLE);
@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }catch (Exception e){
             Log.e("LOG", e.toString());
         }
-        cartButtonIV.setOnClickListener(this);
+//        cartButtonIV.setOnClickListener(this);
     }
     // This is called before the activity is destroyed
 //    @Override
@@ -173,9 +173,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.cartButtonIV:
-                startActivity(new Intent(getBaseContext(), Main2Activity.class));
-                break;
+//            case R.id.cartButtonIV:
+//                startActivity(new Intent(getBaseContext(), Main2Activity.class));
+//                break;
         }
     }
 
@@ -260,8 +260,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        item_count = response.length();
-                        textNotify.setText(String.valueOf(item_count));
+//                        item_count = response.length();
+//                        textNotify.setText(String.valueOf(item_count));
                     }
                 }, new Response.ErrorListener() {
             @Override
@@ -278,7 +278,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     protected void onResume() {
-        textNotify.setText(String.valueOf(item_count));
+//        textNotify.setText(String.valueOf(item_count));
         super.onResume();
 
 

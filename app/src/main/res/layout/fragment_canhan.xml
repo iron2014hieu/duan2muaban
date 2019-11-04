@@ -76,6 +76,7 @@
             android:layout_marginTop="5dp"
             android:orientation="vertical">
         <TextView
+            android:id="@+id/txtTaikhoan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thiết lập tài khoản"
@@ -86,6 +87,7 @@
             android:drawableRight="@drawable/ic_chevron_right"/>
 
             <TextView
+                android:id="@+id/txtSetting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_settings"

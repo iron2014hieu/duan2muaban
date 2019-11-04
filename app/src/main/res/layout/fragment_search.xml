@@ -18,6 +18,7 @@
         app:showDividers="beginning"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_search_book"
+        android:visibility="gone"
         android:layout_below="@+id/searchview"
         android:backgroundTint="?attr/backgroundcolor"
         android:layout_width="match_parent"

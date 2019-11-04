@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         app:showDividers="beginning"/>
     <ViewFlipper
-        android:background="#00BCD4"
+        android:background="#03A9F4"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="270dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/v_flipper"
         android:layout_below="@+id/searchview"

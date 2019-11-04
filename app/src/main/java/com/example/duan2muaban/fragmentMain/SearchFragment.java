@@ -89,8 +89,6 @@ public class SearchFragment extends Fragment {
             Log.e("SEARCH", e.toString());
         }
 
-        fetchUser("");
-
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerView, new RecyclerTouchListener.ClickListener() {
             @Override

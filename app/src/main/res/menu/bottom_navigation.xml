@@ -10,12 +10,8 @@
         android:id="@+id/nav_library"
         android:icon="@drawable/ic_library_books_black_24dp"
         android:iconTint="?attr/textcolor"
-        android:title="Thư viện"/>
-    <item
-        android:id="@+id/nav_store"
-        android:icon="@drawable/ic_store_black_24dp"
-        android:iconTint="?attr/textcolor"
-        android:title="Cửa hàng"/>
+        android:title="Thể loại sách"/>
+
     <item
         android:id="@+id/nav_search"
         android:icon="@drawable/ic_search_black_24dp"
@@ -28,4 +24,9 @@
         android:iconTint="?attr/textcolor"
         android:title="Thông báo"
         android:titleCondensed="#555"/>
+    <item
+        android:id="@+id/nav_profile"
+        android:icon="@drawable/ic_person"
+        android:iconTint="?attr/textcolor"
+        android:title="Cá nhân"/>
 </menu>

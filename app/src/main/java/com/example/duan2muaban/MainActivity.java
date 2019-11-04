@@ -30,10 +30,10 @@ import com.example.duan2muaban.LoginRegister.SettingsActivity;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.FragmentAdapter;
 import com.example.duan2muaban.fragmentMain.HomeFragment;
-import com.example.duan2muaban.fragmentMain.LibraryFragment;
+import com.example.duan2muaban.fragmentMain.TheloaiFragment;
 import com.example.duan2muaban.fragmentMain.NotificationFragment;
 import com.example.duan2muaban.fragmentMain.SearchFragment;
-import com.example.duan2muaban.fragmentMain.StoreFragment;
+import com.example.duan2muaban.fragmentMain.CanhanFragment;
 import com.example.duan2muaban.nighmode.SharedPref;
 import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -139,10 +139,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FragmentAdapter Adapter = new FragmentAdapter(fragmentManager);
         //Add All Fragment To List
         Adapter.add(new HomeFragment(), "Trang chủ");
-        Adapter.add(new LibraryFragment(), "Thư viện");
-        Adapter.add(new StoreFragment(), "Cửa hàng");
+        Adapter.add(new TheloaiFragment(), "The loại");
         Adapter.add(new SearchFragment(), "Tìm kiếm");
         Adapter.add(new NotificationFragment(), "Thông báo");
+        Adapter.add(new CanhanFragment(), "Cá nhân");
         viewPager.setAdapter(Adapter);
     }
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -156,13 +156,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 case R.id.nav_library:
                     viewPager.setCurrentItem(1);
                     return true;
-                case R.id.nav_store:
+                case R.id.nav_search:
                     viewPager.setCurrentItem(2);
                     return true;
-                case R.id.nav_search:
+                case R.id.nav_notif:
                     viewPager.setCurrentItem(3);
                     return true;
-                case R.id.nav_notif:
+                case R.id.nav_profile:
                     viewPager.setCurrentItem(4);
                     return true;
             }
@@ -193,13 +193,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     navigation.setSelectedItemId(R.id.nav_library);
                     break;
                 case 2:
-                    navigation.setSelectedItemId(R.id.nav_store);
-                    break;
-                case 3:
                     navigation.setSelectedItemId(R.id.nav_search);
                     break;
-                case 4:
+                case 3:
                     navigation.setSelectedItemId(R.id.nav_notif);
+                    break;
+                case 4:
+                    navigation.setSelectedItemId(R.id.nav_profile);
                     break;
             }
         }

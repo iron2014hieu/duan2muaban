@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".fragmentMain.LibraryFragment"
+    tools:context=".fragmentMain.TheloaiFragment"
     android:padding="0.5dp"
     android:background="?attr/backgroundcolor">
 

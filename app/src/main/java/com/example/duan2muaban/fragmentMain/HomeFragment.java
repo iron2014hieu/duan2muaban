@@ -126,7 +126,7 @@ public class HomeFragment extends Fragment {
         call.enqueue(new Callback<List<Books>>() {
             @Override
             public void onResponse(Call<List<Books>> call, retrofit2.Response<List<Books>> response) {
-                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
                 listBookhome= response.body();
                 sachAdapter = new SachAdapter(getContext(),listBookhome);
                 recyclerview_book_home.setAdapter(sachAdapter);
@@ -135,7 +135,7 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<List<Books>> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
+//                progressBar.setVisibility(View.GONE);
                 Log.e("Error Search:","Error on: "+t.toString());
             }
         });

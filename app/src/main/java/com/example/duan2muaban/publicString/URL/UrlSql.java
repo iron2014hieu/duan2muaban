@@ -8,5 +8,5 @@ public class UrlSql {
     //Thể loại sách
     public String URL_GETDATA_THELOAI =baseURL+"bansach/books/theloai/getdata.php";
     //sách
-    public String URL_GETDATA_BY_MATHELOAI ="https://hieuttpk808.000webhostapp.com/bansach/books/sach/getBooks.php/?keytheloai=";
+    public String URL_GETDATA_BY_MATHELOAI ="https://hieuttpk808.000webhostapp.com/bansach/books/sach/getBooks.php";
 }

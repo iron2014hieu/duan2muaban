@@ -73,23 +73,25 @@ public class SearchFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManagerVeticl);
         recyclerView.setHasFixedSize(true);
 
-        try {
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    fetchUser(query);
-                    return false;
-                }
+        progressBar.setVisibility(View.GONE);
 
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    fetchUser(newText);
-                    return false;
-                }
-            });
-        }catch (Exception e){
-            Log.e("SEARCH", e.toString());
-        }
+//        try {
+//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                @Override
+//                public boolean onQueryTextSubmit(String query) {
+//                    fetchUser(query);
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onQueryTextChange(String newText) {
+//                    fetchUser(newText);
+//                    return false;
+//                }
+//            });
+//        }catch (Exception e){
+//            Log.e("SEARCH", e.toString());
+//        }
 
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerView, new RecyclerTouchListener.ClickListener() {

@@ -2,49 +2,30 @@ package com.example.duan2muaban.fragmentMain;
 
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
-import com.android.volley.toolbox.Volley;
-import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
-import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFace;
-import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceDesc;
+import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceTensach;
 import com.example.duan2muaban.R;
-import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.SachAdapter;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.TheLoai;
-import com.example.duan2muaban.publicString.URL.UrlSql;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -64,7 +45,7 @@ public class HomeFragment extends Fragment {
     private List<TheLoai> listTheloai = new ArrayList<>();
     private List<Books> listBookhome = new ArrayList<>();
     private RecyclerView recyclerview_book_home;
-    private ApiInTerFaceDesc apiInTerFaceDesc;
+    private ApiInTerFaceTensach apiInTerFaceTensach;
     View view;
 
     SessionManager sessionManager;
@@ -104,7 +85,7 @@ public class HomeFragment extends Fragment {
         recyclerview_book_home.setHasFixedSize(true);
 
 
-
+        fetchUser("");
         try {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -138,8 +119,8 @@ public class HomeFragment extends Fragment {
     }
 
     public void fetchUser(String key){
-        apiInTerFaceDesc = ApiClient.getApiClient().create(ApiInTerFaceDesc.class);
-        Call<List<Books>> call = apiInTerFaceDesc.getUsers(key);
+        apiInTerFaceTensach = ApiClient.getApiClient().create(ApiInTerFaceTensach.class);
+        Call<List<Books>> call = apiInTerFaceTensach.getUsers(key);
 
         call.enqueue(new Callback<List<Books>>() {
             @Override
@@ -158,6 +139,9 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
+
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

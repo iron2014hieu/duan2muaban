@@ -9,6 +9,7 @@
     android:layout_gravity="center"
    >
     <LinearLayout
+        android:gravity="center"
         android:layout_width="360px"
         android:layout_height="250dp"
         android:orientation="vertical"

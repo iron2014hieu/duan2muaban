@@ -4,9 +4,7 @@
     android:layout_width="wrap_content"
     android:backgroundTint="?attr/textcolor"
     android:layout_height="wrap_content"
-    android:layout_margin="1dp"
-
-    >
+    android:layout_margin="1dp">
     <LinearLayout
         android:layout_width="130dp"
         android:layout_height="wrap_content"
@@ -15,17 +13,17 @@
         android:gravity="center"
         android:id="@+id/theloai_item">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="1dp">
-        <ImageView
-            android:src="@drawable/profile2"
+        <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="centerCrop"
-            android:id="@+id/img_theloai"/>
-    </androidx.cardview.widget.CardView>
+            android:layout_height="130dp"
+            android:layout_margin="1dp">
+            <ImageView
+                android:src="@drawable/profile2"
+                android:layout_width="130dp"
+                android:layout_height="120dp"
+                android:scaleType="centerCrop"
+                android:id="@+id/img_theloai"/>
+        </androidx.cardview.widget.CardView>
         <TextView
             android:id="@+id/tvname"
             android:layout_width="wrap_content"
@@ -33,19 +31,19 @@
             android:gravity="center"
             android:text="name"
             android:padding="5dp"
-            android:textColor="?attr/textcolor"
-            android:textSize="14dp"
+            android:textColor="#E91E63"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/tvMota"
-        android:layout_width="wrap_content"
-        android:textColor="?attr/textcolor"
-        android:gravity="center"
-        android:text=""
-        android:textSize="15dp"
-        android:visibility="gone"
-        android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tvMota"
+            android:layout_width="wrap_content"
+            android:textColor="?attr/textcolor"
+            android:gravity="center"
+            android:text=""
+            android:textSize="15dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

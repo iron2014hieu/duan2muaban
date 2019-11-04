@@ -5,22 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="?attr/backgroundcolor"
-    tools:context=".fragmentMain.HomeFragment">
+    tools:context=".fragmentMain.HomeFragment"
+    android:padding="10dp">
 
-    <ProgressBar
-        android:id="@+id/progress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"/>
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:showDividers="beginning"/>
+    <ViewFlipper
+        android:background="#00BCD4"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/v_flipper"
+        android:layout_below="@+id/searchview"
+        />
+    <ProgressBar
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_book_home"
-        android:layout_below="@+id/searchview"
         android:backgroundTint="?attr/backgroundcolor"
         android:layout_width="match_parent"
+        android:layout_below="@id/v_flipper"
         android:layout_height="match_parent"/>
 </RelativeLayout>

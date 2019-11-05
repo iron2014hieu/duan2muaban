@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -70,17 +71,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         theme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        titleToolbar = findViewById(R.id.titleToolbar);
-//        textNotify=findViewById(R.id.textNotify);
-//        cartButtonIV= findViewById(R.id.cartButtonIV);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        titleToolbar = findViewById(R.id.titleToolbar);
+        textNotify=findViewById(R.id.textNotify);
+        cartButtonIV= findViewById(R.id.cartButtonIV);
         checkPermission();
         linearLayoutMain= findViewById(R.id.linearLayoutMain);
+        titleToolbar.setText("Chào mừng");
 
-        //Toobar đã như ActionBar
+
+
+//        Toobar đã như ActionBar
 //        setSupportActionBar(toolbar);
 //        ActionBar actionBar = getSupportActionBar();
-
+//
 //        DisplayMetrics displayMetrics = new DisplayMetrics();
 //
 //        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -90,8 +94,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        int width = displayMetrics.widthPixels;
 //
 //        Toast.makeText(this, "w "+width +" h "+height, Toast.LENGTH_SHORT).show();
-
-        // lúc chưa đăng nhập --> ẩn nút giỏ hàng
+//
+//         lúc chưa đăng nhập --> ẩn nút giỏ hàng
 //        cartButtonIV.setVisibility(View.GONE);
 //        textNotify.setVisibility(View.GONE);
 

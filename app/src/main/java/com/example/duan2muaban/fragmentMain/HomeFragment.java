@@ -1,14 +1,10 @@
 package com.example.duan2muaban.fragmentMain;
 
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -18,12 +14,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
-import android.widget.ViewFlipper;
 
 import androidx.appcompat.widget.SearchView;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -32,10 +25,15 @@ import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceTensach;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
+import com.example.duan2muaban.SliderAdapterExample;
 import com.example.duan2muaban.adapter.SachAdapter;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.TheLoai;
+import com.smarteist.autoimageslider.IndicatorAnimations;
+import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,7 +47,9 @@ import retrofit2.Callback;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-    ViewFlipper v_vflipper;
+//    ViewFlipper v_vflipper;
+
+    SliderView sliderView;
 
     private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;
@@ -75,10 +75,30 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        sliderView = view.findViewById(R.id.imageSlider);
+
+        final SliderAdapterExample adapter = new SliderAdapterExample(getContext());
+        adapter.setCount(5);
+
+        sliderView.setSliderAdapter(adapter);
+
+        sliderView.setIndicatorAnimation(IndicatorAnimations.SLIDE); //set indicator animation by using SliderLayout.IndicatorAnimations. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+        sliderView.setSliderTransformAnimation(SliderAnimations.CUBEINROTATIONTRANSFORMATION);
+        sliderView.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+        sliderView.setIndicatorSelectedColor(Color.WHITE);
+        sliderView.setIndicatorUnselectedColor(Color.GRAY);
+        sliderView.startAutoCycle();
+
+        sliderView.setOnIndicatorClickListener(new DrawController.ClickListener() {
+            @Override
+            public void onIndicatorClicked(int position) {
+                sliderView.setCurrentPagePosition(position);
+            }
+        });
+
         recyclerview_book_home=view.findViewById(R.id.recyclerview_book_home);
         searchView=view.findViewById(R.id.searchview);
         progressBar = view.findViewById(R.id.progress);
@@ -86,12 +106,19 @@ public class HomeFragment extends Fragment {
 
         buttonRecord.setVisibility(View.GONE);
 
-        int images[] = {R.drawable.sach1, R.drawable.sach2, R.drawable.sach3};
-        v_vflipper= view.findViewById(R.id.v_flipper);
-
-        for (int i= 0; i < images.length;i++) {
-            flipperImages(images[i]);
-        }
+//        int images[] = {R.drawable.sach1, R.drawable.sach2, R.drawable.sach3};
+//        v_vflipper= view.findViewById(R.id.v_flipper);
+//
+//        for (int i= 0; i < images.length;i++) {
+//            flipperImages(images[i]);
+//        }
+//
+//        v_vflipper.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Toast.makeText(getContext(), "ádadadada", Toast.LENGTH_SHORT).show();
+//            }
+//        });
 
         sessionManager = new SessionManager(getContext());
         sachAdapter = new SachAdapter(getContext(), listBookhome);
@@ -221,17 +248,17 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    private void flipperImages(int image) {
-        ImageView imageView = new ImageView(getContext());
-        imageView.setBackgroundResource(image);
-
-        v_vflipper.addView(imageView);
-        v_vflipper.setFlipInterval(3000);
-        v_vflipper.setAutoStart(true);
-
-        v_vflipper.setInAnimation(getContext(),android.R.anim.slide_in_left);
-        v_vflipper.setOutAnimation(getContext(),android.R.anim.slide_out_right  );
-    }
+//    private void flipperImages(int image) {
+//        ImageView imageView = new ImageView(getContext());
+//        imageView.setBackgroundResource(image);
+//
+//        v_vflipper.addView(imageView);
+//        v_vflipper.setFlipInterval(3000);
+//        v_vflipper.setAutoStart(true);
+//
+//        v_vflipper.setInAnimation(getContext(),android.R.anim.slide_in_left);
+//        v_vflipper.setOutAnimation(getContext(),android.R.anim.slide_out_right  );
+//    }
 
     public void fetchUser(String key){
         apiInTerFaceTensach = ApiClient.getApiClient().create(ApiInTerFaceTensach.class);

@@ -4,40 +4,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundcolor"
-    tools:context=".fragmentMain.HomeFragment"
-    android:padding="10dp">
+    android:background="#f0f5f5"
+    tools:context=".fragmentMain.HomeFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <androidx.appcompat.widget.SearchView
-                android:id="@+id/searchview"
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cartview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:showDividers="beginning"/>
-            <ViewFlipper
-                android:background="#03A9F4"
-                android:layout_width="match_parent"
-                android:layout_height="270dp"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/v_flipper"
-                android:layout_below="@+id/searchview"
-                />
+                android:layout_alignParentTop="true">
+
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="287dp"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderCircularHandlerEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#5A5A5A"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderScrollTimeInSec="5"
+                    app:sliderStartAutoCycle="true" />
+
+            </androidx.cardview.widget.CardView>
             <ProgressBar
                 android:id="@+id/progress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"/>
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchview"
+                android:layout_below="@id/cartview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:showDividers="beginning"/>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_below="@id/searchview"
+                android:text="Truyện mới cập nhật"
+                android:textColor="#E91E63"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
+            </TextView>
             <androidx.recyclerview.widget.RecyclerView
+                android:padding="20px"
+                android:layout_gravity="center"
                 android:id="@+id/recyclerview_book_home"
                 android:backgroundTint="?attr/backgroundcolor"
+                android:layout_below="@id/textView"
                 android:layout_width="match_parent"
-                android:layout_below="@id/v_flipper"
                 android:layout_height="match_parent"/>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>

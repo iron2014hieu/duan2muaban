@@ -9,7 +9,19 @@
     tools:context=".Activity.BookDetailActivity"
     android:background="?attr/backgroundcolor2">
 
-   <include layout="@layout/toolbarlayout"/>
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <androidx.appcompat.widget.Toolbar
+           android:id="@+id/toolbar_sach_chitiet"
+           android:layout_width="match_parent"
+           app:navigationIcon="@drawable/ic_arrow"
+           app:title="Chi tiết"
+           app:titleTextColor="#FFF"
+           android:background="#2196F3"
+           android:layout_height="wrap_content"
+           />
+   </com.google.android.material.appbar.AppBarLayout>
     <ScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -159,13 +171,22 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <ImageButton
-            android:id="@+id/btn_chat"
-            android:layout_width="wrap_content"
-            android:layout_marginLeft="20dp"
+            android:id="@+id/btn_Share"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center"
             android:textSize="12dp"
-            android:src="@drawable/ic_chat"
-            android:drawableRight="@drawable/them_giohang"
-            android:layout_height="50dp">
+            android:background="@drawable/ic_share"
+>
+        </ImageButton>
+        <ImageButton
+            android:id="@+id/btn_chat"
+            android:layout_width="30dp"
+            android:textSize="12dp"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_chat"
+            android:layout_height="30dp">
         </ImageButton>
         <Button
             android:layout_marginLeft="10dp"

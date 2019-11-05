@@ -5,6 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -35,6 +39,10 @@ import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.nighmode.SharedPref;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -52,6 +60,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private Button btnThemvaogio;
     private Double giabansach = 0.0;
+    private ImageButton btn_Share,btn_Message;
     private String URL_INSERT ="http://hieuttpk808.000webhostapp.com/books/cart_bill/insert.php";
     private String URL_CHECK ="https://hieuttpk808.000webhostapp.com/books/cart_bill/checklibrary.php";
     String idUser, name, quyen;
@@ -61,21 +70,23 @@ public class BookDetailActivity extends AppCompatActivity {
         sharedPref = new SharedPref(this);
         theme();
 
-        Intent intent = getIntent();
-        tensach = intent.getStringExtra("tensach");
-        idBook =  intent.getStringExtra("masach");
-        giaban= intent.getStringExtra("gia");
-
-
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
         addcontrols();
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_sach_chitiet);
         ActionBar actionBar = getSupportActionBar();
 
-        actionBar.setTitle("dobh");
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
+
         toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
         toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
 
@@ -88,13 +99,14 @@ public class BookDetailActivity extends AppCompatActivity {
         soluong = (book.get(sessionManager.SOLUONG));
         tensach = book.get(sessionManager.TENSACH);
 
+        toolbar.setTitle(tensach);
+
 //        tongdiem= (book.get(sessionManager.TONGDIEM));
 //        landanhgia=book.get(sessionManager.LANDANHGIA);
         linkImage = book.get(sessionManager.ANHBIA);
 
         Picasso.with(this)
                 .load(linkImage).into(img_book);
-        textNotify.setText(String.valueOf(item_count));
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             quyen = user.get(sessionManager.QUYEN);
@@ -179,6 +191,43 @@ public class BookDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //share text
+        // sharing intent
+        //share all
+        btn_Share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // chỉ cần truyền ảnh từ URL thành bitmap bên dưới là ok
+                Drawable myDrawable  = img_book.getDrawable();
+                Bitmap bitmap = ((BitmapDrawable) myDrawable).getBitmap();
+
+                //sharing image
+                try {
+                    File file= new File(BookDetailActivity.this.getExternalCacheDir(), tensach+".jpg");
+                    FileOutputStream fOut = new FileOutputStream(file);
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 80, fOut);
+                    fOut.flush();
+                    fOut.close();
+                    file.setReadable(true, false);
+
+                    //sharing intent
+                    Intent intent = new Intent(Intent.ACTION_SEND);
+
+//                    intent.putExtra(Intent.EXTRA_SUBJECT, "Wirite subject here");
+//                    intent.putExtra(Intent.EXTRA_TEXT, tensach);
+
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
+                    intent.setType("image/png");
+
+                    startActivity(Intent.createChooser(intent, "Share image vie"));
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     private void ThemCart(final String idBook, final String idUser, final String tensach, final String giaban){
         RequestQueue requestQueue = Volley.newRequestQueue(BookDetailActivity.this);
@@ -252,6 +301,12 @@ public class BookDetailActivity extends AppCompatActivity {
             setTheme(R.style.darktheme);
         }else setTheme(R.style.AppTheme);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
     private void addcontrols(){
         edtTensach = findViewById(R.id.edtTensach);
         edtGiaban=findViewById(R.id.edtGiaban);
@@ -266,5 +321,7 @@ public class BookDetailActivity extends AppCompatActivity {
         img_book=findViewById(R.id.imgBook);
         textNotify= findViewById(R.id.textNotify);
 //        titleToolbar= findViewById(R.id.titleToolbar);
+
+        btn_Share= findViewById(R.id.btn_Share);
     }
 }

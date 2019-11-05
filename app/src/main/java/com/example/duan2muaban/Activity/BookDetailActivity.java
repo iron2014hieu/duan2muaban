@@ -65,7 +65,8 @@ public class BookDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        titleToolbar.setText("Chi tiết sách");
+
+        actionBar.setTitle("dobh");
         toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
         toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
 
@@ -243,6 +244,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
         img_book=findViewById(R.id.imgBook);
         textNotify= findViewById(R.id.textNotify);
-        titleToolbar= findViewById(R.id.titleToolbar);
+//        titleToolbar= findViewById(R.id.titleToolbar);
     }
 }

@@ -12,4 +12,7 @@ import retrofit2.http.Query;
 public interface ApiInTerFace {
     @GET("sach/getBooks.php")
     Call<List<Books>> getUsers(@Query("key") String keyword);
+
+    @GET("sach/getBooksTensachRandom.php")
+    Call<List<Books>> getBookRandom(@Query("key") String key);
 }

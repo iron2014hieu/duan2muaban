@@ -1,6 +1,8 @@
 package com.example.duan2muaban;
 
 import android.Manifest;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.SearchBooksActivity;
 import com.example.duan2muaban.LoginRegister.ProfileActivity;
 import com.example.duan2muaban.LoginRegister.SettingsActivity;
 import com.example.duan2muaban.Session.SessionManager;
@@ -58,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView titleToolbar, textNotify;
     private ImageButton cartButtonIV;
     private MenuItem mSearchMenuItem;
-    private SearchView mSearchView;
+    private Button btnSearchView;
     private String mSearchString;
     private static final String SEARCH_KEY = "search";
     SearchFragment searchFragment;
@@ -72,32 +76,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        titleToolbar = findViewById(R.id.titleToolbar);
         textNotify=findViewById(R.id.textNotify);
         cartButtonIV= findViewById(R.id.cartButtonIV);
         checkPermission();
         linearLayoutMain= findViewById(R.id.linearLayoutMain);
-        titleToolbar.setText("Chào mừng");
+        btnSearchView = findViewById(R.id.btnSearch);
 
 
 
 //        Toobar đã như ActionBar
-//        setSupportActionBar(toolbar);
-//        ActionBar actionBar = getSupportActionBar();
-//
-//        DisplayMetrics displayMetrics = new DisplayMetrics();
-//
-//        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-//        //chiều cao
-//        int height = displayMetrics.heightPixels;
-//        // chiều rộng
-//        int width = displayMetrics.widthPixels;
-//
-//        Toast.makeText(this, "w "+width +" h "+height, Toast.LENGTH_SHORT).show();
-//
-//         lúc chưa đăng nhập --> ẩn nút giỏ hàng
-//        cartButtonIV.setVisibility(View.GONE);
-//        textNotify.setVisibility(View.GONE);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
 
         sessionManager = new SessionManager(this);
         navigation = findViewById(R.id.bottom_navigation);
@@ -108,11 +97,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
         viewPager.setCurrentItem(0); //Set Currrent Item When Activity Start
         viewPager.setOnPageChangeListener(new PageChange()); //Listeners For Viewpager When Page Changed
-        // if you saved something on outState you can recover them here
-//        if (savedInstanceState != null) {
-//            mSearchString = savedInstanceState.getString(SEARCH_KEY);
-//        }
-//        searchFragment = new SearchFragment().newInstance();
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             String name = user.get(sessionManager.NAME);
@@ -137,15 +121,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }catch (Exception e){
             Log.e("LOG", e.toString());
         }
-//        cartButtonIV.setOnClickListener(this);
+        //Setup seerch view
+        btnSearchView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), SearchBooksActivity.class));
+            }
+        });
     }
-    // This is called before the activity is destroyed
-//    @Override
-//    public void onSaveInstanceState(@NonNull Bundle outState) {
-//        super.onSaveInstanceState(outState);
-//        mSearchString = mSearchView.getQuery().toString();
-//        outState.putString(SEARCH_KEY, mSearchString);
-//    }
+
     public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
         FragmentAdapter Adapter = new FragmentAdapter(fragmentManager);
         //Add All Fragment To List
@@ -231,37 +215,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);
-
-//        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-//        SearchView searchView = (SearchView) menu.findItem(R.id.app_bar_search).getActionView();
-//
-//        searchView.setSearchableInfo(
-//                searchManager.getSearchableInfo(getComponentName())
-//        );
-//        searchView.setIconifiedByDefault(false);
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                return false;
-//            }
-//        });
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.setting:
-                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-                break;
-            case R.id.profile:
-                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-                break;
+//            case R.id.setting:
+//                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
+//                break;
+//            case R.id.profile:
+//                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -19,14 +19,18 @@
             android:id="@+id/cartRelativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/titleToolbar"
-                android:layout_width="wrap_content"
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="?attr/textcolor"
-                android:textSize="20dp"
-                android:text="Bạn chưa đăng nhập"/>
+                android:layout_toLeftOf="@id/cartButtonIV"
+                android:drawableLeft="@drawable/ic_search_black_24dp"
+                android:hint="Khuyến mãi cực chất!..."
+                android:textSize="17sp"
+                android:textStyle="italic"
+                android:gravity="left"
+                android:drawableRight="@drawable/ic_mic"
+                android:backgroundTint="#fff"/>
 
             <ImageButton
                 android:id="@+id/cartButtonIV"

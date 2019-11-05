@@ -28,6 +28,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.hoadon.HoadonActivity;
 import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
@@ -39,6 +40,7 @@ import java.util.Map;
 
 public class BookDetailActivity extends AppCompatActivity {
     SharedPref sharedPref;
+    Button btn_themgh,btn_muangay;
     private ImageView img_book;
     private String idBook, tensach,chitiet,
             hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage;
@@ -50,7 +52,6 @@ public class BookDetailActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private Button btnThemvaogio;
     private Double giabansach = 0.0;
-
     private String URL_INSERT ="http://hieuttpk808.000webhostapp.com/books/cart_bill/insert.php";
     private String URL_CHECK ="https://hieuttpk808.000webhostapp.com/books/cart_bill/checklibrary.php";
     String idUser, name, quyen;
@@ -59,6 +60,14 @@ public class BookDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
         theme();
+
+        Intent intent = getIntent();
+        tensach = intent.getStringExtra("tensach");
+        idBook =  intent.getStringExtra("masach");
+        giaban= intent.getStringExtra("gia");
+
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
         addcontrols();
@@ -123,7 +132,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
-        btnThemvaogio.setOnClickListener(new View.OnClickListener() {
+        btn_themgh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder alertDialog = new  AlertDialog.Builder(BookDetailActivity.this);
@@ -160,6 +169,16 @@ public class BookDetailActivity extends AppCompatActivity {
 
             }
         });
+        btn_muangay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), HoadonActivity.class);
+                intent.putExtra("masach", idBook);
+                intent.putExtra("tensach", tensach);
+                intent.putExtra("gia", giaban);
+                startActivity(intent);
+            }
+        });
     }
     private void ThemCart(final String idBook, final String idUser, final String tensach, final String giaban){
         RequestQueue requestQueue = Volley.newRequestQueue(BookDetailActivity.this);
@@ -189,7 +208,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 params.put("masach", idBook);
                 params.put("mauser", idUser);
                 params.put("tensach", tensach);
-                params.put("giaban",giaban);
+                    params.put("giaban",giaban);
                 return params;
             }
         };
@@ -241,6 +260,8 @@ public class BookDetailActivity extends AppCompatActivity {
         btnThemvaogio=findViewById(R.id.btnThemvaogio);
         btn_view_book_when_bill=findViewById(R.id.btn_view_book_when_bill);
         ratingBar = findViewById(R.id.ratingbar);
+        btn_themgh=findViewById(R.id.btn_themGH);
+        btn_muangay=findViewById(R.id.btn_muangay);
 
         img_book=findViewById(R.id.imgBook);
         textNotify= findViewById(R.id.textNotify);

@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment {
 
 
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerview_book_home.setLayoutManager(gridLayoutManagerVeticl);
         recyclerview_book_home.setHasFixedSize(true);
 

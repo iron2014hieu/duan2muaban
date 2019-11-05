@@ -48,7 +48,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         myViewHolder.tv_name.setText(mData.get(i).getTensach());
-        myViewHolder.tv_phone.setText(String.valueOf("₫"+mData.get(i).getGia()));
+        myViewHolder.tv_phone.setText(String.valueOf("Giá: "+mData.get(i).getGia()+"₫"));
         myViewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

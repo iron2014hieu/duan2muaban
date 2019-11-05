@@ -68,22 +68,37 @@
                 android:id="@+id/recyclerview_theloai"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 />
-            <TextView
-                android:textColor="#E91E63"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textSize="18dp"
-                android:id="@+id/textView"
-                android:layout_below="@id/recyclerview_theloai"
-                android:text="Truyện mới cập nhật"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp">
-            </TextView>
+                android:layout_height="wrap_content"
+                android:id="@+id/inlayout"
+                android:layout_below="@id/recyclerview_theloai"
+                android:orientation="horizontal">
+                <TextView
+                    android:textColor="#E91E63"
+                    android:layout_marginTop="10dp"
+                    android:textStyle="bold"
+                    android:textSize="18dp"
+                    android:id="@+id/textView"
+                    android:layout_below="@id/recyclerview_theloai"
+                    android:text="Truyện mới cập nhật"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp">
+                </TextView>
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:gravity="right"
+                    android:text="Xem thêm >>"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+            </LinearLayout>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_gravity="center"
                 android:id="@+id/recyclerview_book_home"
                 android:backgroundTint="?attr/backgroundcolor"
-                android:layout_below="@id/textView"
+                android:layout_below="@id/inlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
         </RelativeLayout>

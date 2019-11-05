@@ -48,18 +48,34 @@
                 android:layout_centerInParent="true"/>
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></androidx.appcompat.widget.SearchView>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:id="@+id/textView1"
                 android:layout_below="@id/cartview"
+                android:text="Thể loại"
+                android:layout_width="match_parent"
+                android:layout_height="30dp">
+            </TextView>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_below="@id/textView1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:showDividers="beginning"/>
+                android:id="@+id/recyclerview_theloai"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
             <TextView
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="18dp"
                 android:id="@+id/textView"
-                android:layout_below="@id/searchview"
+                android:layout_below="@id/recyclerview_theloai"
                 android:text="Truyện mới cập nhật"
-                android:textColor="#E91E63"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="30dp">
             </TextView>
             <androidx.recyclerview.widget.RecyclerView
                 android:padding="20px"

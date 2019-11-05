@@ -66,7 +66,7 @@ public class TheloaiFragment extends Fragment {
 
         //danh sách thể loại
         StaggeredGridLayoutManager gridLayoutManager =
-                new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL);
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerViewTheloai.setLayoutManager(gridLayoutManager);
         recyclerViewTheloai.setAdapter(theLoaiAdapter);
         recyclerViewTheloai.setHasFixedSize(true);

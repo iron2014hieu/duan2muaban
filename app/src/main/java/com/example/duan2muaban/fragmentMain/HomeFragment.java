@@ -21,19 +21,32 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceTensach;
 import com.example.duan2muaban.R;
+import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.SliderAdapterExample;
 import com.example.duan2muaban.adapter.SachAdapter;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.TheLoai;
+import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.smarteist.autoimageslider.IndicatorAnimations;
 import com.smarteist.autoimageslider.IndicatorView.draw.controller.DrawController;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,12 +60,15 @@ import retrofit2.Callback;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-//    ViewFlipper v_vflipper;
+    UrlSql urlSql = new UrlSql();
 
     SliderView sliderView;
 
+
     private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;
+    private RecyclerView recyclerViewTheloai;
+
     SachAdapter sachAdapter;
     ProgressBar progressBar;
     private List<TheLoai> listTheloai = new ArrayList<>();
@@ -77,6 +93,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        addControls();
 
         sliderView = view.findViewById(R.id.imageSlider);
 
@@ -106,19 +123,33 @@ public class HomeFragment extends Fragment {
 
         buttonRecord.setVisibility(View.GONE);
 
-//        int images[] = {R.drawable.sach1, R.drawable.sach2, R.drawable.sach3};
-//        v_vflipper= view.findViewById(R.id.v_flipper);
-//
-//        for (int i= 0; i < images.length;i++) {
-//            flipperImages(images[i]);
-//        }
-//
-//        v_vflipper.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getContext(), "ádadadada", Toast.LENGTH_SHORT).show();
-//            }
-//        });
+        theLoaiAdapter = new TheLoaiAdapter(getContext(), listTheloai);
+        StaggeredGridLayoutManager gridLayoutManager =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerViewTheloai.setLayoutManager(gridLayoutManager);
+        recyclerViewTheloai.setAdapter(theLoaiAdapter);
+        recyclerViewTheloai.setHasFixedSize(true);
+
+        recyclerViewTheloai.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
+                recyclerViewTheloai, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                TheLoai theloai =   listTheloai.get(position);
+                String id = String.valueOf(theloai.getMaLoai());
+                String ten = theloai.getTenLoai();
+
+                sessionManager.createSessionGuimatheloai(id,ten);
+                startActivity(new Intent(getContext(), GetBookByTheloaiActivity.class));
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                TheLoai theloai =   listTheloai.get(position);
+
+            }
+        }));
+
 
         sessionManager = new SessionManager(getContext());
         sachAdapter = new SachAdapter(getContext(), listBookhome);
@@ -129,7 +160,7 @@ public class HomeFragment extends Fragment {
         recyclerview_book_home.setLayoutManager(gridLayoutManagerVeticl);
         recyclerview_book_home.setHasFixedSize(true);
 
-
+        GetAllData(urlSql.URL_GETDATA_THELOAI);
         fetchUser("");
         try {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -246,6 +277,48 @@ public class HomeFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public void GetAllData(String url){
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        listTheloai.clear();
+                        if (response.length() > 0){
+                            recyclerViewTheloai.setVisibility(View.VISIBLE);
+                        }else{
+                            recyclerViewTheloai.setVisibility(View.GONE);
+                        }
+                        for (int i = 0; i < response.length(); i++){
+                            try {
+                                JSONObject object = response.getJSONObject(i);
+                                listTheloai.add(new TheLoai(
+                                        object.getInt("MaLoai"),
+                                        object.getString("TenLoai"),
+                                        object.getString("Image")
+                                ));
+
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        theLoaiAdapter.notifyDataSetChanged();
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonArrayRequest);
+    }
+
+    private void addControls(){
+        recyclerViewTheloai = view.findViewById(R.id.recyclerview_theloai);
     }
 
 //    private void flipperImages(int image) {

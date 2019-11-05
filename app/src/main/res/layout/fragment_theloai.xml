@@ -4,15 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".fragmentMain.TheloaiFragment"
-    android:padding="10dp"
     android:background="?attr/backgroundcolor">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:padding="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/contact_recyclerview_theloai"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         />

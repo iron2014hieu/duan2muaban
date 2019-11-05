@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Activity.BookDetailActivity"
     android:background="?attr/backgroundcolor2">
@@ -22,190 +22,190 @@
            android:layout_height="wrap_content"
            />
    </com.google.android.material.appbar.AppBarLayout>
+
     <ScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:background="?attr/backgroundcolor"
+        android:layout_height="wrap_content"
         android:layout_below="@id/appbar"
+        android:background="?attr/backgroundcolor"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="?attr/backgroundcolor">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_margin="10dp">
-            <RatingBar
-                android:id="@+id/ratingbar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                style="@android:style/Widget.Holo.RatingBar.Indicator"
-                android:numStars="5" />
-            <TextView
-                android:id="@+id/txtDiemdanhgia"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="5 sao"
-                android:layout_below="@id/ratingbar"
-                android:layout_centerHorizontal="true"
-                android:layout_gravity="center"
-                android:textColor="?attr/textcolor" />
-            <ImageView
-                android:id="@+id/imgBook"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/gmbapdful"
-                android:layout_gravity="center"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/txtDiemdanhgia"
-                />
-            <ImageView
-                android:id="@+id/imgBookCopy"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/gmbapdful"
-                android:visibility="gone"
-                android:layout_gravity="center"
-                />
-                <TextView
-                    android:id="@+id/edtTensach"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/textcolor"
-                    android:textColorHint="?attr/textcolor"
-                    android:enabled="false"
-                    android:layout_marginTop="15dp"
-                    android:hint="Teen sacs"
-                    android:background="@android:color/transparent"/>
 
-                <TextView
-                    android:id="@+id/edtGiaban"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/textcolor"
-                    android:background="@android:color/transparent"
-                    android:textColorHint="?attr/textcolor"
-                    android:layout_marginTop="15dp"
-                    android:enabled="false"
-                    android:hint="Giá bán"  />
-
-
-                <TextView
-                    android:id="@+id/extractEditTextChitiet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/layout4"
-                    android:layout_alignBottom="@+id/layout4"
-                    android:enabled="false"
-                    android:layout_marginTop="15dp"
-                    android:background="@android:color/transparent"
-                    android:textColorHint="?attr/textcolor"
-                    android:textColor="?attr/textcolor"
-                    android:hint="Mô tả sách" />
-            <Button
-                android:id="@+id/btnThemvaogio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_below="@id/extractEditTextChitiet"
-                android:text="Thêm vào giỏ hàng"
-                android:textColor="?attr/textcolor"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone"
-                android:background="?attr/buttoncolor"/>
-
-            <TextView
-                android:id="@+id/btn_view_book_when_bill"
-                android:layout_marginTop="25dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:textColor="?attr/textcolor"
-                android:layout_below="@id/extractEditTextChitiet"
-                android:visibility="visible"
-                android:textStyle="bold"
-                android:textSize="15dp"
-                android:drawableLeft="@drawable/ic_chevron_left"
-                android:gravity="center"
-                android:text="Quay lại cửa hàng "/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sản phẩm cùng tác giả"/>
-        </LinearLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="?attr/backgroundcolor"
-            android:layout_marginTop="5dp">
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sản phẩm liên quan" />
-            </LinearLayout>
+                android:layout_height="wrap_content"
+                android:backgroundTint="?attr/backgroundcolor">
 
-        </androidx.cardview.widget.CardView>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <RatingBar
+                        android:id="@+id/ratingbar"
+                        style="@android:style/Widget.Holo.RatingBar.Indicator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:numStars="5" />
+
+                    <TextView
+                        android:id="@+id/txtDiemdanhgia"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/ratingbar"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:text="5 sao"
+                        android:textColor="?attr/textcolor" />
+
+                    <ImageView
+                        android:id="@+id/imgBook"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_below="@+id/txtDiemdanhgia"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:src="@drawable/gmbapdful" />
+
+                    <ImageView
+                        android:id="@+id/imgBookCopy"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/gmbapdful"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/edtTensach"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:hint="Teen sacs"
+                        android:textColor="?attr/textcolor"
+                        android:textColorHint="?attr/textcolor" />
+
+                    <TextView
+                        android:id="@+id/edtGiaban"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:hint="Giá bán"
+                        android:textColor="?attr/textcolor"
+                        android:textColorHint="?attr/textcolor" />
+
+
+                    <TextView
+                        android:id="@+id/extractEditTextChitiet"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/layout4"
+                        android:layout_alignBottom="@+id/layout4"
+                        android:layout_marginTop="15dp"
+                        android:background="@android:color/transparent"
+                        android:enabled="false"
+                        android:hint="Mô tả sách"
+                        android:textColor="?attr/textcolor"
+                        android:textColorHint="?attr/textcolor" />
+
+                    <Button
+                        android:id="@+id/btnThemvaogio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/extractEditTextChitiet"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="30dp"
+                        android:background="?attr/buttoncolor"
+                        android:text="Thêm vào giỏ hàng"
+                        android:textColor="?attr/textcolor"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sản phẩm cùng tác giả" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:backgroundTint="?attr/backgroundcolor">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sản phẩm liên quan" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
 
     </ScrollView>
+
     <LinearLayout
-        android:layout_gravity="bottom|end"
         android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="bottom|end"
+        android:layout_weight="3"
         android:background="#ffff"
-        android:orientation="horizontal"
-        android:layout_height="wrap_content">
+        android:orientation="horizontal">
         <ImageButton
+            android:background="@drawable/cutomsimage"
             android:id="@+id/btn_Share"
-            android:layout_height="30dp"
-            android:layout_width="30dp"
-            android:layout_marginLeft="10dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:textSize="12dp"
-            android:background="@drawable/ic_share"
->
-        </ImageButton>
+            android:src="@drawable/ic_share"
+            android:textSize="12dp"></ImageButton>
         <ImageButton
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/cutomsimage"
             android:id="@+id/btn_chat"
-            android:layout_width="30dp"
-            android:textSize="12dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_gravity="center"
-            android:background="@drawable/ic_chat"
-            android:layout_height="30dp">
-        </ImageButton>
+            android:src="@drawable/ic_chat"
+            android:textSize="12dp"></ImageButton>
         <Button
-            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
             android:id="@+id/btn_themGH"
             android:layout_width="wrap_content"
-            android:text="Thêm vào giỏ hàng"
-            android:textSize="12dp"
-            android:layout_height="wrap_content">
-        </Button>
-        <Button
-            android:id="@+id/btn_muangay"
-            android:layout_marginLeft="10dp"
-            android:textSize="12dp"
-            android:layout_width="wrap_content"
-            android:textColor="#ffff"
-            android:background="#FA0909"
             android:layout_height="40dp"
-            android:text="Mua ngay"/>
-
+            android:layout_marginLeft="10dp"
+            android:background="#CDDC39"
+            android:text="Thêm vào giỏ"
+            android:textColor="#ffff"
+            android:textSize="12dp" />
+        <Button
+            android:layout_weight="1"
+            android:id="@+id/btn_muangay"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:background="#FA0909"
+            android:text="Mua ngay"
+            android:textColor="#ffff"
+            android:textSize="12dp" />
     </LinearLayout>
 
 

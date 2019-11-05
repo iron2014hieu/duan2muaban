@@ -55,7 +55,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private Float diemdanhgia;
     SessionManager sessionManager;
     private TextView edtTensach, edtGiaban,edtChitiet;
-    private TextView txtDiemdanhgia,btn_view_book_when_bill, textNotify, titleToolbar;
+    private TextView txtDiemdanhgia, textNotify, titleToolbar;
 
     private RatingBar ratingBar;
     private Button btnThemvaogio;
@@ -118,7 +118,6 @@ public class BookDetailActivity extends AppCompatActivity {
                 btnThemvaogio.setVisibility(View.VISIBLE);
             }else {
                 btnThemvaogio.setVisibility(View.GONE);
-                btn_view_book_when_bill.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             Log.e("LOG", e.toString());
@@ -135,15 +134,6 @@ public class BookDetailActivity extends AppCompatActivity {
 
         giabansach = Double.valueOf(giaban);
 
-
-
-
-        btn_view_book_when_bill.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
         btn_themgh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -273,10 +263,8 @@ public class BookDetailActivity extends AppCompatActivity {
                         if (response.trim().equals("datontai")){
                             Toast.makeText(BookDetailActivity.this, "Bạn đã mua sách này", Toast.LENGTH_SHORT).show();
                             btnThemvaogio.setVisibility(View.GONE);
-                            btn_view_book_when_bill.setVisibility(View.VISIBLE);
                         }else {
                             btnThemvaogio.setVisibility(View.VISIBLE);
-                            btn_view_book_when_bill.setVisibility(View.GONE);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -313,11 +301,9 @@ public class BookDetailActivity extends AppCompatActivity {
         edtChitiet=findViewById(R.id.extractEditTextChitiet);
         txtDiemdanhgia=findViewById(R.id.txtDiemdanhgia);
         btnThemvaogio=findViewById(R.id.btnThemvaogio);
-        btn_view_book_when_bill=findViewById(R.id.btn_view_book_when_bill);
         ratingBar = findViewById(R.id.ratingbar);
         btn_themgh=findViewById(R.id.btn_themGH);
         btn_muangay=findViewById(R.id.btn_muangay);
-
         img_book=findViewById(R.id.imgBook);
         textNotify= findViewById(R.id.textNotify);
 //        titleToolbar= findViewById(R.id.titleToolbar);

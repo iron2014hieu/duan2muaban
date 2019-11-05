@@ -63,6 +63,8 @@
             android:text=" Contact name"
             android:visibility="visible"
             android:textStyle="normal"
+            android:maxLength="20"
+            android:gravity="center"
             android:id="@+id/books_name"/>
         <LinearLayout
             android:background="#F3E7E7"

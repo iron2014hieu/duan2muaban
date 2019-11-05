@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -27,7 +28,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.BookDetailActivity;
 import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
+import com.example.duan2muaban.Activity.SearchBooksActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceTensach;
 import com.example.duan2muaban.R;
@@ -149,6 +152,34 @@ public class HomeFragment extends Fragment {
 
             }
         }));
+        recyclerview_book_home.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
+                recyclerview_book_home, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Books books =   listBookhome.get(position);
+                String masach = String.valueOf(books.getMasach());
+                String tensach = String.valueOf(books.getTensach());
+                String manxb = String.valueOf(books.getManxb());
+                String matheloai = String.valueOf(books.getMatheloai());
+                String ngayxb = books.getNgayxb();
+                String noidung = books.getNoidung();
+                String anhbia =books.getAnhbia();
+                String gia = String.valueOf( books.getGia());
+                String tennxb= String.valueOf(books.getTennxb());
+                String soluong = String.valueOf(books.getSoluong());
+                String tacgia = books.getTacgia();
+
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,anhbia,gia,tennxb,soluong,tacgia);
+                Toast.makeText(getContext(), ""+masach, Toast.LENGTH_SHORT).show();
+
+                startActivity(new Intent(getContext(), BookDetailActivity.class));
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
 
         sessionManager = new SessionManager(getContext());
@@ -156,7 +187,7 @@ public class HomeFragment extends Fragment {
 
 
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerview_book_home.setLayoutManager(gridLayoutManagerVeticl);
         recyclerview_book_home.setHasFixedSize(true);
 

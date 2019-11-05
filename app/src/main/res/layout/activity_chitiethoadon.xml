@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Activity.hoadon.ChitiethoadonActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:text="Chi tiết hóa đơn"
+        android:gravity="center"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:orientation="vertical">
+        <EditText
+            android:id="@+id/edtmahoadon"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="wrap_content"
+            android:hint="Mã hóa đơn"
+            />
+        <EditText
+            android:id="@+id/edttenkhachhang"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:hint="Tên khách hàng"
+            />
+        <EditText
+            android:id="@+id/edtngaydat"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:hint="Ngày đặt"
+            />
+        <EditText
+            android:id="@+id/edtngaygiao"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:hint="Ngày giao"
+            />
+        <EditText
+            android:id="@+id/edtthongtingiaohang"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:hint="Địa chỉ"
+            />
+        <EditText
+            android:id="@+id/edtgiavanchuyen"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            android:hint="Giá vận chuyển"
+            />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btn_themcthd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thêm chi tiết hóa đơn"/>
+
+</LinearLayout>

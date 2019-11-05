@@ -10,7 +10,7 @@
         android:id="@+id/nav_library"
         android:icon="@drawable/ic_library_books_black_24dp"
         android:iconTint="?attr/textcolor"
-        android:title="Thể loại sách"/>
+        android:title="Khuyến mãi"/>
 
     <item
         android:id="@+id/nav_search"

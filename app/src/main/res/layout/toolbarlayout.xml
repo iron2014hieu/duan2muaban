@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         app:layout_scrollFlags="scroll|enterAlways|snap"
         app:titleTextColor="?attr/textcolor"
-        android:background="?attr/backgroundcolor"
+        android:background="#2196F3"
         app:elevation="0dp">
         <RelativeLayout
             android:id="@+id/cartRelativeLayout"
@@ -24,14 +24,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/cartButtonIV"
-                android:drawableLeft="@drawable/ic_search_black_24dp"
                 android:hint="Khuyến mãi cực chất!..."
                 android:textSize="17sp"
-                android:textStyle="italic"
                 android:gravity="left"
-                android:drawableRight="@drawable/ic_mic"
+                android:drawableRight="@drawable/ic_search_black_24dp"
                 android:backgroundTint="#fff"/>
-
             <ImageButton
                 android:id="@+id/cartButtonIV"
                 android:layout_width="wrap_content"
@@ -44,7 +41,6 @@
                 android:clickable="false"
                 android:padding="5dip"
                 android:src="@drawable/ic_shopping_cart" />
-
             <TextView
                 android:id="@+id/textNotify"
                 android:layout_width="12dp"

@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -58,19 +60,21 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
         sharedPref = new SharedPref(this);
         theme();
         setContentView(R.layout.activity_get_book_by_theloai);
+        Toolbar toolbar = findViewById(R.id.toolbar_theloai);
+        ActionBar actionBar = getSupportActionBar();
+
 
         recyclerView=findViewById(R.id.recyclerview_book_bymatheloai);
         textViewTB=findViewById(R.id.txtThongbaonull);
-        circleImageView=findViewById(R.id.img_themsach);
         sessionManager = new SessionManager(this);
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             String quyen = user.get(sessionManager.QUYEN);
 //            Toast.makeText(GetBookByTheloaiActivity.this, ""+quyen, Toast.LENGTH_SHORT).show();
             if (quyen==null){
-                circleImageView.setVisibility(View.GONE);
+
             }else if (quyen.equals("user")){
-                circleImageView.setVisibility(View.GONE);
+
             }
             else {
                 circleImageView.setVisibility(View.VISIBLE);
@@ -89,6 +93,9 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
         HashMap<String,String> theloai = sessionManager.getMAtheloai();
         matheloai = theloai.get(sessionManager.MATHELOAI);
         tentheloai = theloai.get(sessionManager.TEN_THELOAI);
+        String tenTheloai = theloai.get(sessionManager.TEN_THELOAI);
+
+        toolbar.setTitle("Thể loại "+tenTheloai);
         URL_GETDATABYMATHELOAI = urlSql.URL_GETDATA_BY_MATHELOAI+matheloai;
         GetData(URL_GETDATABYMATHELOAI);
 
@@ -121,14 +128,6 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
             }
         }));
 
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(GetBookByTheloaiActivity.this, ThemSachActivity.class);
-
-                startActivity(intent);
-            }
-        });
 
 
 

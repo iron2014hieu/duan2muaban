@@ -43,7 +43,6 @@
                     style="@android:style/Widget.Holo.RatingBar.Indicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:numStars="5" />
 
@@ -51,8 +50,6 @@
                     android:id="@+id/txtDiemdanhgia"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/ratingbar"
-                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:text="5 sao"
                     android:textColor="?attr/textcolor" />
@@ -61,8 +58,6 @@
                     android:id="@+id/imgBook"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
-                    android:layout_below="@+id/txtDiemdanhgia"
-                    android:layout_centerHorizontal="true"
                     android:layout_gravity="center"
                     android:src="@drawable/gmbapdful" />
 
@@ -269,6 +264,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="#000"
                     android:text="z Sản phẩm liên quan" />
             </LinearLayout>
 

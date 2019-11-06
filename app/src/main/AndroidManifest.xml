@@ -15,7 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.SearchBooksActivity"></activity>
+        <activity android:name=".Activity.SearchBooksActivity">
+            <!-- to identify this activity as "searchable" -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".CartDetailActivity" />
         <activity android:name=".QLTKActivity" />
         <activity android:name=".Activity.RatingBookCommentActivity" />

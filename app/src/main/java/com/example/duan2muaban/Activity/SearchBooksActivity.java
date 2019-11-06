@@ -108,7 +108,17 @@ public class SearchBooksActivity extends AppCompatActivity {
         }));
 
 
+        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+            @Override
+            public boolean onSuggestionSelect(int position) {
+                return false;
+            }
 
+            @Override
+            public boolean onSuggestionClick(int position) {
+                return false;
+            }
+        });
 
         //speech to text
         final SpeechRecognizer mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);

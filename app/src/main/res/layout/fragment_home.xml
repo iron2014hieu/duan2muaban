@@ -49,8 +49,10 @@
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/searchview"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"></androidx.appcompat.widget.SearchView>
+                android:layout_height="wrap_content">
+            </androidx.appcompat.widget.SearchView>
             <TextView
+                android:layout_marginLeft="5dp"
                 android:textColor="#E91E63"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
@@ -75,6 +77,7 @@
                 android:layout_below="@id/recyclerview_theloai"
                 android:orientation="horizontal">
                 <TextView
+                    android:layout_marginLeft="5dp"
                     android:textColor="#E91E63"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
@@ -101,6 +104,36 @@
                 android:layout_below="@id/inlayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textColor="#E91E63"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:id="@+id/textView2"
+                android:layout_below="@id/recyclerview_book_home"
+                android:text="Nhà xuất bản"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_gravity="center"
+                android:id="@+id/recyclerview_nxb_home"
+                android:backgroundTint="?attr/backgroundcolor"
+                android:layout_below="@id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+            <TextView
+                android:layout_marginLeft="5dp"
+                android:textColor="#E91E63"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:layout_below="@+id/recyclerview_nxb_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tác giả">
+
+            </TextView>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
     <ImageButton

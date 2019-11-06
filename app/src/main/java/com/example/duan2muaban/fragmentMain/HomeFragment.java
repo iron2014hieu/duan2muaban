@@ -32,14 +32,17 @@ import com.example.duan2muaban.Activity.BookDetailActivity;
 import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.Activity.SearchBooksActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
+import com.example.duan2muaban.ApiRetrofit.ApiNXB.ApiInTerFaceNXB;
 import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceTensach;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.SliderAdapterExample;
+import com.example.duan2muaban.adapter.NhaxuatbanAdapter;
 import com.example.duan2muaban.adapter.SachAdapter;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
+import com.example.duan2muaban.model.Nhaxuatban;
 import com.example.duan2muaban.model.TheLoai;
 import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.smarteist.autoimageslider.IndicatorAnimations;
@@ -74,10 +77,15 @@ public class HomeFragment extends Fragment {
 
     SachAdapter sachAdapter;
     ProgressBar progressBar;
+    NhaxuatbanAdapter nhaxuatbanAdapter;
     private List<TheLoai> listTheloai = new ArrayList<>();
     private List<Books> listBookhome = new ArrayList<>();
+    private List<Nhaxuatban> listNhaxuatbanHome = new ArrayList<>();
     private RecyclerView recyclerview_book_home;
+    private RecyclerView recyclerview_nxb_home;
+
     private ApiInTerFaceTensach apiInTerFaceTensach;
+    private ApiInTerFaceNXB apiInTerFaceNXB;
 
     ImageButton buttonRecord;
     View view;
@@ -98,7 +106,10 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         addControls();
 
-        sliderView = view.findViewById(R.id.imageSlider);
+
+        sessionManager = new SessionManager(getContext());
+        sachAdapter = new SachAdapter(getContext(), listBookhome);
+        nhaxuatbanAdapter = new NhaxuatbanAdapter(getContext(), listNhaxuatbanHome);
 
         final SliderAdapterExample adapter = new SliderAdapterExample(getContext());
         adapter.setCount(5);
@@ -132,6 +143,12 @@ public class HomeFragment extends Fragment {
         recyclerViewTheloai.setLayoutManager(gridLayoutManager);
         recyclerViewTheloai.setAdapter(theLoaiAdapter);
         recyclerViewTheloai.setHasFixedSize(true);
+        // recyclerview nhà xuất bản
+        StaggeredGridLayoutManager gridLayoutManager3 =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerview_nxb_home.setLayoutManager(gridLayoutManager3);
+        recyclerview_nxb_home.setAdapter(nhaxuatbanAdapter);
+        recyclerview_nxb_home.setHasFixedSize(true);
 
         recyclerViewTheloai.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerViewTheloai, new RecyclerTouchListener.ClickListener() {
@@ -182,8 +199,6 @@ public class HomeFragment extends Fragment {
         }));
 
 
-        sessionManager = new SessionManager(getContext());
-        sachAdapter = new SachAdapter(getContext(), listBookhome);
 
 
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
@@ -193,6 +208,7 @@ public class HomeFragment extends Fragment {
 
         GetAllData(urlSql.URL_GETDATA_THELOAI);
         fetchUser("");
+        fetchNXB();
         try {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -350,6 +366,8 @@ public class HomeFragment extends Fragment {
 
     private void addControls(){
         recyclerViewTheloai = view.findViewById(R.id.recyclerview_theloai);
+        sliderView = view.findViewById(R.id.imageSlider);
+        recyclerview_nxb_home = view.findViewById(R.id.recyclerview_nxb_home);
     }
 
 //    private void flipperImages(int image) {
@@ -385,7 +403,27 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    public void fetchNXB(){
+        apiInTerFaceNXB = ApiClient.getApiClient().create(ApiInTerFaceNXB.class);
+        Call<List<Nhaxuatban>> call = apiInTerFaceNXB.getNXB();
 
+        call.enqueue(new Callback<List<Nhaxuatban>>() {
+            @Override
+            public void onResponse(Call<List<Nhaxuatban>> call, retrofit2.Response<List<Nhaxuatban>> response) {
+                progressBar.setVisibility(View.GONE);
+                listNhaxuatbanHome= response.body();
+                nhaxuatbanAdapter = new NhaxuatbanAdapter(getContext(),listNhaxuatbanHome);
+                recyclerview_nxb_home.setAdapter(nhaxuatbanAdapter);
+                nhaxuatbanAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Nhaxuatban>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+    }
 
     @Override
     public void onAttach(Context context) {

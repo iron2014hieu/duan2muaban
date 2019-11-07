@@ -17,11 +17,16 @@ public class Main2Activity extends AppCompatActivity {
         theme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
-        Toolbar toolbar = findViewById(R.id.toolbarCartlist);
+
+        Toolbar toolbar = findViewById(R.id.toolbargh);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+        toolbar.setTitle("Giỏ hàng");
+
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,
                 new CartListFragment()).commit();
+
+
     }
     public  void theme(){
         if (sharedPref.loadNightModeState() == true){

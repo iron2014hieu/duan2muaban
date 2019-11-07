@@ -190,7 +190,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                 Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
                                 startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
                             }else {
-                                Intent intent=new Intent(getApplicationContext(), HoadonActivity.class);
+                                Intent intent=new Intent(getApplicationContext(), DatmuaActivity.class);
                                 intent.putExtra("masach", idBook);
                                 intent.putExtra("tensach", tensach);
                                 intent.putExtra("gia", giaban);

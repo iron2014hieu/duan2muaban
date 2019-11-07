@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".Main2Activity">
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarCartlist"
+        app:titleTextColor="#fff"
+        android:id="@+id/toolbargh"
+        android:background="#2196F3"
+        app:title="Giỏ hàng"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:navigationIcon="@drawable/ic_close"
-        app:title="Giỏ hàng"/>
+        android:layout_height="wrap_content"/>
     <FrameLayout
         android:id="@+id/fragment_container2"
+        android:layout_below="@id/toolbargh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </RelativeLayout>

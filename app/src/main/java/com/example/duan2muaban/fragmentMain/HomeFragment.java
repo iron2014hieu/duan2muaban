@@ -215,11 +215,7 @@ public class HomeFragment extends Fragment {
 
             }
         }));
-
-
-
-
-
+        //get
         GetAllData(urlSql.URL_GETDATA_THELOAI);
         fetchUser("");
         fetchNXB();

@@ -123,6 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
             <TextView
+                android:id="@+id/texttacgia"
                 android:layout_marginLeft="5dp"
                 android:textColor="#E91E63"
                 android:layout_marginTop="10dp"
@@ -131,9 +132,14 @@
                 android:layout_below="@+id/recyclerview_nxb_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tác giả">
-
-            </TextView>
+                android:text="Tác giả"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_gravity="center"
+                android:id="@+id/recyclerview_tacgia_home"
+                android:backgroundTint="?attr/backgroundcolor"
+                android:layout_below="@id/texttacgia"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
     <ImageButton

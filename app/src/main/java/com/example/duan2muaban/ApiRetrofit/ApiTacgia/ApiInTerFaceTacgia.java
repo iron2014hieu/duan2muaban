@@ -11,7 +11,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface ApiInTerFaceTacgia {
-    @GET("sach/getTacgia.php")
+    @GET("tacgia/getTacgia.php")
     Call<List<Tacgia>> getTacgia();
 
 }

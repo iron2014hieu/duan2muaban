@@ -33,6 +33,7 @@ import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.Activity.SearchBooksActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.ApiNXB.ApiInTerFaceNXB;
+import com.example.duan2muaban.ApiRetrofit.ApiTacgia.ApiInTerFaceTacgia;
 import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceTensach;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
@@ -40,9 +41,11 @@ import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.SliderAdapterExample;
 import com.example.duan2muaban.adapter.NhaxuatbanAdapter;
 import com.example.duan2muaban.adapter.SachAdapter;
+import com.example.duan2muaban.adapter.TacgiaAdapter;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.Nhaxuatban;
+import com.example.duan2muaban.model.Tacgia;
 import com.example.duan2muaban.model.TheLoai;
 import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.smarteist.autoimageslider.IndicatorAnimations;
@@ -73,19 +76,24 @@ public class HomeFragment extends Fragment {
 
     private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;
-    private RecyclerView recyclerViewTheloai;
-
     SachAdapter sachAdapter;
+    TacgiaAdapter tacgiaAdapter;
+
     ProgressBar progressBar;
     NhaxuatbanAdapter nhaxuatbanAdapter;
     private List<TheLoai> listTheloai = new ArrayList<>();
     private List<Books> listBookhome = new ArrayList<>();
     private List<Nhaxuatban> listNhaxuatbanHome = new ArrayList<>();
+    private List<Tacgia> listTacgia = new ArrayList<>();
+
     private RecyclerView recyclerview_book_home;
     private RecyclerView recyclerview_nxb_home;
+    private RecyclerView recyclerViewTheloai;
+    private RecyclerView recyclerViewTacgia;
 
     private ApiInTerFaceTensach apiInTerFaceTensach;
     private ApiInTerFaceNXB apiInTerFaceNXB;
+    private ApiInTerFaceTacgia apiInTerFaceTacgia;
 
     ImageButton buttonRecord;
     View view;
@@ -110,6 +118,7 @@ public class HomeFragment extends Fragment {
         sessionManager = new SessionManager(getContext());
         sachAdapter = new SachAdapter(getContext(), listBookhome);
         nhaxuatbanAdapter = new NhaxuatbanAdapter(getContext(), listNhaxuatbanHome);
+        tacgiaAdapter = new TacgiaAdapter(getContext(), listTacgia);
 
         final SliderAdapterExample adapter = new SliderAdapterExample(getContext());
         adapter.setCount(5);
@@ -138,17 +147,26 @@ public class HomeFragment extends Fragment {
         buttonRecord.setVisibility(View.GONE);
 
         theLoaiAdapter = new TheLoaiAdapter(getContext(), listTheloai);
+        // lấy sách
+        StaggeredGridLayoutManager gridLayoutManagerVeticl =
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerview_book_home.setLayoutManager(gridLayoutManagerVeticl);
+        recyclerview_book_home.setHasFixedSize(true);
+        // the loaij sachs
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerViewTheloai.setLayoutManager(gridLayoutManager);
-        recyclerViewTheloai.setAdapter(theLoaiAdapter);
         recyclerViewTheloai.setHasFixedSize(true);
         // recyclerview nhà xuất bản
         StaggeredGridLayoutManager gridLayoutManager3 =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerview_nxb_home.setLayoutManager(gridLayoutManager3);
-        recyclerview_nxb_home.setAdapter(nhaxuatbanAdapter);
         recyclerview_nxb_home.setHasFixedSize(true);
+        // tac gia sachs
+        StaggeredGridLayoutManager gridLayoutManager4 =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerViewTacgia.setLayoutManager(gridLayoutManager4);
+        recyclerViewTacgia.setHasFixedSize(true);
 
         recyclerViewTheloai.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerViewTheloai, new RecyclerTouchListener.ClickListener() {
@@ -201,14 +219,11 @@ public class HomeFragment extends Fragment {
 
 
 
-        StaggeredGridLayoutManager gridLayoutManagerVeticl =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
-        recyclerview_book_home.setLayoutManager(gridLayoutManagerVeticl);
-        recyclerview_book_home.setHasFixedSize(true);
 
         GetAllData(urlSql.URL_GETDATA_THELOAI);
         fetchUser("");
         fetchNXB();
+        fetchTacgia();
         try {
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
@@ -364,11 +379,7 @@ public class HomeFragment extends Fragment {
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void addControls(){
-        recyclerViewTheloai = view.findViewById(R.id.recyclerview_theloai);
-        sliderView = view.findViewById(R.id.imageSlider);
-        recyclerview_nxb_home = view.findViewById(R.id.recyclerview_nxb_home);
-    }
+
 
 //    private void flipperImages(int image) {
 //        ImageView imageView = new ImageView(getContext());
@@ -424,6 +435,27 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+    public void fetchTacgia(){
+        apiInTerFaceTacgia = ApiClient.getApiClient().create(ApiInTerFaceTacgia.class);
+        Call<List<Tacgia>> call = apiInTerFaceTacgia.getTacgia();
+
+        call.enqueue(new Callback<List<Tacgia>>() {
+            @Override
+            public void onResponse(Call<List<Tacgia>> call, retrofit2.Response<List<Tacgia>> response) {
+                progressBar.setVisibility(View.GONE);
+                listTacgia= response.body();
+                tacgiaAdapter = new TacgiaAdapter(getContext(),listTacgia);
+                recyclerViewTacgia.setAdapter(tacgiaAdapter);
+                tacgiaAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Tacgia>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -438,4 +470,11 @@ public class HomeFragment extends Fragment {
 //    public void refreshString(String string) {
 //        mTextView.setText(string);
 //    }
+
+    private void addControls(){
+        recyclerViewTheloai = view.findViewById(R.id.recyclerview_theloai);
+        sliderView = view.findViewById(R.id.imageSlider);
+        recyclerview_nxb_home = view.findViewById(R.id.recyclerview_nxb_home);
+        recyclerViewTacgia = view.findViewById(R.id.recyclerview_tacgia_home);
+    }
 }

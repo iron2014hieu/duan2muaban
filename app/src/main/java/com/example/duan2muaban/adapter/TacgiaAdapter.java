@@ -1,6 +1,7 @@
 package com.example.duan2muaban.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,12 @@ public class TacgiaAdapter extends RecyclerView.Adapter<TacgiaAdapter.MyViewHold
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
         myViewHolder.tv_name.setText(mData.get(i).getTentacgia());
         String urlImage = mData.get(i).getHinhanh();
-        Picasso.with(context).load(urlImage).into(myViewHolder.img);
+        try {
+            Picasso.with(context).load(urlImage).into(myViewHolder.img);
+        }catch (Exception e){
+            Log.e("log img", e.toString());
+        }
+
 
 
     }

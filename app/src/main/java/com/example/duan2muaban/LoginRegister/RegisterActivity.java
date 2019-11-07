@@ -32,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText edtName, edtEmail, edtPassword, edtC_password;
     private Button btnRegis;
     private ProgressBar loading;
-    private String URL_REGIS = "http://hieuttpk808.000webhostapp.com/books/login_register/register.php";
+    private String URL_REGIS = "https://bansachonline.xyz/bansach/loginregister/register.php";
 
     SharedPref sharedPref;
     @Override

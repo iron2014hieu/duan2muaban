@@ -33,6 +33,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.hoadon.HoadonActivity;
+import com.example.duan2muaban.LoginRegister.LoginActivity;
 import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
@@ -149,6 +150,7 @@ public class BookDetailActivity extends AppCompatActivity {
                             idUser = user.get(sessionManager.ID);
                             if (idUser==null){
                                 Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
                             }else {
                                 ThemCart(idBook, idUser, tensach, giaban);
                                 sessionManager.createCart(idBook, idUser, tensach, giaban, "0");
@@ -174,11 +176,40 @@ public class BookDetailActivity extends AppCompatActivity {
         btn_muangay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), HoadonActivity.class);
-                intent.putExtra("masach", idBook);
-                intent.putExtra("tensach", tensach);
-                intent.putExtra("gia", giaban);
-                startActivity(intent);
+                AlertDialog.Builder alertDialog = new  AlertDialog.Builder(BookDetailActivity.this);
+                alertDialog.setMessage("Bạn có muốn mua sách "+tensach+" với giá "+giaban+ " không?");
+                alertDialog.setIcon(R.drawable.ic_check_black_24dp);
+                alertDialog.setTitle("Thêm vào giỏ hàng");
+                alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        try {
+                            HashMap<String,String> user = sessionManager.getUserDetail();
+                            idUser = user.get(sessionManager.ID);
+                            if (idUser==null){
+                                Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
+                            }else {
+                                Intent intent=new Intent(getApplicationContext(), HoadonActivity.class);
+                                intent.putExtra("masach", idBook);
+                                intent.putExtra("tensach", tensach);
+                                intent.putExtra("gia", giaban);
+                                startActivity(intent);
+                            }
+                        }catch (Exception e){
+
+                        }
+
+                    }
+                });
+                alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+
+                });
+                alertDialog.show();
             }
         });
         //share text

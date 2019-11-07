@@ -104,9 +104,6 @@ public class CartListFragment extends Fragment {
         iduser = user.get(sessionManager.ID);
 
 
-        String URl_GETDATA = urlSql.URl_GETDATA_CART+iduser;
-        GetData(URl_GETDATA);
-        GetAlltongtien(urlSql.URl_GETDATA_CART_ALL_MONEY+iduser);
 
     }
 

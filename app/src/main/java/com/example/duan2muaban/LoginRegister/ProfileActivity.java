@@ -56,9 +56,9 @@ public class ProfileActivity extends AppCompatActivity {
     SessionManager sessionManager;
     private String TAG = "TAG_PROFILE";
 
-    private static String URL_READ ="http://hieuttpk808.000webhostapp.com/books/login_register/read_detail.php";
-    private static String URL_EDIT ="http://hieuttpk808.000webhostapp.com/books/login_register/edit_detail.php";
-    private static String URL_UPLOAD ="http://hieuttpk808.000webhostapp.com/books/login_register/upload.php";
+    private static String URL_READ ="https://bansachonline.xyz/bansach/loginregister/read_detail.php";
+    private static String URL_EDIT ="https://bansachonline.xyz/bansach/loginregister/edit_detail.php";
+    private static String URL_UPLOAD ="https://bansachonline.xyz/bansach/loginregister/upload.php";
     String email,strid,name,quyen;
 
     private Menu action;

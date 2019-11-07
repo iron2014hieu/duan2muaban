@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
     CircleImageView cicler_logo;
     Button btnLogin;
     ProgressBar progressBar;
-    private String URL_LOGIN = "http://hieuttpk808.000webhostapp.com/books/login_register/login.php";
+    private String URL_LOGIN = "https://bansachonline.xyz/bansach/loginregister/login.php";
     SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

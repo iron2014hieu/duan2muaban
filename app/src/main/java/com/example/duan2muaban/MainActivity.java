@@ -128,6 +128,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(getApplicationContext(), SearchBooksActivity.class));
             }
         });
+        cartButtonIV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Main2Activity.class));
+            }
+        });
     }
 
     public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
@@ -221,12 +227,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-//            case R.id.setting:
-//                startActivity(new Intent(MainActivity.this, SettingsActivity.class));
-//                break;
-//            case R.id.profile:
-//                startActivity(new Intent(MainActivity.this, ProfileActivity.class));
-//                break;
+            case R.id.cart_mn:
+                startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

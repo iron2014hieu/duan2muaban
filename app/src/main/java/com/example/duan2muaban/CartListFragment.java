@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
@@ -66,6 +69,10 @@ public class CartListFragment extends Fragment {
     CartAdapter cartAdapter;
     RecyclerView recyclerView_dat_mua;
     private List<DatMua> listDatmua = new ArrayList<>();
+    CheckBox checkbox_cartlist;
+    int sizeList;
+
+    private Button btnnext;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -75,6 +82,10 @@ public class CartListFragment extends Fragment {
 
         cartAdapter  = new CartAdapter(getContext(), listDatmua);
         recyclerView_dat_mua = view.findViewById(R.id.listDatmua);
+        btnnext = (Button) view.findViewById(R.id.next);
+        checkbox_cartlist=(CheckBox) view.findViewById(R.id.checkbox_cartlist);
+
+
 
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
@@ -82,35 +93,32 @@ public class CartListFragment extends Fragment {
         recyclerView_dat_mua.setHasFixedSize(true);
         fetchDatmua();
 
-        recyclerView_dat_mua.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
-                recyclerView_dat_mua, new RecyclerTouchListener.ClickListener() {
+        checkbox_cartlist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View view, int position) {
-                DatMua datMua = listDatmua.get(position);
-                Intent intent = new Intent(getContext(), EditGioHangActivity.class);
-                String masp = String.valueOf(datMua.getMasach());
-                String sanpham = datMua.getSanpham();
-                String gia = String.valueOf(datMua.getGia());
-                String soluong = String.valueOf(datMua.getSoluong());
-                String tongtien = String.valueOf(datMua.getTongtien());
-                intent.putExtra("masp", masp);
-                intent.putExtra("sanpham", sanpham);
-                intent.putExtra("gia", gia);
-                intent.putExtra("soluong", soluong);
-                intent.putExtra("tongtien", tongtien);
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    listDatmua = getModel(true);
+                    cartAdapter = new CartAdapter(getContext(),listDatmua);
+                    recyclerView_dat_mua.setAdapter(cartAdapter);
+                }else {
+                    listDatmua = getModel(false);
+                    cartAdapter = new CartAdapter(getContext(),listDatmua);
+                    recyclerView_dat_mua.setAdapter(cartAdapter);
+                }
+            }
+        });
 
-                Toast.makeText(getContext(), ""+masp+sanpham+gia+soluong+tongtien, Toast.LENGTH_SHORT).show();
-
+        btnnext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),CartDetailActivity.class);
                 startActivity(intent);
             }
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
+        });
 
         return view;
-    } public void fetchDatmua(){
+    }
+    public void fetchDatmua(){
         apiInTerFaceDatmua = ApiClient.getApiClient().create(ApiInTerFaceDatmua.class);
         Call<List<DatMua>> call = apiInTerFaceDatmua.getDatMua();
 
@@ -118,6 +126,7 @@ public class CartListFragment extends Fragment {
             @Override
             public void onResponse(Call<List<DatMua>> call, retrofit2.Response<List<DatMua>> response) {
                 listDatmua= response.body();
+                sizeList = listDatmua.size();
                 cartAdapter = new CartAdapter(getContext(),listDatmua);
                 recyclerView_dat_mua.setAdapter(cartAdapter);
                 cartAdapter.notifyDataSetChanged();
@@ -128,5 +137,14 @@ public class CartListFragment extends Fragment {
                 Log.e("Error Search:","Error on: "+t.toString());
             }
         });
+    }
+    private List<DatMua> getModel(boolean isSelect){
+        for(int i = 0; i < sizeList ; i++){
+
+            DatMua datMua = new DatMua();
+            listDatmua.get(i).setSelected(isSelect);
+//            listDatmua.add(datMua);
+        }
+        return listDatmua;
     }
 }

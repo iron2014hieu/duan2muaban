@@ -20,6 +20,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Session.SessionManager;
+import com.example.duan2muaban.adapter.CartAdapter;
 import com.example.duan2muaban.nighmode.SharedPref;
 
 import org.json.JSONException;
@@ -29,9 +30,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CartDetailActivity extends AppCompatActivity {
-
+    private TextView tv;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_cart_detail);
+
+        tv = (TextView) findViewById(R.id.tv);
+
+        for (int i = 0; i < CartAdapter.listGiohang.size(); i++){
+            if(CartAdapter.listGiohang.get(i).getSelected()) {
+                tv.setText(tv.getText() + " " + CartAdapter.listGiohang.get(i).getSanpham());
+            }
+        }
     }
 }

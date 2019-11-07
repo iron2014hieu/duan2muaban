@@ -1,30 +1,30 @@
 package com.example.duan2muaban.model;
 
 public class TheLoai {
-    private int maLoai;
-    private String tenLoai;
+    private int maloai;
+    private String tenloai;
     private String image;
 
-    public TheLoai(int maLoai, String tenLoai, String image) {
-        this.maLoai = maLoai;
-        this.tenLoai = tenLoai;
+    public TheLoai(int maloai, String tenloai, String image) {
+        this.maloai = maloai;
+        this.tenloai = tenloai;
         this.image = image;
     }
 
-    public int getMaLoai() {
-        return maLoai;
+    public int getMaloai() {
+        return maloai;
     }
 
-    public void setMaLoai(int maLoai) {
-        this.maLoai = maLoai;
+    public void setMaloai(int maloai) {
+        this.maloai = maloai;
     }
 
-    public String getTenLoai() {
-        return tenLoai;
+    public String getTenloai() {
+        return tenloai;
     }
 
-    public void setTenLoai(String tenLoai) {
-        this.tenLoai = tenLoai;
+    public void setTenloai(String tenloai) {
+        this.tenloai = tenloai;
     }
 
     public String getImage() {

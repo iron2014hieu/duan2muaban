@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -29,12 +30,13 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.BookDetailActivity;
+import com.example.duan2muaban.Activity.GetAllBookActivity;
 import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
-import com.example.duan2muaban.Activity.SearchBooksActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.ApiNXB.ApiInTerFaceNXB;
 import com.example.duan2muaban.ApiRetrofit.ApiTacgia.ApiInTerFaceTacgia;
-import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFaceTensach;
+import com.example.duan2muaban.ApiRetrofit.ApiTheloai.ApiInTerFaceTheloai;
+import com.example.duan2muaban.ApiRetrofit.LiveSearchBook.ApiInTerFace;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
@@ -73,6 +75,8 @@ public class HomeFragment extends Fragment {
 
     SliderView sliderView;
 
+    TextView tvXemThem;
+
 
     private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;
@@ -91,9 +95,10 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewTheloai;
     private RecyclerView recyclerViewTacgia;
 
-    private ApiInTerFaceTensach apiInTerFaceTensach;
     private ApiInTerFaceNXB apiInTerFaceNXB;
     private ApiInTerFaceTacgia apiInTerFaceTacgia;
+    private ApiInTerFaceTheloai apiInTerFaceTheloai;
+    private ApiInTerFace apiInTerFace;
 
     ImageButton buttonRecord;
     View view;
@@ -114,6 +119,14 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home, container, false);
         addControls();
 
+        tvXemThem = view.findViewById(R.id.tvXemthem);
+        tvXemThem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getContext(), GetAllBookActivity.class);
+                startActivity(i);
+            }
+        });
 
         sessionManager = new SessionManager(getContext());
         sachAdapter = new SachAdapter(getContext(), listBookhome);
@@ -168,16 +181,67 @@ public class HomeFragment extends Fragment {
         recyclerViewTacgia.setLayoutManager(gridLayoutManager4);
         recyclerViewTacgia.setHasFixedSize(true);
 
+        //book get by thể loại
         recyclerViewTheloai.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerViewTheloai, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 TheLoai theloai =   listTheloai.get(position);
-                String id = String.valueOf(theloai.getMaLoai());
-                String ten = theloai.getTenLoai();
+                String id = String.valueOf(theloai.getMaloai());
+                String ten = theloai.getTenloai();
 
                 sessionManager.createSessionGuimatheloai(id,ten);
-                startActivity(new Intent(getContext(), GetBookByTheloaiActivity.class));
+                Intent intent = new Intent(getContext(), GetBookByTheloaiActivity.class);
+                intent.putExtra("matheloai", id);
+                intent.putExtra("tentheloai", ten);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                TheLoai theloai =   listTheloai.get(position);
+
+            }
+        }));
+        //book get by tác giả
+        recyclerViewTacgia.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
+                recyclerViewTacgia, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Tacgia theloai =   listTacgia.get(position);
+                String id = String.valueOf(theloai.getMatacgia());
+                String ten = theloai.getTentacgia();
+
+                sessionManager.createSessionGuimatacgia(id,ten);
+
+                Intent intent = new Intent(getContext(), GetBookByTheloaiActivity.class);
+                intent.putExtra("matacgia", id);
+                intent.putExtra("tentacgia", ten);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+                TheLoai theloai =   listTheloai.get(position);
+
+            }
+        }));
+        //book get by nhà xuất bản
+        recyclerview_nxb_home.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
+                recyclerview_nxb_home, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Nhaxuatban theloai =   listNhaxuatbanHome.get(position);
+                String id = String.valueOf(theloai.getManxb());
+                String ten = theloai.getTennxb();
+
+                sessionManager.createSessionGuimaNXB(id,ten);
+                Intent intent = new Intent(getContext(), GetBookByTheloaiActivity.class);
+                intent.putExtra("manxb", id);
+                intent.putExtra("tennxb", ten);
+                startActivity(intent);
 
             }
 
@@ -216,7 +280,8 @@ public class HomeFragment extends Fragment {
             }
         }));
         //get
-        GetAllData(urlSql.URL_GETDATA_THELOAI);
+//        GetAllData(urlSql.URL_GETDATA_THELOAI);
+        fetchTheloai();
         fetchUser("");
         fetchNXB();
         fetchTacgia();
@@ -336,7 +401,7 @@ public class HomeFragment extends Fragment {
 
         return view;
     }
-
+    //get with volley
     public void GetAllData(String url){
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -376,22 +441,31 @@ public class HomeFragment extends Fragment {
     }
 
 
+    public void fetchTheloai(){
+        apiInTerFaceTheloai = ApiClient.getApiClient().create(ApiInTerFaceTheloai.class);
+        Call<List<TheLoai>> call = apiInTerFaceTheloai.getTheloai();
 
-//    private void flipperImages(int image) {
-//        ImageView imageView = new ImageView(getContext());
-//        imageView.setBackgroundResource(image);
-//
-//        v_vflipper.addView(imageView);
-//        v_vflipper.setFlipInterval(3000);
-//        v_vflipper.setAutoStart(true);
-//
-//        v_vflipper.setInAnimation(getContext(),android.R.anim.slide_in_left);
-//        v_vflipper.setOutAnimation(getContext(),android.R.anim.slide_out_right  );
-//    }
+        call.enqueue(new Callback<List<TheLoai>>() {
+            @Override
+            public void onResponse(Call<List<TheLoai>> call, retrofit2.Response<List<TheLoai>> response) {
+                progressBar.setVisibility(View.GONE);
+                listTheloai= response.body();
+                theLoaiAdapter = new TheLoaiAdapter(getContext(),listTheloai);
+                recyclerViewTheloai.setAdapter(theLoaiAdapter);
+                theLoaiAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<TheLoai>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+    }
 
     public void fetchUser(String key){
-        apiInTerFaceTensach = ApiClient.getApiClient().create(ApiInTerFaceTensach.class);
-        Call<List<Books>> call = apiInTerFaceTensach.getUsers(key);
+        apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
+        Call<List<Books>> call = apiInTerFace.getBook_tensach(key);
 
         call.enqueue(new Callback<List<Books>>() {
             @Override

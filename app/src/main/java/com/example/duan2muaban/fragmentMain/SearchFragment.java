@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.duan2muaban.Activity.BookDetailActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
-import com.example.duan2muaban.ApiRetrofit.LiveSearch.ApiInTerFace;
+import com.example.duan2muaban.ApiRetrofit.LiveSearchBook.ApiInTerFace;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
@@ -127,7 +127,7 @@ public class SearchFragment extends Fragment {
     }
     public void fetchUser(String key){
         apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
-        Call<List<Books>> call = apiInTerFace.getUsers(key);
+        Call<List<Books>> call = apiInTerFace.getBooks(key);
 
         call.enqueue(new Callback<List<Books>>() {
             @Override

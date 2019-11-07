@@ -76,8 +76,8 @@ public class TheloaiFragment extends Fragment {
             @Override
             public void onClick(View view, int position) {
                 TheLoai theloai =   listTheloai.get(position);
-                String id = String.valueOf(theloai.getMaLoai());
-                String ten = theloai.getTenLoai();
+                String id = String.valueOf(theloai.getMaloai());
+                String ten = theloai.getTenloai();
 
                 sessionManager.createSessionGuimatheloai(id,ten);
                 startActivity(new Intent(getContext(), GetBookByTheloaiActivity.class));

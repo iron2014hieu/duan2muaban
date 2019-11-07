@@ -10,7 +10,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -20,11 +19,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.ApiRetrofit.ApiClient;
+import com.example.duan2muaban.ApiRetrofit.LiveSearchBook.ApiInTerFace;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.SachAdapter;
-import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.nighmode.SharedPref;
 import com.example.duan2muaban.publicString.URL.UrlSql;
@@ -37,23 +37,22 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class GetBookByTheloaiActivity extends AppCompatActivity {
     SharedPref sharedPref;
     UrlSql urlSql = new UrlSql();
-    String matheloai;
+    String matheloai, tentheloai, matacgia, tentacgia, manxb, tennxb;
     public String URL_GETDATABYMATHELOAI;
 
     private List<Books> listBook =new ArrayList<>();
-    private RecyclerView recyclerView;
-    private CircleImageView circleImageView;
+    private RecyclerView recyclerview_book;
     private TextView textViewTB;
 
+    private ApiInTerFace apiInTerFace;
     private SessionManager sessionManager;
-    String tentheloai;
-
-    SachAdapter recyclerViewAdapter;
+    SachAdapter sachAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,43 +63,72 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
 
 
-        recyclerView=findViewById(R.id.recyclerview_book_bymatheloai);
+        recyclerview_book=findViewById(R.id.recyclerview_book_bymatheloai);
         textViewTB=findViewById(R.id.txtThongbaonull);
         sessionManager = new SessionManager(this);
+
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             String quyen = user.get(sessionManager.QUYEN);
-//            Toast.makeText(GetBookByTheloaiActivity.this, ""+quyen, Toast.LENGTH_SHORT).show();
             if (quyen==null){
 
             }else if (quyen.equals("user")){
 
             }
             else {
-                circleImageView.setVisibility(View.VISIBLE);
             }
         }catch (Exception e){
             Log.e("LOG", e.toString());
         }
 
-        recyclerViewAdapter = new SachAdapter(this, listBook);
+        sachAdapter = new SachAdapter(this, listBook);
 
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(gridLayoutManagerVeticl);
-        recyclerView.setAdapter(recyclerViewAdapter);
+                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerview_book.setLayoutManager(gridLayoutManagerVeticl);
+        recyclerview_book.setHasFixedSize(true);
 
-        HashMap<String,String> theloai = sessionManager.getMAtheloai();
-        matheloai = theloai.get(sessionManager.MATHELOAI);
-        tentheloai = theloai.get(sessionManager.TEN_THELOAI);
-        String tenTheloai = theloai.get(sessionManager.TEN_THELOAI);
+        try {
+            //lấy tt thể loai
+                Intent intent = getIntent();
+                matheloai =  intent.getStringExtra("matheloai");
+                tentheloai = intent.getStringExtra("tentheloai");
 
-        toolbar.setTitle("Thể loại "+tenTheloai);
-        URL_GETDATABYMATHELOAI = urlSql.URL_GETDATA_BY_MATHELOAI+matheloai;
-        GetData(URL_GETDATABYMATHELOAI);
+                manxb =  intent.getStringExtra("manxb");
+                tennxb = intent.getStringExtra("tennxb");
 
-        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this,
-                recyclerView, new RecyclerTouchListener.ClickListener() {
+                matacgia =  intent.getStringExtra("matacgia");
+                tentacgia = intent.getStringExtra("tentacgia");
+//            HashMap<String,String> theloai = sessionManager.getMAtheloai();
+//            matheloai = theloai.get(sessionManager.MATHELOAI);
+//            tentheloai = theloai.get(sessionManager.TEN_THELOAI);
+//            HashMap<String,String> nxb = sessionManager.getMaNXB();
+//            manxb = nxb.get(sessionManager.MANXB);
+//            tennxb = nxb.get(sessionManager.TENNXB);
+//
+//            HashMap<String,String> tacgia = sessionManager.getMAtacgia();
+//            matacgia = tacgia.get(sessionManager.MATACGIA);
+//            tentacgia = tacgia.get(sessionManager.TENTACGIA);
+
+
+            if (matheloai!= null) {
+                fetchBookbymatheloai(matheloai);
+                toolbar.setTitle("Thể loại "+tentheloai);
+            } else if (matacgia!=null){
+                fetchBookbyTacgia(matacgia);
+                toolbar.setTitle("Tác giả "+tentacgia);
+            } else if (manxb !=null){
+                fetchBookbyNXB(manxb);
+                toolbar.setTitle("Nhà xuất bản "+tennxb);
+            }
+        }catch (Exception e){
+            Toast.makeText(this, ""+e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+
+
+        recyclerview_book.addOnItemTouchListener(new RecyclerTouchListener(this,
+                recyclerview_book, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
                 Books books =   listBook.get(position);
@@ -128,68 +156,68 @@ public class GetBookByTheloaiActivity extends AppCompatActivity {
             }
         }));
 
-
-
-
-
     }
-    public void GetData(String url){
-        RequestQueue requestQueue = Volley.newRequestQueue(GetBookByTheloaiActivity.this);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        listBook.clear();
-//                        if (response.length() > 0){
-//                            recyclerView.setVisibility(View.VISIBLE);
-//                            textViewTB.setVisibility(View.GONE);
-//                        }else{
-//                            recyclerView.setVisibility(View.GONE);
-//                            textViewTB.setVisibility(View.VISIBLE);
-//                            try {
-//                                HashMap<String,String> user = sessionManager.getUserDetail();
-//                                String quyen = user.get(sessionManager.QUYEN);
-//                                if (quyen.equals("store")||quyen.equals("admin")){
-//                                    textViewTB.setText("Chưa có sách trong thể loại "+tentheloai+ ", bạn hãy thêm để chúng xuất hiện ở đây!");
-//                                }else {
-//                                    textViewTB.setText("Chưa có sách trong thể loại "+tentheloai+ ", vui lòng quay lại sau!");
-//                                }
-//
-//                            }catch (Exception e){
-//                                Log.e("LOG", e.toString());
-//                            }
-//                        }
-                        for (int i = 0; i < response.length(); i++){
-                            try {
-                                JSONObject object = response.getJSONObject(i);
-                                listBook.add(new Books(
-                                        object.getInt("masach"),
-                                        object.getString("tensach"),
-                                        object.getInt("manxb"),
-                                        object.getInt("matheloai"),
-                                        object.getString("ngayxb"),
-                                        object.getString("noidung"),
-                                        object.getString("anhbia"),
-                                        object.getInt("gia"),
-                                        object.getString("tennxb"),
-                                        object.getInt("soluong"),
-                                        object.getString("tacgia")
-                                ));
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                                Toast.makeText(GetBookByTheloaiActivity.this, "loi e: "+e.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                        recyclerViewAdapter.notifyDataSetChanged();
+    public void fetchBookbymatheloai(String maTheloai) {
+        apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
+        Call<List<Books>> call = apiInTerFace.getBookbyMatheloai(maTheloai);
 
-                    }
-                }, new Response.ErrorListener() {
+        call.enqueue(new Callback<List<Books>>() {
             @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(GetBookByTheloaiActivity.this,"error: "+ error.toString(), Toast.LENGTH_SHORT).show();
+            public void onResponse(Call<List<Books>> call, retrofit2.Response<List<Books>> response) {
+                //progressBar.setVisibility(View.GONE);
+                listBook= response.body();
+                sachAdapter = new SachAdapter(GetBookByTheloaiActivity.this,listBook);
+                recyclerview_book.setAdapter(sachAdapter);
+                sachAdapter.notifyDataSetChanged();
+            }
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                //progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
             }
         });
-        requestQueue.add(jsonArrayRequest);
+    }
+    public void fetchBookbyTacgia(String maTheloai) {
+        apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
+        Call<List<Books>> call = apiInTerFace.getBookbyMatacgia(maTheloai);
+
+        call.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, retrofit2.Response<List<Books>> response) {
+                //progressBar.setVisibility(View.GONE);
+                listBook= response.body();
+                sachAdapter = new SachAdapter(GetBookByTheloaiActivity.this,listBook);
+                recyclerview_book.setAdapter(sachAdapter);
+                sachAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                //progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+    }
+    public void fetchBookbyNXB(String manxb) {
+        apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
+        Call<List<Books>> call = apiInTerFace.getBookbyManxb(manxb);
+
+        call.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, retrofit2.Response<List<Books>> response) {
+                //progressBar.setVisibility(View.GONE);
+                listBook= response.body();
+                sachAdapter = new SachAdapter(GetBookByTheloaiActivity.this,listBook);
+                recyclerview_book.setAdapter(sachAdapter);
+                sachAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                //progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
     }
     public  void theme(){
         if (sharedPref.loadNightModeState() == true){

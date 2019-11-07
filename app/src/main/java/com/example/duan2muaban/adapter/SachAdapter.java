@@ -84,7 +84,6 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            item_contact=(LinearLayout)itemView.findViewById(R.id.contact_item);
             tv_name=(TextView)itemView.findViewById(R.id.books_name);
             tv_phone=(TextView)itemView.findViewById(R.id.books_chitiet);
             img=(ImageView) itemView.findViewById(R.id.img_book_iv);

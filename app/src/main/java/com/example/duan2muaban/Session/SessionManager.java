@@ -42,9 +42,13 @@ public class SessionManager {
     public static final String TACGIA = "TACGIA";
 
     public static final String DATHANHTOAN = "DATHANHTOAN";
-
     public static final String LINK_BOOK_READ = "LINK_BOOK_READ";
 
+    //bảng tấc giả
+    public static final String MATACGIA = "MATACGIA";
+    public static final String TENTACGIA = "TENTACGIA";
+    //bảng thể loại
+    public static final String TENTHELOAI = "TENTHELOAI";
 
 
     public SessionManager(Context context) {
@@ -64,6 +68,16 @@ public class SessionManager {
     public void createSessionGuimatheloai(String matheloai,String tentheloai){
         editor.putString(MATHELOAI, matheloai);
         editor.putString(TEN_THELOAI, tentheloai);
+        editor.apply();
+    }
+    public void createSessionGuimatacgia(String matacgia,String tentacgia){
+        editor.putString(MATACGIA, matacgia);
+        editor.putString(TENTACGIA, tentacgia);
+        editor.apply();
+    }
+    public void createSessionGuimaNXB(String manxb,String tennxb){
+        editor.putString(MANXB, manxb);
+        editor.putString(TENNXB, tennxb);
         editor.apply();
     }
 
@@ -103,6 +117,7 @@ public class SessionManager {
         editor.putString(LINK_BOOK_READ, linkbook);
         editor.apply();
     }
+    // kiểm tra login
     public boolean isLOggin(){
         return sharedPreferences.getBoolean(LOGIN, false);
     }
@@ -113,6 +128,7 @@ public class SessionManager {
             ((ProfileActivity)context).finish();
         }
     }
+    // các hàm lấy dữ liệu
     public HashMap<String, String> getUserDetail(){
         HashMap<String, String> user = new HashMap<>();
         user.put(ID, sharedPreferences.getString(ID, null));
@@ -126,6 +142,18 @@ public class SessionManager {
         theloai.put(MATHELOAI, sharedPreferences.getString(MATHELOAI, null));
         theloai.put(TEN_THELOAI, sharedPreferences.getString(TEN_THELOAI, null));
         return theloai;
+    }
+    public HashMap<String, String> getMAtacgia(){
+        HashMap<String, String> tacgia = new HashMap<>();
+        tacgia.put(MATACGIA, sharedPreferences.getString(MATACGIA, null));
+        tacgia.put(TENTACGIA, sharedPreferences.getString(TENTACGIA, null));
+        return tacgia;
+    }
+    public HashMap<String, String> getMaNXB(){
+        HashMap<String, String> nxb = new HashMap<>();
+        nxb.put(MANXB, sharedPreferences.getString(MANXB, null));
+        nxb.put(TENNXB, sharedPreferences.getString(TENNXB, null));
+        return nxb;
     }
     public HashMap<String, String> getCart(){
         HashMap<String, String> cart = new HashMap<>();

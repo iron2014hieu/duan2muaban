@@ -22,10 +22,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.CartDetailActivity;
+import com.example.duan2muaban.LoginRegister.RegisterActivity;
 import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.adapter.CartAdapter;
 import com.example.duan2muaban.model.DatMua;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -114,11 +118,25 @@ public class DatmuaActivity extends AppCompatActivity {
                 new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (response.trim().equals("tb")){
-                            Toast.makeText(DatmuaActivity.this, "datontai", Toast.LENGTH_SHORT).show();
-                        }else if (response.trim().equals("tc")){
-                            Toast.makeText(DatmuaActivity.this, "success", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(DatmuaActivity.this, Main2Activity.class));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            String check = jsonObject.getString("check");
+
+                            if(check.equals("chuatontai")){
+
+                                if (success.equals("1")){
+//                                    Toast.makeText(Main2Activity.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), Main2Activity.class));
+                                }else {
+//                                    Toast.makeText(RegisterActivity.this, "Đăng ký thất bại", Toast.LENGTH_SHORT).show();
+                                }
+                            }else {
+                                Toast.makeText(DatmuaActivity.this, "Tài khoản đã tồn tại!", Toast.LENGTH_SHORT).show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("printStackTrace", e.toString());
                         }
                     }
                 }, new Response.ErrorListener() {

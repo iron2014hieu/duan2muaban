@@ -145,7 +145,7 @@ public class CartListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),CartDetailActivity.class);
-                Toast.makeText(getContext(), "Tiền: "+tongTien, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getContext(), "Tiền: "+tongTien, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });

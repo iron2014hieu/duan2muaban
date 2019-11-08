@@ -91,18 +91,16 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 if (isChecked) {
                     listGiohang.get(pos).setSelected(true);
                         if(listGiohang.get(i).getSelected() == true) {
-                            tongTienSach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
+                            tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
                             tongTienSach +=tongTienTungsach;
-                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
-                        //Toast.makeText(context, listGiohang.get(pos).getSanpham() + " vừa ĐƯỢC chọn! tt "+tongTienSach, Toast.LENGTH_SHORT).show();
+                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
                     }
                 } else {
                     listGiohang.get(pos).setSelected(false);
                         if (listGiohang.get(i).getSelected()== false){
-                            tongTienSach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
+                            tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
                             tongTienSach -=tongTienTungsach;
-                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
-                        //Toast.makeText(context, listGiohang.get(pos).getSanpham() + " vừa BỎ chọn! tt"+ tongTienSach, Toast.LENGTH_SHORT).show();
+                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
                     }
 
                 }
@@ -111,8 +109,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
         iduser = listGiohang.get(i).getMauser();
         masach = String.valueOf(listGiohang.get(i).getMasach());
-
-        Toast.makeText(context, ""+masach+iduser, Toast.LENGTH_SHORT).show();
 
         // get details
         holder.linear_cart.setOnClickListener(new View.OnClickListener() {

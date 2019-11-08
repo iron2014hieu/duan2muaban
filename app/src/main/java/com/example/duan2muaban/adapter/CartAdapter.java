@@ -27,13 +27,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.duan2muaban.Activity.BookDetailPayActivity;
-import com.example.duan2muaban.Activity.DatmuaActivity;
-import com.example.duan2muaban.Activity.EditGioHangActivity;
 import com.example.duan2muaban.CartListFragment;
 import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
-import com.example.duan2muaban.model.Cart;
 import com.example.duan2muaban.model.DatMua;
 import com.squareup.picasso.Picasso;
 
@@ -140,6 +136,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 String tt = String.valueOf(giaBan*soLuong);
                 holder.tv_soluongmua.setText(String.valueOf(soLuong));
                 updateSoluongTongtien(String.valueOf(soLuong),iduser, masach, "https://bansachonline.xyz/bansach/giohang/update_carts.php");
+                if(listGiohang.get(i).getSelected() == true) {
+                    //tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
+                    //tongTienSach +=tongTienTungsach;
+                    CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
+                }
 
             }
         });
@@ -151,6 +152,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     String tt = String.valueOf(giaBan*soLuong);
                     holder.tv_soluongmua.setText(String.valueOf(soLuong));
                     updateSoluongTongtien(String.valueOf(soLuong),iduser, masach, "https://bansachonline.xyz/bansach/giohang/update_carts.php");
+                    if(listGiohang.get(i).getSelected() == true) {
+                        //tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
+                        CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
+                    }
+
                 }
             }
         });

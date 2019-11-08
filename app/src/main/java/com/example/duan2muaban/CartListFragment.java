@@ -122,7 +122,7 @@ public class CartListFragment extends Fragment {
                         if (listDatmua.get(i).getSelected() == true){
                             getTongtien = listDatmua.get(i).getGia()*listDatmua.get(i).getSoluong();
                             tongTien += getTongtien;
-                            txtTongtien.setText(String.valueOf(tongTien));
+                            txtTongtien.setText(String.valueOf(tongTien)+" VNĐ");
                         }
                     }
                 }else {
@@ -134,7 +134,7 @@ public class CartListFragment extends Fragment {
                         if (listDatmua.get(i).getSelected() == false){
                             getTongtien = listDatmua.get(i).getGia()*listDatmua.get(i).getSoluong();
                             tongTien -= getTongtien;
-                            txtTongtien.setText(String.valueOf(0));
+                            txtTongtien.setText(String.valueOf(0)+" VNĐ");
                         }
                     }
                 }
@@ -192,5 +192,8 @@ public class CartListFragment extends Fragment {
 //            listDatmua.add(datMua);
         }
         return listDatmua;
+    }
+    private void tinhTongtien() {
+
     }
 }

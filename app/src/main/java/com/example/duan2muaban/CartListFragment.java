@@ -147,6 +147,16 @@ public class CartListFragment extends Fragment {
                 Intent intent = new Intent(getContext(),CartDetailActivity.class);
 //                Toast.makeText(getContext(), "Tiền: "+tongTien, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
+//                Intent intent = new Intent(getContext(), CartDetailActivity.class);
+//                String masp = String.valueOf(datMua.getMasach());
+//                String sanpham = datMua.getSanpham();
+//                String gia = String.valueOf(datMua.getGia());
+//                String soluong = String.valueOf(datMua.getSoluong());
+//
+//                intent.putExtra("masp", masp);
+//                intent.putExtra("sanpham", sanpham);
+//                intent.putExtra("gia", gia);
+//                intent.putExtra("soluong", soluong);
             }
         });
 

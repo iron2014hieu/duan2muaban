@@ -18,18 +18,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Chọn tất cả"/>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#fff"
-                android:id="@+id/next"
-                android:visibility="visible"
-                android:text="Next activity DEmo"/>
-        </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/listDatmua"
             android:layout_width="match_parent"
@@ -38,35 +26,29 @@
         </androidx.recyclerview.widget.RecyclerView>
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <LinearLayout
-                android:layout_weight="2"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
                     android:id="@+id/txtTongtien"
-                    android:layout_weight="1"
                     android:textSize="20dp"
                     android:textColor="#F44336"
                     android:text="Tổng tiền : "
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <EditText
-                    android:layout_weight="1"
-                    android:hint="Nhập mã khuyến mãi"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
             <Button
                 android:textColor="#fff"
                 android:background="#2196F3"
                 android:text="Thanh toán"
+                android:id="@+id/next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
     </LinearLayout>
-
 </ScrollView>

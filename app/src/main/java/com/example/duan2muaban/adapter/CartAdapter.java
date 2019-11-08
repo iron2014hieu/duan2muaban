@@ -111,25 +111,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         masach = String.valueOf(listGiohang.get(i).getMasach());
 
         // get details
-        holder.linear_cart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatMua datMua = listGiohang.get(i);
-                Intent intent = new Intent(context, EditGioHangActivity.class);
-                String masp = String.valueOf(datMua.getMasach());
-                String sanpham = datMua.getSanpham();
-                String gia = String.valueOf(datMua.getGia());
-                String soluong = String.valueOf(datMua.getSoluong());
-
-                intent.putExtra("masp", masp);
-                intent.putExtra("sanpham", sanpham);
-                intent.putExtra("gia", gia);
-                intent.putExtra("soluong", soluong);
-
-
-                context.startActivity(intent);
-            }
-        });
+//        holder.linear_cart.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DatMua datMua = listGiohang.get(i);
+//                Intent intent = new Intent(context, EditGioHangActivity.class);
+//                String masp = String.valueOf(datMua.getMasach());
+//                String sanpham = datMua.getSanpham();
+//                String gia = String.valueOf(datMua.getGia());
+//                String soluong = String.valueOf(datMua.getSoluong());
+//
+//                intent.putExtra("masp", masp);
+//                intent.putExtra("sanpham", sanpham);
+//                intent.putExtra("gia", gia);
+//                intent.putExtra("soluong", soluong);
+//
+//
+//                context.startActivity(intent);
+//            }
+//        });
 
         holder.tv_soluongmua.setText(String.valueOf(listGiohang.get(i).getSoluong()));
 

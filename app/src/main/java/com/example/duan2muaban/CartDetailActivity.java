@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,30 +34,36 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CartDetailActivity extends AppCompatActivity {
-    private TextView tv;
-    CartAdapter cartAdapter;
-    RecyclerView recyclerview_create_hoadon;
+
+    EditText edtMaGiamGia, edtTongtien;
+    Button btnCheckMGG;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cart_detail);
 
-        tv = (TextView) findViewById(R.id.tv);
-        recyclerview_create_hoadon= findViewById(R.id.recyclerview_create_hoadon);
-        for (int i = 0; i < CartAdapter.listGiohang.size(); i++){
-            if(CartAdapter.listGiohang.get(i).getSelected()) {
-                tv.setText(tv.getText() +" Mã sách: "+ CartAdapter.listGiohang.get(i).getMasach());
-//                cartAdapter = new CartAdapter(this, CartAdapter.listGiohang);
-            }
-        }
+        edtMaGiamGia = findViewById(R.id.edtMaGiamGia);
+        edtTongtien = findViewById(R.id.edtTongtien);
+        btnCheckMGG = findViewById(R.id.CheckMGG);
 
-        // recyclerview nhà xuất bản
-        StaggeredGridLayoutManager gridLayoutManager3 =
-                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
-        recyclerview_create_hoadon.setLayoutManager(gridLayoutManager3);
-        recyclerview_create_hoadon.setHasFixedSize(true);
-        recyclerview_create_hoadon.setAdapter(cartAdapter);
+        btnCheckMGG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String s = edtMaGiamGia.getText().toString();
+                if (s.isEmpty()){
+                    Toast.makeText(CartDetailActivity.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent i = new Intent("android.intent.action.CUSTOM_INTENT_BAI3");
+                Bundle bundle = new Bundle();
+                bundle.putString("MA",edtMaGiamGia.getText().toString());
+                i.putExtras(bundle);
+                sendBroadcast(i);
+                edtMaGiamGia.setText("");
+            }
+        });
+
 
     }
 }

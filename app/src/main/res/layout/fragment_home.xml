@@ -89,10 +89,12 @@
                     android:layout_height="30dp">
                 </TextView>
                 <TextView
+                    android:textStyle="bold"
                     android:id="@+id/tvXemthem"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:gravity="right"
+                    android:textColor="#3F51B5"
                     android:text="Xem thêm >>"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">

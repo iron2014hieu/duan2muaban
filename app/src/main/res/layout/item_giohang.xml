@@ -11,6 +11,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"/>
     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <LinearLayout
         android:id="@+id/linear_cart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,13 +44,35 @@
             android:text="Contact phone"
             android:textColor="?attr/textcolor"
             android:textStyle="bold"
-            android:id="@+id/tv_soluongmua"/>
+            android:id="@+id/tv_giaban"/>
+    </LinearLayout>
     </LinearLayout>
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundcolor"
-    android:gravity="end">
+    android:gravity="center">
+    <ImageButton
+        android:id="@+id/btnGiam_sl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_chevron_left"/>
+    <TextView
+        android:id="@+id/tv_soluongmua"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:text="0"/>
+    <ImageButton
+        android:id="@+id/btnTang_sl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_chevron_right"/>
+    <Button
+        android:id="@+id/btn_iv_Xoa_giohang"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xóa"/>
 </LinearLayout>
 </LinearLayout>
 </LinearLayout>

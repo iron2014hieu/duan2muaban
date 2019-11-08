@@ -194,6 +194,8 @@ public class BookDetailActivity extends AppCompatActivity {
                                 intent.putExtra("masach", idBook);
                                 intent.putExtra("tensach", tensach);
                                 intent.putExtra("gia", giaban);
+                                intent.putExtra("hinhanhsach", linkImage);
+                                intent.putExtra("mauser", idUser);
                                 startActivity(intent);
                             }
                         }catch (Exception e){

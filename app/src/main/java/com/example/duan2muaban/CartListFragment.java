@@ -74,6 +74,9 @@ public class CartListFragment extends Fragment {
     public  static TextView txtTongtien;
     private Button btnnext;
     int tongTien =0;
+    String quyen, name, idUser;
+    SessionManager sessionManager;
+    int getTongtien;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -86,13 +89,19 @@ public class CartListFragment extends Fragment {
         btnnext = (Button) view.findViewById(R.id.next);
         checkbox_cartlist=(CheckBox) view.findViewById(R.id.checkbox_cartlist);
 
+        sessionManager= new SessionManager(getContext());
+
+        HashMap<String,String> user = sessionManager.getUserDetail();
+        quyen = user.get(sessionManager.QUYEN);
+        name = user.get(sessionManager.NAME);
+        idUser = user.get(sessionManager.ID);
 
         tongTien += CartAdapter.tongTienSach;
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView_dat_mua.setLayoutManager(gridLayoutManager);
         recyclerView_dat_mua.setHasFixedSize(true);
-        fetchDatmua();
+        fetchDatmua(idUser);
 //        txtTongtien.setText(String.valueOf(CartAdapter.tongTienSach));
 //        for(int i = 0; i < sizeList ; i++){
 //            if(CartAdapter.listGiohang.get(i).getSelected() == false) {
@@ -111,7 +120,8 @@ public class CartListFragment extends Fragment {
 
                     for (int i = 0; i< sizeList;i++){
                         if (listDatmua.get(i).getSelected() == true){
-                            tongTien += listDatmua.get(i).getTongtien();
+                            getTongtien = listDatmua.get(i).getGia()*listDatmua.get(i).getSoluong();
+                            tongTien += getTongtien;
                             txtTongtien.setText(String.valueOf(tongTien));
                         }
                     }
@@ -122,7 +132,8 @@ public class CartListFragment extends Fragment {
 
                     for (int i = 0; i< sizeList;i++){
                         if (listDatmua.get(i).getSelected() == false){
-                            tongTien -= listDatmua.get(i).getTongtien();
+                            getTongtien = listDatmua.get(i).getGia()*listDatmua.get(i).getSoluong();
+                            tongTien -= getTongtien;
                             txtTongtien.setText(String.valueOf(0));
                         }
                     }
@@ -143,9 +154,9 @@ public class CartListFragment extends Fragment {
     }
 
 
-    public void fetchDatmua(){
+    public void fetchDatmua(String key){
         apiInTerFaceDatmua = ApiClient.getApiClient().create(ApiInTerFaceDatmua.class);
-        Call<List<DatMua>> call = apiInTerFaceDatmua.getDatMua();
+        Call<List<DatMua>> call = apiInTerFaceDatmua.getDatMua(key);
 
         call.enqueue(new Callback<List<DatMua>>() {
             @Override
@@ -169,10 +180,6 @@ public class CartListFragment extends Fragment {
             DatMua datMua = new DatMua();
             listDatmua.get(i).setSelected(isSelect);
 //            listDatmua.add(datMua);
-            int tontien =0;
-            tontien+=listDatmua.get(i).getTongtien();
-
-            txtTongtien.setText(tontien+ "VNĐ");
         }
         return listDatmua;
     }

@@ -9,8 +9,9 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface ApiInTerFaceDatmua {
     @GET("giohang/query_carts.php")
-    Call<List<DatMua>> getDatMua();
+    Call<List<DatMua>> getDatMua(@Query("mauser") String keyword);
 }

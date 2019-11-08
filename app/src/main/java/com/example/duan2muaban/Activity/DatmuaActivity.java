@@ -24,6 +24,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.CartDetailActivity;
 import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
+import com.example.duan2muaban.adapter.CartAdapter;
 import com.example.duan2muaban.model.DatMua;
 
 import java.util.HashMap;
@@ -52,7 +53,9 @@ public class DatmuaActivity extends AppCompatActivity {
         Intent intent = getIntent();
         final String masach = intent.getStringExtra("masach");
         final String tensach = intent.getStringExtra("tensach");
+        final String linkAnh = intent.getStringExtra("hinhanhsach");
         String giaban = intent.getStringExtra("gia");
+        final String iduser = intent.getStringExtra("mauser");
 
         edtmaSp = findViewById(R.id.edtmaSanPhamKH);
         edtTensp = findViewById(R.id.edtSanPhamKH);
@@ -85,10 +88,11 @@ public class DatmuaActivity extends AppCompatActivity {
             }
         });
 
+
         btnDatmua.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ThemDatmua(masach, tensach);
+                ThemDatmua(masach, tensach, linkAnh,iduser);
             }
         });
     }
@@ -104,7 +108,7 @@ public class DatmuaActivity extends AppCompatActivity {
             edtTongtien.setText(String.valueOf(giaBan*giaTri));
         }
     }
-    private void ThemDatmua(final String masach, final String sp){
+    private void ThemDatmua(final String masach, final String sp, final String hinhanhsach, final String mauser){
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INSERT,
                 new com.android.volley.Response.Listener<String>() {
@@ -130,9 +134,11 @@ public class DatmuaActivity extends AppCompatActivity {
                 Map<String, String > params = new HashMap<>();
                 params.put("masach", masach);
                 params.put("sanpham", sp);
+                params.put("hinhanh", hinhanhsach);
                 params.put("gia", edtGiasp.getText().toString().trim());
                 params.put("soluong", edtSL.getText().toString().trim());
                 params.put("tongtien", edtTongtien.getText().toString().trim());
+                params.put("mauser", mauser);
                 return params;
             }
         };

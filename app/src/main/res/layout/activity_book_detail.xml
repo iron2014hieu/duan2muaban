@@ -304,6 +304,7 @@
             android:layout_marginLeft="10dp"
             android:background="#CDDC39"
             android:text="Thêm vào giỏ"
+            android:visibility="gone"
             android:textColor="#ffff"
             android:textSize="12dp" />
         <Button

@@ -7,18 +7,19 @@ public class DatMua {
     int gia;
     int soluong;
     int tongtien;
+    String hinhanh;
 
-    public DatMua(boolean isSelected, int masach, String sanpham, int gia, int soluong, int tongtien) {
+    public DatMua() {
+    }
+
+    public DatMua(boolean isSelected, int masach, String sanpham, int gia, int soluong, int tongtien, String hinhanh) {
         this.isSelected = isSelected;
         this.masach = masach;
         this.sanpham = sanpham;
         this.gia = gia;
         this.soluong = soluong;
         this.tongtien = tongtien;
-    }
-
-    public DatMua() {
-
+        this.hinhanh = hinhanh;
     }
 
     public boolean getSelected() {
@@ -67,5 +68,13 @@ public class DatMua {
 
     public void setTongtien(int tongtien) {
         this.tongtien = tongtien;
+    }
+
+    public String getHinhanh() {
+        return hinhanh;
+    }
+
+    public void setHinhanh(String hinhanh) {
+        this.hinhanh = hinhanh;
     }
 }

@@ -26,9 +26,11 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.BookDetailPayActivity;
 import com.example.duan2muaban.Activity.EditGioHangActivity;
+import com.example.duan2muaban.CartListFragment;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.model.Cart;
 import com.example.duan2muaban.model.DatMua;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,7 +43,7 @@ import java.util.Map;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> {
     Context context;
     public static List<DatMua> listGiohang;
-
+    public static int tongTienSach;
 
     public CartAdapter(Context context, List<DatMua> listGiohang) {
         this.context = context;
@@ -65,6 +67,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.checkBox.setChecked(listGiohang.get(i).getSelected());// nếu tự tạo sẻ là isSelected
         holder.tv_name.setText(listGiohang.get(i).getSanpham());
         holder.tv_soluongmua.setText(listGiohang.get(i).getGia()+" VNĐ");
+        Picasso.with(context).load(listGiohang.get(i).getHinhanh()).into(holder.img_cart);
 
         holder.checkBox.setTag(i);
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -73,13 +76,25 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                 Integer pos = (Integer) holder.checkBox.getTag();
                 if (isChecked) {
                     listGiohang.get(pos).setSelected(true);
-                    Toast.makeText(context, listGiohang.get(pos).getSanpham() + " vừa ĐƯỢC chọn!", Toast.LENGTH_SHORT).show();
+                        if(listGiohang.get(i).getSelected() == true) {
+                            tongTienSach +=listGiohang.get(i).getTongtien();
+                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
+                        //Toast.makeText(context, listGiohang.get(pos).getSanpham() + " vừa ĐƯỢC chọn! tt "+tongTienSach, Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     listGiohang.get(pos).setSelected(false);
-                    Toast.makeText(context, listGiohang.get(pos).getSanpham() + " vừa BỎ chọn!", Toast.LENGTH_SHORT).show();
+                        if (listGiohang.get(i).getSelected()== false){
+                            tongTienSach -=listGiohang.get(i).getTongtien();
+                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
+                        //Toast.makeText(context, listGiohang.get(pos).getSanpham() + " vừa BỎ chọn! tt"+ tongTienSach, Toast.LENGTH_SHORT).show();
+                    }
+
                 }
             }
         });
+
+
+
 
         // get details
         holder.linear_cart.setOnClickListener(new View.OnClickListener() {
@@ -116,13 +131,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         private TextView tv_soluongmua;
         private CheckBox checkBox;
         private LinearLayout  linear_cart;
+        private ImageView img_cart;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-
             tv_name=(TextView)itemView.findViewById(R.id.tv_name_book_cart);
             tv_soluongmua=(TextView)itemView.findViewById(R.id.tv_soluongmua);
             checkBox=(CheckBox)itemView.findViewById(R.id.cb_giohang);
             linear_cart=(LinearLayout)itemView.findViewById(R.id.linear_cart);
+            img_cart=(ImageView)itemView.findViewById(R.id.img_cart);
         }
     }
 

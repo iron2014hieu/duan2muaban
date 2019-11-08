@@ -71,9 +71,9 @@ public class CartListFragment extends Fragment {
     private List<DatMua> listDatmua = new ArrayList<>();
     CheckBox checkbox_cartlist;
     int sizeList;
-
+    public  static TextView txtTongtien;
     private Button btnnext;
-
+    int tongTien =0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -82,17 +82,25 @@ public class CartListFragment extends Fragment {
 
         cartAdapter  = new CartAdapter(getContext(), listDatmua);
         recyclerView_dat_mua = view.findViewById(R.id.listDatmua);
+        txtTongtien=view.findViewById(R.id.txtTongtien);
         btnnext = (Button) view.findViewById(R.id.next);
         checkbox_cartlist=(CheckBox) view.findViewById(R.id.checkbox_cartlist);
 
 
-
+        tongTien += CartAdapter.tongTienSach;
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerView_dat_mua.setLayoutManager(gridLayoutManager);
         recyclerView_dat_mua.setHasFixedSize(true);
         fetchDatmua();
-
+//        txtTongtien.setText(String.valueOf(CartAdapter.tongTienSach));
+//        for(int i = 0; i < sizeList ; i++){
+//            if(CartAdapter.listGiohang.get(i).getSelected() == false) {
+//                tongtien+=listDatmua.get(i).getTongtien();
+//                txtTongtien.setText("Tổng tiền: "+tongtien+ " VNĐ");
+//            }
+//
+//        }
         checkbox_cartlist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -100,10 +108,24 @@ public class CartListFragment extends Fragment {
                     listDatmua = getModel(true);
                     cartAdapter = new CartAdapter(getContext(),listDatmua);
                     recyclerView_dat_mua.setAdapter(cartAdapter);
+
+                    for (int i = 0; i< sizeList;i++){
+                        if (listDatmua.get(i).getSelected() == true){
+                            tongTien += listDatmua.get(i).getTongtien();
+                            txtTongtien.setText(String.valueOf(tongTien));
+                        }
+                    }
                 }else {
                     listDatmua = getModel(false);
                     cartAdapter = new CartAdapter(getContext(),listDatmua);
                     recyclerView_dat_mua.setAdapter(cartAdapter);
+
+                    for (int i = 0; i< sizeList;i++){
+                        if (listDatmua.get(i).getSelected() == false){
+                            tongTien -= listDatmua.get(i).getTongtien();
+                            txtTongtien.setText(String.valueOf(0));
+                        }
+                    }
                 }
             }
         });
@@ -112,12 +134,15 @@ public class CartListFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),CartDetailActivity.class);
+                Toast.makeText(getContext(), "Tiền: "+tongTien, Toast.LENGTH_SHORT).show();
                 startActivity(intent);
             }
         });
 
         return view;
     }
+
+
     public void fetchDatmua(){
         apiInTerFaceDatmua = ApiClient.getApiClient().create(ApiInTerFaceDatmua.class);
         Call<List<DatMua>> call = apiInTerFaceDatmua.getDatMua();
@@ -144,6 +169,10 @@ public class CartListFragment extends Fragment {
             DatMua datMua = new DatMua();
             listDatmua.get(i).setSelected(isSelect);
 //            listDatmua.add(datMua);
+            int tontien =0;
+            tontien+=listDatmua.get(i).getTongtien();
+
+            txtTongtien.setText(tontien+ "VNĐ");
         }
         return listDatmua;
     }

@@ -1,4 +1,4 @@
-package com.example.duan2muaban.adapter;
+package com.example.duan2muaban.adapter.hoadoncthd;
 
 import android.app.Dialog;
 import android.content.Context;

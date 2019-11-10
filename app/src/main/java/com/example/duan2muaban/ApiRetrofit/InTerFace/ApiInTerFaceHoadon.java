@@ -1,7 +1,6 @@
 package com.example.duan2muaban.ApiRetrofit.InTerFace;
 
-
-import com.example.duan2muaban.model.Books;
+import com.example.duan2muaban.model.CTHD;
 import com.example.duan2muaban.model.Hoadon;
 
 import java.util.List;
@@ -19,4 +18,7 @@ public interface ApiInTerFaceHoadon {
     Call<List<Hoadon>> get_danggiao(@Query("mauser") String keyword);
     @GET("hoadon/get_danhgia.php")
     Call<List<Hoadon>> get_danhgia(@Query("mauser") String keyword);
+    //cthd
+    @GET("hoadon/get_cthd_bymahd.php")
+    Call<List<CTHD>> get_cthd_bymahd(@Query("mahd") String keyword);
 }

@@ -1,30 +1,76 @@
 package com.example.duan2muaban.Activity.hoadon;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.duan2muaban.ApiRetrofit.ApiClient;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceTheloai;
 import com.example.duan2muaban.R;
+import com.example.duan2muaban.adapter.TheLoaiAdapter;
+import com.example.duan2muaban.adapter.hoadoncthd.CTHDAdapter;
+import com.example.duan2muaban.model.CTHD;
+import com.example.duan2muaban.model.TheLoai;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class ChitiethoadonActivity extends AppCompatActivity {
-    Button btn_themcthd,btn_huy;
-    EditText edtmahd,edttenkh,edtngaydat,edtngaygiao,edtdiachi,edtgiavanchuyen;
+    RecyclerView recyclerView_cthd;
+    List<CTHD> cthdList = new ArrayList<>();
+    CTHDAdapter cthdAdapter;
+    ApiInTerFaceHoadon apiInTerFaceHoadon;
+    String mahd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitiethoadon);
         Anhxa();
+        Intent intent = getIntent();
+        mahd = intent.getStringExtra("mahd");
+
+        cthdAdapter = new CTHDAdapter(this, cthdList);
+
+        StaggeredGridLayoutManager gridLayoutManagerVeticl =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView_cthd.setLayoutManager(gridLayoutManagerVeticl);
+        recyclerView_cthd.setHasFixedSize(true);
+
+        fetchcthdbymahd(mahd);
+    }
+    public void fetchcthdbymahd(String mahd){
+        apiInTerFaceHoadon = ApiClient.getApiClient().create(ApiInTerFaceHoadon.class);
+        Call<List<CTHD>> call = apiInTerFaceHoadon.get_cthd_bymahd(mahd);
+
+        call.enqueue(new Callback<List<CTHD>>() {
+            @Override
+            public void onResponse(Call<List<CTHD>> call, retrofit2.Response<List<CTHD>> response) {
+                //progressBar.setVisibility(View.GONE);
+                cthdList= response.body();
+                cthdAdapter = new CTHDAdapter(ChitiethoadonActivity.this,cthdList);
+                recyclerView_cthd.setAdapter(cthdAdapter);
+                cthdAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<CTHD>> call, Throwable t) {
+                //progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
     }
     private void Anhxa(){
-        edtmahd=findViewById(R.id.edtmahoadon);
-        edttenkh=findViewById(R.id.edttenkhachhang);
-        edtngaydat=findViewById(R.id.edtngaydat);
-        edtngaygiao=findViewById(R.id.edtngaygiao);
-        edtdiachi=findViewById(R.id.edtthongtingiaohang);
-        edtgiavanchuyen=findViewById(R.id.edtgiavanchuyen);
-        btn_themcthd=findViewById(R.id.btn_themcthd);
-//        btn_huy=findViewById(R.id.btn_huy);
+       recyclerView_cthd = findViewById(R.id.recyclerview_cthd);
     }
 }

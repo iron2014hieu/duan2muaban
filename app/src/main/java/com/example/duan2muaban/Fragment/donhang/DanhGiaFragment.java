@@ -12,13 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
-import com.example.duan2muaban.adapter.HoadonAdapter;
+import com.example.duan2muaban.adapter.hoadoncthd.HoadonAdapter;
 import com.example.duan2muaban.model.Hoadon;
 
 import java.util.ArrayList;
@@ -52,7 +51,7 @@ public class DanhGiaFragment extends Fragment {
         addControls();
         sessionManager = new SessionManager(getContext());
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
-                new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerview_danhgia.setLayoutManager(gridLayoutManagerVeticl);
         recyclerview_danhgia.setHasFixedSize(true);
 

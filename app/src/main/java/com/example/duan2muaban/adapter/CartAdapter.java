@@ -258,8 +258,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     public void onResponse(String response) {
                         if (response.trim().equals("tb")){
                         }else if (response.trim().equals("tc")){
-//                            context.startActivity(new Intent(context, Main2Activity.class));
-                            Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {

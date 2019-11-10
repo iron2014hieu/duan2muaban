@@ -1,9 +1,15 @@
 package com.example.duan2muaban;
 
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +19,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.RemoteInput;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -39,7 +48,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
-
+import static com.example.duan2muaban.Notif.App.CHANNEL_1_ID;
 public class CartDetailActivity extends AppCompatActivity {
 
     EditText edtMaGiamGia, edtSdt, edtDiachi, edtTenkh;
@@ -55,6 +64,8 @@ public class CartDetailActivity extends AppCompatActivity {
     int sizeList=0;
     SessionManager sessionManager;
     ProgressBar progress_hoadon;
+
+    private NotificationManagerCompat notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,6 +80,7 @@ public class CartDetailActivity extends AppCompatActivity {
         btnThanhtoan= findViewById(R.id.btnThanhtoan);
         recyclerview_create_bill= findViewById(R.id.recyclerview_create_bill);
         sessionManager = new SessionManager(this);
+        notificationManager = NotificationManagerCompat.from(this);
         HashMap<String,String> user = sessionManager.getUserDetail();
         mauser = user.get(sessionManager.ID);
         Intent intent = getIntent();
@@ -205,6 +217,7 @@ public class CartDetailActivity extends AppCompatActivity {
                         if (response.trim().equals("tc")){
                             progress_hoadon.setVisibility(View.GONE);
                             btnThanhtoan.setVisibility(View.VISIBLE);
+                            sendOnChannel("Hóa đơn: "+mahd,"Xem đơn hàng của bạn");
                             startActivity(new Intent(getBaseContext(), CartDetailActivity.class));
                         }
                     }
@@ -229,5 +242,26 @@ public class CartDetailActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
+    }
+
+    private void sendOnChannel(String title, String message) {
+        Intent activityIntent = new Intent(this, MuahangActivity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this,
+                0, activityIntent, 0);
+
+        Notification summaryNotification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.ic_arrow)
+                .setStyle(new NotificationCompat.InboxStyle()
+                        .addLine(title + " " + message)
+                        .setBigContentTitle("1 đơn hàng mới")
+                        .setSummaryText("user@example.com"))
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .setGroup("example_group")
+                .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
+                .setContentIntent(contentIntent)
+                .setGroupSummary(true)
+                .build();
+        SystemClock.sleep(1000);
+        notificationManager.notify(2, summaryNotification);
     }
 }

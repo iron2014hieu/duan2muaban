@@ -62,7 +62,7 @@
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
         </activity>
-
+        <receiver android:name=".Notif.HoadonReceiver" />
         <receiver android:name=".MaGiamGia">
             <intent-filter>
                 <action android:name="android.intent.action.CUSTOM_INTENT_BAI3" />

@@ -42,8 +42,15 @@ public class MuahangActivity extends AppCompatActivity {
         tabViewPagerAdapter.AddFragment(new DanhGiaFragment(), "Đánh giá");
         viewPager.setAdapter(tabViewPagerAdapter);
         tabLayout.setupWithViewPager(viewPager);
-        tab = tabLayout.getTabAt(Integer.valueOf(check));
-        tab.select();
+        if (check==null){
+            tab = tabLayout.getTabAt(0);
+            tab.select();
+        }else {
+            tab = tabLayout.getTabAt(Integer.valueOf(check));
+            tab.select();
+        }
+
+
 
 
 

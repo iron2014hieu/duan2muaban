@@ -1,8 +1,8 @@
-package com.example.duan2muaban.adapter;
+package com.example.duan2muaban.adapter.hoadoncthd;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.util.Log;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +13,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.duan2muaban.Activity.hoadon.ChitiethoadonActivity;
 import com.example.duan2muaban.R;
-import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.Hoadon;
-import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -47,9 +46,19 @@ public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.MyViewHold
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
-        myViewHolder.tv_hoadon_stt.setText("Hóa đơn "+mData.get(i).getMahoadon());
-        myViewHolder.tv_tongtien.setText(mData.get(i).getTongtien()+"₫");
+    public void onBindViewHolder(@NonNull final MyViewHolder holder, final int i) {
+        holder.tv_hoadon_stt.setText("Hóa đơn "+mData.get(i).getMahoadon());
+        holder.tv_tongtien.setText(mData.get(i).getTongtien()+"₫");
+
+        holder.txtXemchitiet.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ChitiethoadonActivity.class);
+                String mahd = String.valueOf(mData.get(i).getMahoadon());
+                intent.putExtra("mahd", mahd);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

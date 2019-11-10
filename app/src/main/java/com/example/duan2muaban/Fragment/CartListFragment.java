@@ -141,8 +141,6 @@ public class CartListFragment extends Fragment {
                     public void onResponse(String response) {
                         if (response.trim().equals("tb")){
                         }else if (response.trim().equals("tc")){
-//                            context.startActivity(new Intent(context, Main2Activity.class));
-                            Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
                         }
                     }
                 }, new Response.ErrorListener() {

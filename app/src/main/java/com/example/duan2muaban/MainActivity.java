@@ -61,8 +61,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnSearchView;
     private UrlSql urlSql;
     LinearLayout linearLayoutMain;
-    SharedPreferences prefs;
-    boolean firstStart;
+    public  static SharedPreferences prefs;
+    public static boolean firstStart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -256,19 +256,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onResume();
     }
     private void ShowFirstAppStart(){
-        new AlertDialog.Builder(this)
-                .setTitle("One Time Dialog")
-                .setMessage("This should only be show own")
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                })
-                .create().show();
+        startActivity(new Intent(getBaseContext(), FirstStartActivity.class));
         //set boolearn check first start app to false
-        SharedPreferences.Editor editor =prefs.edit();
-        editor.putBoolean("firstStart", false);
-        editor.apply();
+//        SharedPreferences.Editor editor =prefs.edit();
+//        editor.putBoolean("firstStart", false);
+//        editor.apply();
     }
 }

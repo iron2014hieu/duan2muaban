@@ -1,8 +1,11 @@
 package com.example.duan2muaban;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.duan2muaban.Fragment.FirstStartApp.FirstStart1Fragment;
@@ -18,11 +21,11 @@ import com.google.android.material.tabs.TabLayout;
 public class FirstStartActivity extends AppCompatActivity {
     TabViewPagerAdapter tabViewPagerAdapter;
     ViewPager viewPager;
-    TabLayout tabLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_start);
+        viewPager = findViewById(R.id.fragment_container_first_appstart);
 
         tabViewPagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         //add fragmenr here
@@ -30,6 +33,6 @@ public class FirstStartActivity extends AppCompatActivity {
         tabViewPagerAdapter.AddFragment(new FirstStart2Fragment(), "2");
         tabViewPagerAdapter.AddFragment(new FirstStart3Fragment(), "3");
         viewPager.setAdapter(tabViewPagerAdapter);
-        tabLayout.setupWithViewPager(viewPager);
+//        tabLayout.setupWithViewPager(viewPager);
     }
 }

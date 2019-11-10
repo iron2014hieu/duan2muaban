@@ -1,6 +1,8 @@
 package com.example.duan2muaban.Fragment.FirstStartApp;
 
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -8,7 +10,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.example.duan2muaban.MainActivity;
+import com.example.duan2muaban.MuahangActivity;
 import com.example.duan2muaban.R;
 
 /**
@@ -16,7 +21,7 @@ import com.example.duan2muaban.R;
  */
 public class FirstStart3Fragment extends Fragment {
 
-
+    Button btnStartApp;
     public FirstStart3Fragment() {
         // Required empty public constructor
     }
@@ -26,7 +31,19 @@ public class FirstStart3Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first_start3, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_first_start3, container, false);
+        btnStartApp= view.findViewById(R.id.btnStartApp);
 
+        btnStartApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //set boolearn check first start app to false
+                SharedPreferences.Editor editor =MainActivity.prefs.edit();
+                editor.putBoolean("firstStart", false);
+                editor.apply();
+                startActivity(new Intent(getContext(), MainActivity.class));
+            }
+        });
+        return view;
+    }
 }

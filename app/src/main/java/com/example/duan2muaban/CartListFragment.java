@@ -21,11 +21,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.EditGioHangActivity;
 import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
@@ -50,6 +52,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -69,14 +72,15 @@ public class CartListFragment extends Fragment {
     CartAdapter cartAdapter;
     RecyclerView recyclerView_dat_mua;
     private List<DatMua> listDatmua = new ArrayList<>();
-    CheckBox checkbox_cartlist;
+    public  static CheckBox checkbox_cartlist;
     int sizeList;
     public  static TextView txtTongtien;
     private Button btnnext;
     int tongTien =0;
     String quyen, name, idUser;
     SessionManager sessionManager;
-    int getTongtien;
+    int tienTungsach, giaban,soluong;
+    int masach;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -102,61 +106,14 @@ public class CartListFragment extends Fragment {
         recyclerView_dat_mua.setLayoutManager(gridLayoutManager);
         recyclerView_dat_mua.setHasFixedSize(true);
         fetchDatmua(idUser);
-//        txtTongtien.setText(String.valueOf(CartAdapter.tongTienSach));
-//        for(int i = 0; i < sizeList ; i++){
-//            if(CartAdapter.listGiohang.get(i).getSelected() == false) {
-//                tongtien+=listDatmua.get(i).getTongtien();
-//                txtTongtien.setText("Tổng tiền: "+tongtien+ " VNĐ");
-//            }
-//
-//        }
-        checkbox_cartlist.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    listDatmua = getModel(true);
-                    cartAdapter = new CartAdapter(getContext(),listDatmua);
-                    recyclerView_dat_mua.setAdapter(cartAdapter);
-
-                    for (int i = 0; i< sizeList;i++){
-                        if (listDatmua.get(i).getSelected() == true){
-                            getTongtien = listDatmua.get(i).getGia()*listDatmua.get(i).getSoluong();
-                            tongTien += getTongtien;
-                            txtTongtien.setText(String.valueOf(tongTien)+" VNĐ");
-                        }
-                    }
-                }else {
-                    listDatmua = getModel(false);
-                    cartAdapter = new CartAdapter(getContext(),listDatmua);
-                    recyclerView_dat_mua.setAdapter(cartAdapter);
-
-                    for (int i = 0; i< sizeList;i++){
-                        if (listDatmua.get(i).getSelected() == false){
-                            getTongtien = listDatmua.get(i).getGia()*listDatmua.get(i).getSoluong();
-                            tongTien -= getTongtien;
-                            txtTongtien.setText(String.valueOf(0)+" VNĐ");
-                        }
-                    }
-                }
-            }
-        });
 
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(),CartDetailActivity.class);
-//                Toast.makeText(getContext(), "Tiền: "+tongTien, Toast.LENGTH_SHORT).show();
+                String tien = txtTongtien.getText().toString();
+                intent.putExtra("tongtien", tien);
                 startActivity(intent);
-//                Intent intent = new Intent(getContext(), CartDetailActivity.class);
-//                String masp = String.valueOf(datMua.getMasach());
-//                String sanpham = datMua.getSanpham();
-//                String gia = String.valueOf(datMua.getGia());
-//                String soluong = String.valueOf(datMua.getSoluong());
-//
-//                intent.putExtra("masp", masp);
-//                intent.putExtra("sanpham", sanpham);
-//                intent.putExtra("gia", gia);
-//                intent.putExtra("soluong", soluong);
             }
         });
 
@@ -184,16 +141,43 @@ public class CartListFragment extends Fragment {
             }
         });
     }
-    private List<DatMua> getModel(boolean isSelect){
+    private List<DatMua> getModel(int isSelect){
         for(int i = 0; i < sizeList ; i++){
 
             DatMua datMua = new DatMua();
-            listDatmua.get(i).setSelected(isSelect);
+            listDatmua.get(i).setSelected(1);
 //            listDatmua.add(datMua);
         }
         return listDatmua;
     }
-    private void tinhTongtien() {
-
+    public void update_selected( final String masach,final String selected, String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.trim().equals("tb")){
+                        }else if (response.trim().equals("tc")){
+//                            context.startActivity(new Intent(context, Main2Activity.class));
+                            Toast.makeText(getContext(), "success", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Loi roi nhe", Toast.LENGTH_SHORT).show();
+                Log.d("MYSQL", "Lỗi! \n" +error.toString());
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String > params = new HashMap<>();
+                params.put("selected", selected);
+                params.put("masach", masach);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
     }
 }

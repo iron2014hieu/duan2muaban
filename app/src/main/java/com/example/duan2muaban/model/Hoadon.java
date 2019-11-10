@@ -1,102 +1,66 @@
 package com.example.duan2muaban.model;
 
 public class Hoadon {
-    int id, masach, maUser;
-    String tenSach, tenUser, giaBan, nhanxet;
-    int dathanhtoan;
-    Double diemdanhgia;
-    int hienthi;
+    int mahoadon, mauser,tongtien;
+    String tenkh, diachi, sdt;
 
-    public Hoadon(int id, int masach, int maUser, String tenSach, String tenUser, String giaBan, String nhanxet, int dathanhtoan, Double diemdanhgia, int hienthi) {
-        this.id = id;
-        this.masach = masach;
-        this.maUser = maUser;
-        this.tenSach = tenSach;
-        this.tenUser = tenUser;
-        this.giaBan = giaBan;
-        this.nhanxet = nhanxet;
-        this.dathanhtoan = dathanhtoan;
-        this.diemdanhgia = diemdanhgia;
-        this.hienthi = hienthi;
+    public Hoadon(int mahoadon, int mauser, int tongtien, String tenkh, String diachi, String sdt) {
+        this.mahoadon = mahoadon;
+        this.mauser = mauser;
+        this.tongtien = tongtien;
+        this.tenkh = tenkh;
+        this.diachi = diachi;
+        this.sdt = sdt;
     }
 
-    public int getId() {
-        return id;
+    public Hoadon() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getMahoadon() {
+        return mahoadon;
     }
 
-    public int getMasach() {
-        return masach;
+    public void setMahoadon(int mahoadon) {
+        this.mahoadon = mahoadon;
     }
 
-    public void setMasach(int masach) {
-        this.masach = masach;
+    public int getMauser() {
+        return mauser;
     }
 
-    public int getMaUser() {
-        return maUser;
+    public void setMauser(int mauser) {
+        this.mauser = mauser;
     }
 
-    public void setMaUser(int maUser) {
-        this.maUser = maUser;
+    public int getTongtien() {
+        return tongtien;
     }
 
-    public String getTenSach() {
-        return tenSach;
+    public void setTongtien(int tongtien) {
+        this.tongtien = tongtien;
     }
 
-    public void setTenSach(String tenSach) {
-        this.tenSach = tenSach;
+    public String getTenkh() {
+        return tenkh;
     }
 
-    public String getTenUser() {
-        return tenUser;
+    public void setTenkh(String tenkh) {
+        this.tenkh = tenkh;
     }
 
-    public void setTenUser(String tenUser) {
-        this.tenUser = tenUser;
+    public String getDiachi() {
+        return diachi;
     }
 
-    public String getGiaBan() {
-        return giaBan;
+    public void setDiachi(String diachi) {
+        this.diachi = diachi;
     }
 
-    public void setGiaBan(String giaBan) {
-        this.giaBan = giaBan;
+    public String getSdt() {
+        return sdt;
     }
 
-    public String getNhanxet() {
-        return nhanxet;
-    }
-
-    public void setNhanxet(String nhanxet) {
-        this.nhanxet = nhanxet;
-    }
-
-    public int getDathanhtoan() {
-        return dathanhtoan;
-    }
-
-    public void setDathanhtoan(int dathanhtoan) {
-        this.dathanhtoan = dathanhtoan;
-    }
-
-    public Double getDiemdanhgia() {
-        return diemdanhgia;
-    }
-
-    public void setDiemdanhgia(Double diemdanhgia) {
-        this.diemdanhgia = diemdanhgia;
-    }
-
-    public int getHienthi() {
-        return hienthi;
-    }
-
-    public void setHienthi(int hienthi) {
-        this.hienthi = hienthi;
+    public void setSdt(String sdt) {
+        this.sdt = sdt;
     }
 }

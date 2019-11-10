@@ -1,7 +1,7 @@
 package com.example.duan2muaban.model;
 
 public class DatMua {
-    private boolean isSelected;
+    private int  selected;
     int masach;
     String sanpham;
     int gia;
@@ -12,8 +12,8 @@ public class DatMua {
     public DatMua() {
     }
 
-    public DatMua(boolean isSelected, int masach, String sanpham, int gia, int soluong, String hinhanh, String mauser) {
-        this.isSelected = isSelected;
+    public DatMua(int selected, int masach, String sanpham, int gia, int soluong, String hinhanh, String mauser) {
+        this.selected = selected;
         this.masach = masach;
         this.sanpham = sanpham;
         this.gia = gia;
@@ -22,12 +22,12 @@ public class DatMua {
         this.mauser = mauser;
     }
 
-    public boolean getSelected() {
-        return isSelected;
+    public int getSelected() {
+        return selected;
     }
 
-    public void setSelected(boolean selected) {
-        isSelected = selected;
+    public void setSelected(int selected) {
+        this.selected = selected;
     }
 
     public int getMasach() {

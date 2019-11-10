@@ -48,9 +48,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
     private int tongTienTungsach;
 
     int giaBan = 0;
-    private  int soLuong = 1;
-
+    private  int soLuong;
     String iduser, masach;
+    public  static String url_UD = "https://bansachonline.xyz/bansach/giohang/update_status_carts.php";
 
     public CartAdapter(Context context, List<DatMua> listGiohang) {
         this.context = context;
@@ -69,34 +69,43 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder holder, final int i) {
-
-//        holder.checkBox.setText("haha "+i);
-        holder.checkBox.setChecked(listGiohang.get(i).getSelected());// nếu tự tạo sẻ là isSelected
+        holder.checkBox.setTag(i);
         holder.tv_name.setText(listGiohang.get(i).getSanpham());
         holder.tv_giaban.setText(listGiohang.get(i).getGia()+" VNĐ");
+        holder.tv_soluongmua.setText(String.valueOf(listGiohang.get(i).getSoluong()));
         Picasso.with(context).load(listGiohang.get(i).getHinhanh()).into(holder.img_cart);
+        final String maSach = String.valueOf(listGiohang.get(i).getMasach());
+        tongTienTungsach = listGiohang.get(i).getSoluong()*listGiohang.get(i).getGia();
+        if (listGiohang.get(i).getSelected()==1){
+            holder.checkBox.setChecked(true);
+            tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
+            tongTienSach +=tongTienTungsach;
+            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
+        }else  {
+            holder.checkBox.setChecked(false);
+            tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
+            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
+        }
 
-        soLuong = listGiohang.get(i).getSoluong();
-        giaBan = listGiohang.get(i).getGia();
-
-        holder.checkBox.setTag(i);
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Integer pos = (Integer) holder.checkBox.getTag();
                 if (isChecked) {
-                    listGiohang.get(pos).setSelected(true);
-                        if(listGiohang.get(i).getSelected() == true) {
+                    listGiohang.get(pos).setSelected(1);
+                    update_selected(maSach,"1", url_UD);
+                        if(listGiohang.get(i).getSelected() == 1) {
                             tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
                             tongTienSach +=tongTienTungsach;
-                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
+                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
                     }
                 } else {
-                    listGiohang.get(pos).setSelected(false);
-                        if (listGiohang.get(i).getSelected()== false){
+                    listGiohang.get(pos).setSelected(0);
+                    update_selected(maSach,"0", url_UD);
+                        if (listGiohang.get(i).getSelected() == 0){
                             tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
                             tongTienSach -=tongTienTungsach;
-                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
+                            CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach));
                     }
 
                 }
@@ -127,20 +136,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
 //            }
 //        });
 
-        holder.tv_soluongmua.setText(String.valueOf(listGiohang.get(i).getSoluong()));
-
         holder.btntang_sl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 soLuong++;
-                String tt = String.valueOf(giaBan*soLuong);
                 holder.tv_soluongmua.setText(String.valueOf(soLuong));
+                listGiohang.get(i).setSoluong(soLuong);
                 updateSoluongTongtien(String.valueOf(soLuong),iduser, masach, "https://bansachonline.xyz/bansach/giohang/update_carts.php");
-                if(listGiohang.get(i).getSelected() == true) {
-                    //tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
-                    //tongTienSach +=tongTienTungsach;
-                    CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
-                }
 
             }
         });
@@ -149,17 +151,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             public void onClick(View v) {
                 if(soLuong>1){
                     soLuong--;
-                    String tt = String.valueOf(giaBan*soLuong);
                     holder.tv_soluongmua.setText(String.valueOf(soLuong));
+                    listGiohang.get(i).setSoluong(soLuong);
                     updateSoluongTongtien(String.valueOf(soLuong),iduser, masach, "https://bansachonline.xyz/bansach/giohang/update_carts.php");
-                    if(listGiohang.get(i).getSelected() == true) {
-                        //tongTienTungsach = listGiohang.get(i).getGia() * listGiohang.get(i).getSoluong();
-                        CartListFragment.txtTongtien.setText(String.valueOf(tongTienSach)+" VNĐ");
-                    }
-
                 }
             }
         });
+
         holder.btn_iv_Xoa_giohang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -203,9 +201,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
                     @Override
                     public void onResponse(String response) {
                         if (response.trim().equals("tb")){
-                            Toast.makeText(context, "datontai", Toast.LENGTH_SHORT).show();
                         }else if (response.trim().equals("tc")){
-                            Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();;
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -250,6 +246,36 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String > params = new HashMap<>();
                 params.put("mauser", mauser);
+                params.put("masach", masach);
+                return params;
+            }
+        };
+        requestQueue.add(stringRequest);
+    }
+    public void update_selected( final String masach,final String selected, String url) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new com.android.volley.Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        if (response.trim().equals("tb")){
+                        }else if (response.trim().equals("tc")){
+//                            context.startActivity(new Intent(context, Main2Activity.class));
+                            Toast.makeText(context, "success", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(context, "Loi roi nhe", Toast.LENGTH_SHORT).show();
+                Log.d("MYSQL", "Lỗi! \n" +error.toString());
+            }
+        }
+        ){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String > params = new HashMap<>();
+                params.put("selected", selected);
                 params.put("masach", masach);
                 return params;
             }

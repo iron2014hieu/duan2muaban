@@ -40,7 +40,7 @@ public class BillAdapter extends RecyclerView.Adapter<BillAdapter.MyViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        myViewHolder.tv_name.setText(mData.get(i).getTenSach());
+//        myViewHolder.tv_name.setText(mData.get(i).getTenSach());
         myViewHolder.txtKetquadanhgia.setText("");
     }
 

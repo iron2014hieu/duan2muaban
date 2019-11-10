@@ -10,15 +10,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="5dp"
         android:background="?attr/backgroundcolor"
         android:orientation="vertical">
+        <include layout="@layout/toolbarlayout"/>
        <androidx.cardview.widget.CardView
            android:layout_width="match_parent"
            android:layout_height="wrap_content">
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
+               android:padding="5dp"
                android:orientation="vertical">
                <androidx.cardview.widget.CardView
                    android:layout_width="match_parent"
@@ -27,26 +28,74 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:orientation="vertical">
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
                        <TextView
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text="Xem tất cả đơn hàng"
+                           android:text="Đơn hàng"
                            android:textStyle="bold"
                            android:textSize="15dp"
                            android:gravity="center"
-                           android:drawableLeft="@drawable/ic_person"
+                           android:layout_weight="3"
+                           android:drawableLeft="@drawable/bill" />
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:text="Lịch sử mua hàng"
+                           android:textSize="15dp"
+                           android:gravity="center"
+                           android:layout_weight="2"
                            android:drawableRight="@drawable/ic_chevron_right"/>
                    </LinearLayout>
+                       <View
+                           android:layout_width="match_parent"
+                           android:layout_height="1dp"
+                           android:layout_marginTop="10dp"
+                           android:background="?attr/textcolor"/>
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"
+                       android:orientation="horizontal">
+                        <TextView
+                            android:id="@+id/txtChoxacnhan"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Chờ xác nhận"
+                            android:gravity="center"
+                            android:drawableTop="@drawable/choxacnhan"/>
+                       <TextView
+                           android:id="@+id/txtCholayhang"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_weight="1"
+                           android:text="Chờ lấy hàng"
+                           android:gravity="center"
+                           android:drawableTop="@drawable/cholayhang"/>
+                       <TextView
+                           android:id="@+id/txtDanggiao"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_weight="1"
+                           android:text="Đang giao"
+                           android:gravity="center"
+                           android:drawableTop="@drawable/danggiao"/>
+                       <TextView
+                           android:id="@+id/txtDanhgia"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_weight="1"
+                           android:text="Đánh giá"
+                           android:gravity="center"
+                           android:drawableTop="@drawable/rating"/>
+                   </LinearLayout>
+                   </LinearLayout>
                </androidx.cardview.widget.CardView>
-               <TextView
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="Mới xem"
-                   android:textStyle="bold"
-                   android:textSize="15dp"
-                   android:gravity="center"
-                   android:drawableLeft="@drawable/ic_person"
-                   android:drawableRight="@drawable/ic_chevron_right"/>
+
                <TextView
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
@@ -54,6 +103,7 @@
                    android:textStyle="bold"
                    android:textSize="15dp"
                    android:gravity="center"
+                   android:layout_marginTop="25dp"
                    android:drawableLeft="@drawable/ic_fatevori"
                    android:drawableRight="@drawable/ic_chevron_right"/>
                <TextView
@@ -62,24 +112,28 @@
                    android:text="Đánh giá của tôi"
                    android:textStyle="bold"
                    android:textSize="15dp"
+                   android:layout_marginTop="25dp"
                    android:gravity="center"
-                   android:drawableLeft="@drawable/ic_star"
+                   android:drawableLeft="@drawable/rating"
                    android:drawableRight="@drawable/ic_chevron_right"/>
            </LinearLayout>
        </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        >
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:padding="5dp"
             android:orientation="vertical">
         <TextView
             android:id="@+id/txtTaikhoan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Thiết lập tài khoản"
+            android:layout_marginTop="25dp"
             android:textStyle="bold"
             android:textSize="15dp"
             android:gravity="center"

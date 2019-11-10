@@ -227,24 +227,24 @@ public class BookDetailPayActivity extends AppCompatActivity {
 //                        }
 
                         for (int i = 0; i < response.length(); i++){
-                            try {
-                                JSONObject object = response.getJSONObject(i);
-                                listNhanxet.add(new Hoadon(
-                                        object.getInt("ID"),
-                                        object.getInt("MaSach"),
-                                        object.getInt("MaUser"),
-                                        object.getString("TenSach"),
-                                        object.getString("TenUser"),
-                                        object.getString("GiaBan"),
-                                        object.getString("NhanXet"),
-                                        object.getInt("DaThanhToan"),
-                                        object.getDouble("DiemDanhGia"),
-                                        object.getInt("HienThi")
-                                ));
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                                Toast.makeText(BookDetailPayActivity.this, ""+e.toString(), Toast.LENGTH_SHORT).show();
-                            }
+//                            try {
+//                                JSONObject object = response.getJSONObject(i);
+//                                listNhanxet.add(new Hoadon(
+//                                        object.getInt("ID"),
+//                                        object.getInt("MaSach"),
+//                                        object.getInt("MaUser"),
+//                                        object.getString("TenSach"),
+//                                        object.getString("TenUser"),
+//                                        object.getString("GiaBan"),
+//                                        object.getString("NhanXet"),
+//                                        object.getInt("DaThanhToan"),
+//                                        object.getDouble("DiemDanhGia"),
+//                                        object.getInt("HienThi")
+//                                ));
+//                            }catch (JSONException e){
+//                                e.printStackTrace();
+//                                Toast.makeText(BookDetailPayActivity.this, ""+e.toString(), Toast.LENGTH_SHORT).show();
+//                            }
                         }
                         nhanxetAdapter.notifyDataSetChanged();
 

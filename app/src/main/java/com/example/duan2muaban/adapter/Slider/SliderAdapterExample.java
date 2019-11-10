@@ -1,4 +1,4 @@
-package com.example.duan2muaban;
+package com.example.duan2muaban.adapter.Slider;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.duan2muaban.R;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 
 

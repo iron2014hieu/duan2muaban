@@ -1,7 +1,9 @@
 package com.example.duan2muaban;
 
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
@@ -53,16 +56,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SessionManager sessionManager;
     BottomNavigationView navigation;
     ViewPager viewPager;
-    private TextView titleToolbar, textNotify;
+    private TextView textNotify;
     private ImageButton cartButtonIV;
-    private MenuItem mSearchMenuItem;
     private Button btnSearchView;
-    private String mSearchString;
-    private static final String SEARCH_KEY = "search";
-    SearchFragment searchFragment;
     private UrlSql urlSql;
-    private int item_count = 0;
     LinearLayout linearLayoutMain;
+    SharedPreferences prefs;
+    boolean firstStart;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -72,12 +72,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         textNotify=findViewById(R.id.textNotify);
         cartButtonIV= findViewById(R.id.cartButtonIV);
-        checkPermission();
         linearLayoutMain= findViewById(R.id.linearLayoutMain);
         btnSearchView = findViewById(R.id.btnSearch);
-
-
-
+        prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        firstStart = prefs.getBoolean("firstStart", true);
+        if (firstStart){
+            ShowFirstAppStart();
+        }
 //        Toobar đã như ActionBar
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -98,11 +99,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String id = user.get(sessionManager.ID);
             if (InternetConnection.checkConnection(getApplicationContext())) {
                 if (name == null) {
-//                    titleToolbar.setText("Doc sach - bạn chưa đăng nhập");
                     cartButtonIV.setVisibility(View.GONE);
                     textNotify.setVisibility(View.GONE);
                 } else {
-//                    titleToolbar.setText("Doc sach - " + name);
                     GetDataCouterCart(urlSql.URl_GETDATA_CART + id);
                     cartButtonIV.setVisibility(View.VISIBLE);
                     textNotify.setVisibility(View.VISIBLE);
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    //
+    //settheme
     public  void theme(){
         if (sharedPref.loadNightModeState() == true){
             setTheme(R.style.darktheme);
@@ -245,16 +244,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         requestQueue.add(jsonArrayRequest);
     }
-    private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.parse("package:" + getPackageName()));
-                startActivity(intent);
-                finish();
-            }
-        }
-    }
+
     @Override
     public void onBackPressed() {
 
@@ -264,7 +254,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onResume() {
 //        textNotify.setText(String.valueOf(item_count));
         super.onResume();
-
-
+    }
+    private void ShowFirstAppStart(){
+        new AlertDialog.Builder(this)
+                .setTitle("One Time Dialog")
+                .setMessage("This should only be show own")
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                })
+                .create().show();
+        //set boolearn check first start app to false
+        SharedPreferences.Editor editor =prefs.edit();
+        editor.putBoolean("firstStart", false);
+        editor.apply();
     }
 }

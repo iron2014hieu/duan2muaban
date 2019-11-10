@@ -2,11 +2,17 @@ package com.example.duan2muaban.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -45,7 +51,7 @@ public class SearchBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_books);
         addControl();
-
+        checkPermission();
         sessionManager = new SessionManager(this);
 
         buttonRecord.setVisibility(View.GONE);
@@ -233,6 +239,16 @@ public class SearchBooksActivity extends AppCompatActivity {
                 Log.e("Error Search:","Error on: "+t.toString());
             }
         });
+    }
+    private void checkPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
+                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        Uri.parse("package:" + getPackageName()));
+                startActivity(intent);
+                finish();
+            }
+        }
     }
     private void addControl() {
         searchView = findViewById(R.id.search_view_all);

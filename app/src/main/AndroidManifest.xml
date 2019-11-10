@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MuahangActivity"></activity>
+        <activity android:name=".FirstStartActivity"></activity>
+        <activity android:name=".MuahangActivity" />
         <activity android:name=".Activity.EditGioHangActivity" />
         <activity android:name=".Activity.DatmuaActivity" />
         <activity android:name=".Activity.GetAllBookActivity" />
@@ -31,13 +32,10 @@
         <activity android:name=".CartDetailActivity" />
         <activity android:name=".QLTKActivity" />
         <activity android:name=".Activity.RatingBookCommentActivity" />
-        <activity android:name=".Activity.ThemTheloaiSachActivity" />
-        <activity android:name=".Activity.BookDetailPayActivity" />
         <activity android:name=".Activity.BookDetailActivity" />
         <activity android:name=".Activity.GetBookByTheloaiActivity" />
         <activity android:name=".LoginRegister.ProfileActivity" />
         <activity android:name=".Activity.ViewBookActivity" />
-        <activity android:name=".Activity.ThemSachActivity" />
         <activity android:name=".Activity.hoadon.HoadonActivity" />
         <activity android:name=".Activity.hoadon.ChitiethoadonActivity" />
         <activity android:name=".Main2Activity" />
@@ -67,7 +65,7 @@
 
         <receiver android:name=".MaGiamGia">
             <intent-filter>
-                <action android:name="android.intent.action.CUSTOM_INTENT_BAI3"></action>
+                <action android:name="android.intent.action.CUSTOM_INTENT_BAI3" />
             </intent-filter>
         </receiver>
     </application>

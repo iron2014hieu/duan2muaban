@@ -40,7 +40,7 @@ import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
-import com.example.duan2muaban.SliderAdapterExample;
+import com.example.duan2muaban.adapter.Slider.SliderAdapterExample;
 import com.example.duan2muaban.adapter.NhaxuatbanAdapter;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.adapter.TacgiaAdapter;

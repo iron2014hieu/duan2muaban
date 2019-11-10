@@ -1,19 +1,24 @@
 package com.example.duan2muaban.model;
 
 public class Hoadon {
-    int mahoadon, mauser,tongtien;
-    String tenkh, diachi, sdt;
+    int mahoadon;
+    int mauser;
+    String ngayxuat;
+    int tongtien;
+    String tenkh;
+    String diachi;
+    String sdt;
+    String tinhtrang;
 
-    public Hoadon(int mahoadon, int mauser, int tongtien, String tenkh, String diachi, String sdt) {
+    public Hoadon(int mahoadon, int mauser, String ngayxuat, int tongtien, String tenkh, String diachi, String sdt, String tinhtrang) {
         this.mahoadon = mahoadon;
         this.mauser = mauser;
+        this.ngayxuat = ngayxuat;
         this.tongtien = tongtien;
         this.tenkh = tenkh;
         this.diachi = diachi;
         this.sdt = sdt;
-    }
-
-    public Hoadon() {
+        this.tinhtrang = tinhtrang;
     }
 
     public int getMahoadon() {
@@ -30,6 +35,14 @@ public class Hoadon {
 
     public void setMauser(int mauser) {
         this.mauser = mauser;
+    }
+
+    public String getNgayxuat() {
+        return ngayxuat;
+    }
+
+    public void setNgayxuat(String ngayxuat) {
+        this.ngayxuat = ngayxuat;
     }
 
     public int getTongtien() {
@@ -62,5 +75,13 @@ public class Hoadon {
 
     public void setSdt(String sdt) {
         this.sdt = sdt;
+    }
+
+    public String getTinhtrang() {
+        return tinhtrang;
+    }
+
+    public void setTinhtrang(String tinhtrang) {
+        this.tinhtrang = tinhtrang;
     }
 }

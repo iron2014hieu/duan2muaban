@@ -1,7 +1,5 @@
 package com.example.duan2muaban.adapter;
 
-import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -27,15 +25,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.duan2muaban.CartListFragment;
+import com.example.duan2muaban.Fragment.CartListFragment;
 import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.model.DatMua;
 import com.squareup.picasso.Picasso;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +67,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         holder.tv_name.setText(listGiohang.get(i).getSanpham());
         holder.tv_giaban.setText(listGiohang.get(i).getGia()+" VNĐ");
         holder.tv_soluongmua.setText(String.valueOf(listGiohang.get(i).getSoluong()));
-        Picasso.with(context).load(listGiohang.get(i).getHinhanh()).into(holder.img_cart);
+        try {
+            Picasso.with(context).load(listGiohang.get(i).getHinhanh()).into(holder.img_cart);
+        }catch (Exception e){
+
+        }
         final String maSach = String.valueOf(listGiohang.get(i).getMasach());
         tongTienTungsach = listGiohang.get(i).getSoluong()*listGiohang.get(i).getGia();
         if (listGiohang.get(i).getSelected()==1){

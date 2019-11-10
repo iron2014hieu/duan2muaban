@@ -18,11 +18,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.duan2muaban.Activity.BookDetailActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
-import com.example.duan2muaban.ApiRetrofit.LiveSearchBook.ApiInTerFace;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
-import com.example.duan2muaban.adapter.SearchBookAdapter;
+import com.example.duan2muaban.adapter.Sach.SearchBookAdapter;
 import com.example.duan2muaban.model.Books;
 
 import java.util.List;

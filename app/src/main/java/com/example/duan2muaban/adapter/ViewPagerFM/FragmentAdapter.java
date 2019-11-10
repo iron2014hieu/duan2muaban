@@ -1,4 +1,4 @@
-package com.example.duan2muaban.adapter;
+package com.example.duan2muaban.adapter.ViewPagerFM;
 
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;

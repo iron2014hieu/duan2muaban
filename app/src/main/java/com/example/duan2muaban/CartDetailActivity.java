@@ -1,7 +1,6 @@
 package com.example.duan2muaban;
 
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,24 +21,14 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.duan2muaban.Activity.BookDetailActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
-import com.example.duan2muaban.ApiRetrofit.ApiNXB.ApiInTerFaceDatmua;
-import com.example.duan2muaban.ApiRetrofit.ApiTacgia.ApiInTerFaceTacgia;
-import com.example.duan2muaban.LoginRegister.LoginActivity;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceDatmua;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.CartAdapter;
-import com.example.duan2muaban.adapter.TacgiaAdapter;
-import com.example.duan2muaban.model.Cart;
 import com.example.duan2muaban.model.DatMua;
-import com.example.duan2muaban.model.Tacgia;
-import com.example.duan2muaban.nighmode.SharedPref;
-import com.google.gson.JsonArray;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 

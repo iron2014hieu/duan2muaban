@@ -1,4 +1,4 @@
-package com.example.duan2muaban;
+package com.example.duan2muaban.Fragment;
 
 
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.duan2muaban.R;
 
 
 /**

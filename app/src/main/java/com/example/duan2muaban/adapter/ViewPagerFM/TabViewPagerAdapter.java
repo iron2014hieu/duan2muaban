@@ -1,4 +1,4 @@
-package com.example.duan2muaban.adapter;
+package com.example.duan2muaban.adapter.ViewPagerFM;
 
 
 import androidx.annotation.Nullable;
@@ -9,12 +9,12 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends FragmentPagerAdapter {
+public class TabViewPagerAdapter extends FragmentPagerAdapter {
 
     private final List<Fragment> listFragment = new ArrayList<>();
     private final List<String> listTitle = new ArrayList<>();
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    public TabViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

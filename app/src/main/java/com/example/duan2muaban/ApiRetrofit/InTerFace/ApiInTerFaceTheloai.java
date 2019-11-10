@@ -1,4 +1,4 @@
-package com.example.duan2muaban.ApiRetrofit.ApiTheloai;
+package com.example.duan2muaban.ApiRetrofit.InTerFace;
 
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.TheLoai;

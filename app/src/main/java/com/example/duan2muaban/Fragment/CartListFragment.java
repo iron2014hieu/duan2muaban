@@ -1,7 +1,6 @@
-package com.example.duan2muaban;
+package com.example.duan2muaban.Fragment;
 
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,14 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -26,28 +22,15 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.duan2muaban.Activity.EditGioHangActivity;
-import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
-import com.example.duan2muaban.ApiRetrofit.ApiNXB.ApiInTerFaceDatmua;
-import com.example.duan2muaban.ApiRetrofit.ApiTacgia.ApiInTerFaceTacgia;
-import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceDatmua;
+import com.example.duan2muaban.CartDetailActivity;
+import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.CartAdapter;
-import com.example.duan2muaban.adapter.TacgiaAdapter;
-import com.example.duan2muaban.model.Cart;
 import com.example.duan2muaban.model.DatMua;
-import com.example.duan2muaban.model.Nhaxuatban;
-import com.example.duan2muaban.model.Tacgia;
-import com.example.duan2muaban.model.TheLoai;
-import com.example.duan2muaban.publicString.URL.UrlSql;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -110,7 +93,7 @@ public class CartListFragment extends Fragment {
         btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getContext(),CartDetailActivity.class);
+                Intent intent = new Intent(getContext(), CartDetailActivity.class);
                 String tien = txtTongtien.getText().toString();
                 intent.putExtra("tongtien", tien);
                 startActivity(intent);

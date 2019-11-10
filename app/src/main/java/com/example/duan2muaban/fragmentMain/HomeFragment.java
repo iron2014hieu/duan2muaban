@@ -33,16 +33,16 @@ import com.example.duan2muaban.Activity.BookDetailActivity;
 import com.example.duan2muaban.Activity.GetAllBookActivity;
 import com.example.duan2muaban.Activity.GetBookByTheloaiActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
-import com.example.duan2muaban.ApiRetrofit.ApiNXB.ApiInTerFaceNXB;
-import com.example.duan2muaban.ApiRetrofit.ApiTacgia.ApiInTerFaceTacgia;
-import com.example.duan2muaban.ApiRetrofit.ApiTheloai.ApiInTerFaceTheloai;
-import com.example.duan2muaban.ApiRetrofit.LiveSearchBook.ApiInTerFace;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceNXB;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceTacgia;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceTheloai;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.SliderAdapterExample;
 import com.example.duan2muaban.adapter.NhaxuatbanAdapter;
-import com.example.duan2muaban.adapter.SachAdapter;
+import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.adapter.TacgiaAdapter;
 import com.example.duan2muaban.adapter.TheLoaiAdapter;
 import com.example.duan2muaban.model.Books;
@@ -76,7 +76,6 @@ public class HomeFragment extends Fragment {
     SliderView sliderView;
 
     TextView tvXemThem;
-
 
     private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;

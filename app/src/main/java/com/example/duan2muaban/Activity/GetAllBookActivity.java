@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
-import com.example.duan2muaban.ApiRetrofit.LiveSearchBook.ApiInTerFace;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.R;
-import com.example.duan2muaban.adapter.SachAdapter;
+import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.model.Books;
 
 import java.util.ArrayList;

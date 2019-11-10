@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
@@ -37,6 +38,7 @@ public class DangGiaoFragment extends Fragment {
     private ApiInTerFaceHoadon apiInTerFaceHoadon;
     private SessionManager sessionManager;
     private String mauser;
+    private TextView txtBill_empty_danggiao;
     public DangGiaoFragment() {
         // Required empty public constructor
     }
@@ -67,11 +69,19 @@ public class DangGiaoFragment extends Fragment {
         call.enqueue(new Callback<List<Hoadon>>() {
             @Override
             public void onResponse(Call<List<Hoadon>> call, retrofit2.Response<List<Hoadon>> response) {
-                //progressBar.setVisibility(View.GONE);
-                listHoadon= response.body();
-                hoadonAdapter = new HoadonAdapter(getContext(),listHoadon);
-                recyclerview_danggiao.setAdapter(hoadonAdapter);
-                hoadonAdapter.notifyDataSetChanged();
+                if (response.body().size() == 0){
+                    txtBill_empty_danggiao.setVisibility(View.VISIBLE);
+                    recyclerview_danggiao.setVisibility(View.GONE);
+                }else {
+                    txtBill_empty_danggiao.setVisibility(View.GONE);
+                    recyclerview_danggiao.setVisibility(View.VISIBLE);
+                    //progressBar.setVisibility(View.GONE);
+                    listHoadon= response.body();
+                    hoadonAdapter = new HoadonAdapter(getContext(),listHoadon);
+                    recyclerview_danggiao.setAdapter(hoadonAdapter);
+                    hoadonAdapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
@@ -83,5 +93,6 @@ public class DangGiaoFragment extends Fragment {
     }
     private void addControls(){
         recyclerview_danggiao = v.findViewById(R.id.recyclerview_danggiao);
+        txtBill_empty_danggiao=v.findViewById(R.id.txtBill_empty_danggiao);
     }
 }

@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
@@ -37,6 +38,7 @@ public class DanhGiaFragment extends Fragment {
     ApiInTerFaceHoadon apiInTerFaceHoadon;
     private SessionManager sessionManager;
     String mauser;
+    TextView txtBill_empty_danhgia;
     public DanhGiaFragment() {
         // Required empty public constructor
     }
@@ -67,11 +69,18 @@ public class DanhGiaFragment extends Fragment {
         call.enqueue(new Callback<List<Hoadon>>() {
             @Override
             public void onResponse(Call<List<Hoadon>> call, retrofit2.Response<List<Hoadon>> response) {
-                //progressBar.setVisibility(View.GONE);
-                listHoadon= response.body();
-                hoadonAdapter = new HoadonAdapter(getContext(),listHoadon);
-                recyclerview_danhgia.setAdapter(hoadonAdapter);
-                hoadonAdapter.notifyDataSetChanged();
+                if (response.body().size() == 0){
+                    txtBill_empty_danhgia.setVisibility(View.VISIBLE);
+                    recyclerview_danhgia.setVisibility(View.GONE);
+                }else {
+                    txtBill_empty_danhgia.setVisibility(View.GONE);
+                    recyclerview_danhgia.setVisibility(View.VISIBLE);
+                    //progressBar.setVisibility(View.GONE);
+                    listHoadon= response.body();
+                    hoadonAdapter = new HoadonAdapter(getContext(),listHoadon);
+                    recyclerview_danhgia.setAdapter(hoadonAdapter);
+                    hoadonAdapter.notifyDataSetChanged();
+                }
             }
 
             @Override
@@ -83,5 +92,6 @@ public class DanhGiaFragment extends Fragment {
     }
     private void addControls(){
         recyclerview_danhgia = v.findViewById(R.id.recyclerview_danhgia);
+        txtBill_empty_danhgia = v.findViewById(R.id.txtBill_empty_danhgia);
     }
 }

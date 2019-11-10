@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
@@ -36,6 +37,7 @@ public class ChoLayHangFragment extends Fragment {
     private List<Hoadon> listHoadon = new ArrayList<>();
     ApiInTerFaceHoadon apiInTerFaceHoadon;
     private SessionManager sessionManager;
+    TextView txtBillEmpty;
     String mauser;
     public ChoLayHangFragment() {
         // Required empty public constructor
@@ -52,7 +54,6 @@ public class ChoLayHangFragment extends Fragment {
                 new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerview_cholayhang.setLayoutManager(gridLayoutManagerVeticl);
         recyclerview_cholayhang.setHasFixedSize(true);
-
         HashMap<String,String> user = sessionManager.getUserDetail();
         mauser = user.get(sessionManager.ID);
 
@@ -67,10 +68,18 @@ public class ChoLayHangFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Hoadon>> call, retrofit2.Response<List<Hoadon>> response) {
                 //progressBar.setVisibility(View.GONE);
-                listHoadon= response.body();
-                hoadonAdapter = new HoadonAdapter(getContext(),listHoadon);
-                recyclerview_cholayhang.setAdapter(hoadonAdapter);
-                hoadonAdapter.notifyDataSetChanged();
+                if (response.body().size() == 0){
+                    txtBillEmpty.setVisibility(View.VISIBLE);
+                    recyclerview_cholayhang.setVisibility(View.GONE);
+                }else {
+                    txtBillEmpty.setVisibility(View.GONE);
+                    recyclerview_cholayhang.setVisibility(View.VISIBLE);
+                    listHoadon= response.body();
+                    hoadonAdapter = new HoadonAdapter(getContext(),listHoadon);
+                    recyclerview_cholayhang.setAdapter(hoadonAdapter);
+                    hoadonAdapter.notifyDataSetChanged();
+                }
+
             }
 
             @Override
@@ -82,5 +91,6 @@ public class ChoLayHangFragment extends Fragment {
     }
     private void addControls(){
         recyclerview_cholayhang = v.findViewById(R.id.recyclerview_cholayhang);
+        txtBillEmpty=v.findViewById(R.id.txtBill_empty_cholayhang);
     }
 }

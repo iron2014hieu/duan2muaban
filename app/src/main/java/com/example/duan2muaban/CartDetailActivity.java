@@ -261,6 +261,7 @@ public class CartDetailActivity extends AppCompatActivity {
                 .setContentIntent(contentIntent)
                 .setGroupSummary(true)
                 .build();
+        summaryNotification.defaults |= Notification.DEFAULT_SOUND;
         SystemClock.sleep(1000);
         notificationManager.notify(2, summaryNotification);
     }

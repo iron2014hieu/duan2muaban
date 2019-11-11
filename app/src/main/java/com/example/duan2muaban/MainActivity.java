@@ -93,6 +93,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setupFm(getSupportFragmentManager(), viewPager); //Setup Fragment
         viewPager.setCurrentItem(0); //Set Currrent Item When Activity Start
         viewPager.setOnPageChangeListener(new PageChange()); //Listeners For Viewpager When Page Changed
+
+        Intent intent = getIntent();
+        if (intent!=null && intent.getData()!=null){
+            String link = intent.getData().toString();
+        }
+
+
         try {
             HashMap<String,String> user = sessionManager.getUserDetail();
             String name = user.get(sessionManager.NAME);

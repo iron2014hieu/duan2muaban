@@ -1,23 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FirstStartActivity">
-<!--    <com.google.android.material.tabs.TabLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:background="?attr/backgroundcolor"-->
-<!--        app:tabMode="scrollable"-->
-<!--        app:tabGravity="fill"-->
-<!--        app:tabBackground="?attr/backgroundcolor"-->
-<!--        app:tabSelectedTextColor="#FF0000"-->
-<!--        android:id="@+id/tablayout_id"/>-->
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/fragment_container_first_appstart"
-        android:layout_below="@id/tablayout_id"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-</LinearLayout>
+</RelativeLayout>

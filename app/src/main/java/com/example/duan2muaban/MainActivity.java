@@ -35,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.SearchBooksActivity;
+import com.example.duan2muaban.LoginRegister.LoginActivity;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.ViewPagerFM.FragmentAdapter;
 import com.example.duan2muaban.fragmentMain.HomeFragment;
@@ -63,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     LinearLayout linearLayoutMain;
     public  static SharedPreferences prefs;
     public static boolean firstStart;
+    String id,name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -99,29 +101,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String link = intent.getData().toString();
         }
 
-
-        try {
             HashMap<String,String> user = sessionManager.getUserDetail();
-            String name = user.get(sessionManager.NAME);
-            String id = user.get(sessionManager.ID);
-            if (InternetConnection.checkConnection(getApplicationContext())) {
-                if (name == null) {
-                    cartButtonIV.setVisibility(View.GONE);
-                    textNotify.setVisibility(View.GONE);
-                } else {
-                    GetDataCouterCart(urlSql.URl_GETDATA_CART + id);
-                    cartButtonIV.setVisibility(View.VISIBLE);
-                    textNotify.setVisibility(View.VISIBLE);
-                }
-            }else {
+            name = user.get(sessionManager.NAME);
+            id = user.get(sessionManager.ID);
+            if (!InternetConnection.checkConnection(getApplicationContext())) {
                 Snackbar.make(linearLayoutMain,
                         R.string.string_internet_connection_not_available,
                         Snackbar.LENGTH_LONG).show();
             }
 
-        }catch (Exception e){
-            Log.e("LOG", e.toString());
-        }
         //Setup seerch view
         btnSearchView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,12 +117,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(new Intent(getApplicationContext(), SearchBooksActivity.class));
             }
         });
-        cartButtonIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Main2Activity.class));
-            }
-        });
+
     }
 
     public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
@@ -227,10 +210,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.cart_mn:
-                startActivity(new Intent(MainActivity.this, Main2Activity.class));
-                break;
+        if (name != null) {
+            switch (item.getItemId()) {
+                case R.id.cart_mn:
+                    startActivity(new Intent(MainActivity.this, Main2Activity.class));
+                    break;
+            }
+        } else {
+            switch (item.getItemId()) {
+                case R.id.cart_mn:
+                    startActivity(new Intent(MainActivity.this, LoginActivity.class));
+                    break;
+            }
         }
         return super.onOptionsItemSelected(item);
     }

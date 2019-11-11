@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.duan2muaban.MainActivity;
-import com.example.duan2muaban.MuahangActivity;
 import com.example.duan2muaban.R;
 
 /**

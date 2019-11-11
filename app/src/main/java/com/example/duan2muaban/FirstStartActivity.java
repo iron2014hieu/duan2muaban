@@ -29,9 +29,9 @@ public class FirstStartActivity extends AppCompatActivity {
 
         tabViewPagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         //add fragmenr here
-        tabViewPagerAdapter.AddFragment(new FirstStart1Fragment(), "1");
-        tabViewPagerAdapter.AddFragment(new FirstStart2Fragment(), "2");
-        tabViewPagerAdapter.AddFragment(new FirstStart3Fragment(), "3");
+        tabViewPagerAdapter.AddFragment(new FirstStart1Fragment(), "");
+        tabViewPagerAdapter.AddFragment(new FirstStart2Fragment(), "");
+        tabViewPagerAdapter.AddFragment(new FirstStart3Fragment(), "");
         viewPager.setAdapter(tabViewPagerAdapter);
 //        tabLayout.setupWithViewPager(viewPager);
     }

@@ -257,6 +257,7 @@ public class CartDetailActivity extends AppCompatActivity {
                         .setSummaryText("user@example.com"))
                 .setPriority(NotificationCompat.PRIORITY_LOW)
                 .setGroup("example_group")
+                .setAutoCancel(true)
                 .setGroupAlertBehavior(NotificationCompat.GROUP_ALERT_CHILDREN)
                 .setContentIntent(contentIntent)
                 .setGroupSummary(true)

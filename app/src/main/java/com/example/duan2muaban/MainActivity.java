@@ -1,15 +1,8 @@
 package com.example.duan2muaban;
 
-import android.Manifest;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,10 +14,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
@@ -41,7 +32,7 @@ import com.example.duan2muaban.adapter.ViewPagerFM.FragmentAdapter;
 import com.example.duan2muaban.fragmentMain.HomeFragment;
 import com.example.duan2muaban.fragmentMain.TheloaiFragment;
 import com.example.duan2muaban.fragmentMain.NotificationFragment;
-import com.example.duan2muaban.fragmentMain.SearchFragment;
+import com.example.duan2muaban.fragmentMain.LibraryFragment;
 import com.example.duan2muaban.fragmentMain.CanhanFragment;
 import com.example.duan2muaban.nighmode.SharedPref;
 import com.example.duan2muaban.publicString.URL.UrlSql;
@@ -125,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Add All Fragment To List
         Adapter.add(new HomeFragment(), "Trang chủ");
         Adapter.add(new TheloaiFragment(), "The loại");
-        Adapter.add(new SearchFragment(), "Tìm kiếm");
+        Adapter.add(new LibraryFragment(), "Tìm kiếm");
         Adapter.add(new NotificationFragment(), "Thông báo");
         Adapter.add(new CanhanFragment(), "Cá nhân");
         viewPager.setAdapter(Adapter);

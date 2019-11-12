@@ -1,7 +1,9 @@
 package com.example.duan2muaban.Activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -20,6 +22,8 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
@@ -46,6 +50,8 @@ public class SearchBooksActivity extends AppCompatActivity {
     ImageButton buttonRecord;
     RecyclerView recyclerview_book_search;
     SessionManager sessionManager;
+    TextView txtSearch_null;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +59,11 @@ public class SearchBooksActivity extends AppCompatActivity {
         addControl();
         checkPermission();
         sessionManager = new SessionManager(this);
-
         buttonRecord.setVisibility(View.GONE);
+        Toolbar toolbar = findViewById(R.id.toolbar_search);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+
 
 
 
@@ -66,6 +75,7 @@ public class SearchBooksActivity extends AppCompatActivity {
         recyclerview_book_search.setHasFixedSize(true);
 
         fetchBookRandom("");
+
             searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -221,6 +231,12 @@ public class SearchBooksActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     public void fetchBookRandom(String key){
         apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
         Call<List<Books>> call = apiInTerFace.getBookRandom(key);
@@ -228,7 +244,12 @@ public class SearchBooksActivity extends AppCompatActivity {
         call.enqueue(new Callback<List<Books>>() {
             @Override
             public void onResponse(Call<List<Books>> call, retrofit2.Response<List<Books>> response) {
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
+                if (response.body().size() == 0){
+                    txtSearch_null.setVisibility(View.VISIBLE);
+                }else {
+                    txtSearch_null.setVisibility(View.GONE);
+                }
                 listBookSearch= response.body();
                 sachAdapter = new SachAdapter(SearchBooksActivity.this,listBookSearch);
                 recyclerview_book_search.setAdapter(sachAdapter);
@@ -237,7 +258,7 @@ public class SearchBooksActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Books>> call, Throwable t) {
-//                progressBar.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
                 Log.e("Error Search:","Error on: "+t.toString());
             }
         });
@@ -256,5 +277,7 @@ public class SearchBooksActivity extends AppCompatActivity {
         searchView = findViewById(R.id.search_view_all);
         buttonRecord =findViewById(R.id.buttonSpeech);
         recyclerview_book_search= findViewById(R.id.recyclerview_book_search);
+        txtSearch_null=findViewById(R.id.txtSearch_null);
+        progressBar=findViewById(R.id.progress_search);
     }
 }

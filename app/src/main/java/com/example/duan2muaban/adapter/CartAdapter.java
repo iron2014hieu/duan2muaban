@@ -113,32 +113,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
         iduser = listGiohang.get(i).getMauser();
         masach = String.valueOf(listGiohang.get(i).getMasach());
 
-        // get details
-//        holder.linear_cart.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                DatMua datMua = listGiohang.get(i);
-//                Intent intent = new Intent(context, EditGioHangActivity.class);
-//                String masp = String.valueOf(datMua.getMasach());
-//                String sanpham = datMua.getSanpham();
-//                String gia = String.valueOf(datMua.getGia());
-//                String soluong = String.valueOf(datMua.getSoluong());
-//
-//                intent.putExtra("masp", masp);
-//                intent.putExtra("sanpham", sanpham);
-//                intent.putExtra("gia", gia);
-//                intent.putExtra("soluong", soluong);
-//
-//
-//                context.startActivity(intent);
-//            }
-//        });
-
         holder.btntang_sl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                soLuong++;
-                holder.tv_soluongmua.setText(String.valueOf(soLuong));
+                soLuong = listGiohang.get(i).getSoluong();
+                holder.tv_soluongmua.setText(String.valueOf(soLuong++));
                 listGiohang.get(i).setSoluong(soLuong);
                 updateSoluongTongtien(String.valueOf(soLuong),iduser, masach, "https://bansachonline.xyz/bansach/giohang/update_carts.php");
 
@@ -148,8 +127,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
                 if(soLuong>1){
-                    soLuong--;
-                    holder.tv_soluongmua.setText(String.valueOf(soLuong));
+                    soLuong = listGiohang.get(i).getSoluong();
+                    holder.tv_soluongmua.setText(String.valueOf(soLuong--));
                     listGiohang.get(i).setSoluong(soLuong);
                     updateSoluongTongtien(String.valueOf(soLuong),iduser, masach, "https://bansachonline.xyz/bansach/giohang/update_carts.php");
                 }

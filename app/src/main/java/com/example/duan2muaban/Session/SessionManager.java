@@ -40,6 +40,8 @@ public class SessionManager {
     public static final String TENNXB = "TENNXB";
     public static final String SOLUONG = "SOLUONG";
     public static final String TACGIA = "TACGIA";
+    public static final String TONGDIEM = "TONGDIEM";
+    public static final String LANDANHGIA = "LANDANHGIA";
 
     public static final String DATHANHTOAN = "DATHANHTOAN";
     public static final String LINK_BOOK_READ = "LINK_BOOK_READ";
@@ -49,7 +51,8 @@ public class SessionManager {
     public static final String TENTACGIA = "TENTACGIA";
     //bảng thể loại
     public static final String TENTHELOAI = "TENTHELOAI";
-
+    // hóa đơn
+    public static final String TINHTRANG_HOADON = "TENTHELOAI";
 
     public SessionManager(Context context) {
         this.context = context;
@@ -84,7 +87,8 @@ public class SessionManager {
     public void createSessionSendInfomationBook(String masach,String tensach,
                                                 String manxb,String matheloai,String ngayxb,
                                                 String noidung,String anhbia,String gia,
-                                                String tennxb,String soluong,String tacgia){
+                                                String tennxb,String soluong,String tacgia,
+                                                String tongdiem, String landanhgia){
         editor.putString(MASACH, masach);
         editor.putString(TENSACH, tensach);
         editor.putString(MANXB, manxb);
@@ -96,6 +100,8 @@ public class SessionManager {
         editor.putString(TENNXB, tennxb);
         editor.putString(SOLUONG, soluong);
         editor.putString(TACGIA, tacgia);
+        editor.putString(TONGDIEM, tongdiem);
+        editor.putString(LANDANHGIA, landanhgia);
         editor.apply();
     }
     public void createCart(String idSach, String iduser,String tensach, String giaban, String dathnahtoan){
@@ -115,6 +121,10 @@ public class SessionManager {
     public void createGuiLinkBook(String tensach, String linkbook){
         editor.putString(TENSACH, tensach);
         editor.putString(LINK_BOOK_READ, linkbook);
+        editor.apply();
+    }
+    public void createHoadon(String tinhtrang){
+        editor.putString(TINHTRANG_HOADON, tinhtrang);
         editor.apply();
     }
     // kiểm tra login
@@ -177,6 +187,8 @@ public class SessionManager {
         book.put(TENNXB, sharedPreferences.getString(TENNXB,null));
         book.put(SOLUONG, sharedPreferences.getString(SOLUONG,null));
         book.put(TACGIA, sharedPreferences.getString(TACGIA,null));
+        book.put(TONGDIEM, sharedPreferences.getString(TONGDIEM,null));
+        book.put(LANDANHGIA, sharedPreferences.getString(LANDANHGIA,null));
         return book;
     }
     public HashMap<String, String> getDetailBill(){
@@ -193,6 +205,12 @@ public class SessionManager {
         book.put(TENSACH, sharedPreferences.getString(TENSACH, null));
         book.put(LINK_BOOK_READ, sharedPreferences.getString(LINK_BOOK_READ, null));
         return book;
+    }
+    public HashMap<String, String> getHoadon(){
+        HashMap<String, String> hoadon = new HashMap<>();
+
+        hoadon.put(TINHTRANG_HOADON, sharedPreferences.getString(TINHTRANG_HOADON, null));
+        return hoadon;
     }
     public void Logout(){
         editor.clear();

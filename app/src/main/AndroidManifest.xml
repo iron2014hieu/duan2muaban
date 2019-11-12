@@ -31,12 +31,13 @@
         </activity>
         <activity android:name=".CartDetailActivity" />
         <activity android:name=".QLTKActivity" />
-        <activity android:name=".Activity.RatingBookCommentActivity" />
+        <activity android:name=".Activity.hoadon.RatingBookCommentActivity" />
         <activity android:name=".Activity.BookDetailActivity" />
         <activity android:name=".Activity.GetBookByTheloaiActivity" />
         <activity android:name=".LoginRegister.ProfileActivity" />
         <activity android:name=".Activity.ViewBookActivity" />
         <activity android:name=".Activity.hoadon.HoadonActivity" />
+        <activity android:name=".Activity.hoadon.Chitiethoadon_RatingActivity" />
         <activity android:name=".Activity.hoadon.ChitiethoadonActivity" />
         <activity android:name=".Main2Activity" />
         <activity

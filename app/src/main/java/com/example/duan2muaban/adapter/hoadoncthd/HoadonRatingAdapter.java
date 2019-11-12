@@ -14,13 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan2muaban.Activity.hoadon.ChitiethoadonActivity;
+import com.example.duan2muaban.Activity.hoadon.Chitiethoadon_RatingActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.model.Hoadon;
 
 import java.util.List;
 
-public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.MyViewHolder> {
+public class HoadonRatingAdapter extends RecyclerView.Adapter<HoadonRatingAdapter.MyViewHolder> {
 
     Context context;
     List<Hoadon> mData;
@@ -28,7 +29,7 @@ public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.MyViewHold
     SessionManager sessionManager;
     private ProductItemActionListener actionListener;
 
-    public HoadonAdapter(Context context, List<Hoadon> mData) {
+    public HoadonRatingAdapter(Context context, List<Hoadon> mData) {
         this.context = context;
         this.mData = mData;
     }
@@ -55,7 +56,7 @@ public class HoadonAdapter extends RecyclerView.Adapter<HoadonAdapter.MyViewHold
         holder.txtXemchitiet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, ChitiethoadonActivity.class);
+                Intent intent = new Intent(context, Chitiethoadon_RatingActivity.class);
                 String mahd = String.valueOf(mData.get(i).getMahoadon());
                 String tinhtrang = mData.get(0).getTinhtrang();
                 intent.putExtra("mahd", mahd);

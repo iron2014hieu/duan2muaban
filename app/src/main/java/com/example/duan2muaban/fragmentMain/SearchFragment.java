@@ -110,9 +110,11 @@ public class SearchFragment extends Fragment {
                 String tennxb= String.valueOf(books.getTennxb());
                 String soluong = String.valueOf(books.getSoluong());
                 String tacgia = books.getTacgia();
+                String tongdiem = String.valueOf(books.getTongdiem());
+                String landanhgia = String.valueOf(books.getLandanhgia());
 
-                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,
-                        ngayxb,noidung,anhbia,gia,tennxb,soluong,tacgia);
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,
+                        anhbia,gia,tennxb,soluong,tacgia, tongdiem, landanhgia);
                 startActivity(new Intent(getContext(), BookDetailActivity.class));
             }
 

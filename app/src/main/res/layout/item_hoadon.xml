@@ -48,6 +48,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:padding="5dp"
+            android:textColor="#FF0000"
             android:text="Xem chi tiết"/>
     </LinearLayout>
         <TextView
@@ -58,14 +59,6 @@
             android:text="Nhận vào: 11/11/2019"
             android:textSize="15dp"
             android:textColor="#21DA2B"/>
-        <TextView
-            android:id="@+id/txtUoctinhgiao"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:textSize="15dp"
-            android:textColor="#21DA2B"
-            android:visibility="gone"
-            android:text="Chờ xác nhận trước: 10/11/2019" />
+
     </LinearLayout>
 </androidx.cardview.widget.CardView>

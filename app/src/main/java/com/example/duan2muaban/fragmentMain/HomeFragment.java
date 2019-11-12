@@ -77,7 +77,6 @@ public class HomeFragment extends Fragment {
 
     TextView tvXemThem;
 
-    private SearchView searchView;
     TheLoaiAdapter theLoaiAdapter;
     SachAdapter sachAdapter;
     TacgiaAdapter tacgiaAdapter;
@@ -152,7 +151,6 @@ public class HomeFragment extends Fragment {
         });
 
         recyclerview_book_home=view.findViewById(R.id.recyclerview_book_home);
-        searchView=view.findViewById(R.id.searchview);
         progressBar = view.findViewById(R.id.progress);
         buttonRecord =view.findViewById(R.id.buttonSpeech);
 
@@ -223,7 +221,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onLongClick(View view, int position) {
-                TheLoai theloai =   listTheloai.get(position);
 
             }
         }));
@@ -246,8 +243,6 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onLongClick(View view, int position) {
-                TheLoai theloai =   listTheloai.get(position);
-
             }
         }));
         recyclerview_book_home.addOnItemTouchListener(new RecyclerTouchListener(getContext(),
@@ -266,180 +261,25 @@ public class HomeFragment extends Fragment {
                 String tennxb= String.valueOf(books.getTennxb());
                 String soluong = String.valueOf(books.getSoluong());
                 String tacgia = books.getTacgia();
+                String tongdiem = String.valueOf(books.getTongdiem());
+                String landanhgia = String.valueOf(books.getLandanhgia());
 
-                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,anhbia,gia,tennxb,soluong,tacgia);
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,
+                        anhbia,gia,tennxb,soluong,tacgia,tongdiem,landanhgia);
                 Toast.makeText(getContext(), ""+masach, Toast.LENGTH_SHORT).show();
-
                 startActivity(new Intent(getContext(), BookDetailActivity.class));
             }
-
             @Override
             public void onLongClick(View view, int position) {
 
             }
         }));
-        //get
-//        GetAllData(urlSql.URL_GETDATA_THELOAI);
         fetchTheloai();
         fetchUser("");
         fetchNXB();
         fetchTacgia();
-        try {
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    fetchUser(query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    fetchUser(newText);
-                    return false;
-                }
-            });
-        }catch (Exception e){
-            Log.e("SEARCH", e.toString());
-        }
-
-        //speech to text
-        final SpeechRecognizer mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(getContext());
-        searchView.clearFocus();
-        final Intent mSpeechRecognizerIntent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,
-                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
-                Locale.getDefault());
-
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                searchView.clearFocus(); // close the keyboard on load
-                buttonRecord.setVisibility(View.VISIBLE);
-            }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
-            @Override
-            public boolean onClose() {
-                buttonRecord.setVisibility(View.GONE);
-                return false;
-            }
-        });
-
-        mSpeechRecognizer.setRecognitionListener(new RecognitionListener() {
-            @Override
-            public void onReadyForSpeech(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onBeginningOfSpeech() {
-
-            }
-
-            @Override
-            public void onRmsChanged(float v) {
-
-            }
-
-            @Override
-            public void onBufferReceived(byte[] bytes) {
-
-            }
-
-            @Override
-            public void onEndOfSpeech() {
-
-            }
-
-            @Override
-            public void onError(int i) {
-
-            }
-
-            @Override
-            public void onResults(Bundle bundle) {
-                //getting all the matches
-                ArrayList<String> matches = bundle
-                        .getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-
-                //displaying the first match
-                if (matches != null)
-                    searchView.setQuery(String.valueOf(matches.get(0)), false);
-            }
-
-            @Override
-            public void onPartialResults(Bundle bundle) {
-
-            }
-
-            @Override
-            public void onEvent(int i, Bundle bundle) {
-
-            }
-        });
-
-        buttonRecord.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                switch (motionEvent.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                        mSpeechRecognizer.stopListening();
-                        searchView.setQueryHint("You will see input here");
-                        break;
-
-                    case MotionEvent.ACTION_DOWN:
-                        mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
-                        searchView.setQueryHint("");
-//                        editText.setHint("Listening...");
-                        break;
-                }
-                return false;
-            }
-        });
-
         return view;
     }
-    //get with volley
-    public void GetAllData(String url){
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
-                new Response.Listener<JSONArray>() {
-                    @Override
-                    public void onResponse(JSONArray response) {
-                        listTheloai.clear();
-                        if (response.length() > 0){
-                            recyclerViewTheloai.setVisibility(View.VISIBLE);
-                        }else{
-                            recyclerViewTheloai.setVisibility(View.GONE);
-                        }
-                        for (int i = 0; i < response.length(); i++){
-                            try {
-                                JSONObject object = response.getJSONObject(i);
-                                listTheloai.add(new TheLoai(
-                                        object.getInt("MaLoai"),
-                                        object.getString("TenLoai"),
-                                        object.getString("Image")
-                                ));
-
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        theLoaiAdapter.notifyDataSetChanged();
-
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
-        requestQueue.add(jsonArrayRequest);
-    }
-
-
     public void fetchTheloai(){
         apiInTerFaceTheloai = ApiClient.getApiClient().create(ApiInTerFaceTheloai.class);
         Call<List<TheLoai>> call = apiInTerFaceTheloai.getTheloai();
@@ -535,11 +375,6 @@ public class HomeFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
     }
-
-//    public void refreshString(String string) {
-//        mTextView.setText(string);
-//    }
-
     private void addControls(){
         recyclerViewTheloai = view.findViewById(R.id.recyclerview_theloai);
         sliderView = view.findViewById(R.id.imageSlider);

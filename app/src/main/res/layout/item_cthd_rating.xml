@@ -56,6 +56,21 @@
                 android:gravity="center"
                 android:textStyle="bold"
                 android:id="@+id/txt_giaban_cthd"/>
+            <TextView
+                android:id="@+id/txtDanhgia_sach"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:drawableLeft="@drawable/rating"
+                android:layout_marginTop="5dp"
+                android:textColor="#EE1B1B"
+                android:text="Thêm đánh giá"/>
+            <RatingBar
+                android:id="@+id/ratingbar_item_cthd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="visible"
+                style="@style/Widget.AppCompat.RatingBar.Small"/>
         </LinearLayout>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

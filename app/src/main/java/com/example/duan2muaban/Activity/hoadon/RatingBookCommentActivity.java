@@ -1,4 +1,4 @@
-package com.example.duan2muaban.Activity;
+package com.example.duan2muaban.Activity.hoadon;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -39,13 +39,10 @@ import java.util.Map;
 public class RatingBookCommentActivity extends AppCompatActivity {
     private RatingBar ratingbarComment;
     private SessionManager sessionManager;
-    private String idBook,idbill,nameuser, nhanxet,diemdanhgia;
+    private String nameuser,masach,idcthd, diemnhanxet;
     private EditText edtNhanxet;
-    private String URL_NHANXET ="https://hieuttpk808.000webhostapp.com/books/cart_bill/update_bill.php";
-    private String URL_UPDATE_DIEM ="https://hieuttpk808.000webhostapp.com/books/sach/update_xephang.php";
+    private String URL_THEMNHATXET ="https://bansachonline.xyz/bansach/hoadon/them_nhanxet.php";
 
-    private Double tongDiem;
-    private int lanDanhgia;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,31 +52,19 @@ public class RatingBookCommentActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarComment);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
+
         Intent intent = getIntent();
-        diemdanhgia = (intent.getStringExtra("NUMRATE"));
+        masach = intent.getStringExtra("masach");
+        idcthd = intent.getStringExtra("idcthd");
+
 
         try {
-            HashMap<String,String> user = sessionManager.getDetailBill();
-            idbill = user.get(sessionManager.ID_BILL);
-            idBook =user.get(sessionManager.MASACH);
-
             HashMap<String,String> usermm = sessionManager.getUserDetail();
             nameuser = usermm.get(sessionManager.NAME);
-
-            HashMap<String, String> book = sessionManager.getBookDetail();
-//            tongDiem = Double.valueOf(book.get(sessionManager.TONGDIEM));
-//            lanDanhgia = Integer.valueOf(book.get(sessionManager.LANDANHGIA));
-
         }catch (Exception e){
             Log.e("RATING", e.toString());
         }
 
-        LayerDrawable stars = (LayerDrawable) ratingbarComment.getProgressDrawable();
-        stars.getDrawable(2).setColorFilter(Color.RED, PorterDuff.Mode.SRC_ATOP);
-        ratingbarComment.setRating(Float.parseFloat(diemdanhgia));
-
-        tongDiem += Double.valueOf(diemdanhgia);
-        lanDanhgia +=1;
     }
 
     @Override
@@ -116,34 +101,24 @@ public class RatingBookCommentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_send:
-                LuuNhanxet(idbill,diemdanhgia, nameuser);
+                diemnhanxet =String.valueOf(ratingbarComment.getRating());
+                LuuNhanxet(masach,diemnhanxet, idcthd);
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
-    private void LuuNhanxet(final String id, final String diem, final String tenuser){
+    private void LuuNhanxet(final String masach, final String diemdanhgia, final String id_sach_cthd){
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading");
         progressDialog.show();
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_NHANXET,
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_THEMNHATXET,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         progressDialog.dismiss();
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
-
-                            if (success.equals("1")){
-                                //goi ham cap nhat sach zo dday
-                                UpdateDiemdanhgiaSach();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            progressDialog.dismiss();
-                            Toast.makeText(RatingBookCommentActivity.this, "error "+e.toString(), Toast.LENGTH_SHORT).show();
+                        if (response.equals("tc")){
+                            onBackPressed();
                         }
                     }
                 },
@@ -158,10 +133,10 @@ public class RatingBookCommentActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> params = new HashMap<>();
-                params.put("id", id);
-                params.put("nhanxet", edtNhanxet.getText().toString());
-                params.put("diemdanhgia", diem);
-                params.put("tenuser", tenuser);
+                params.put("masach", masach);
+                params.put("diemdanhgia", diemdanhgia);
+                params.put("noidungdanhgia", edtNhanxet.getText().toString());
+                params.put("id", id_sach_cthd);
                 return params;
             }
         };
@@ -169,44 +144,7 @@ public class RatingBookCommentActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    private void UpdateDiemdanhgiaSach(){
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_UPDATE_DIEM,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("success");
 
-                            if (success.equals("1")){
-                                RatingBookCommentActivity.this.finish();
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(RatingBookCommentActivity.this, "error "+e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(RatingBookCommentActivity.this, "err   "+error.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map<String, String> params = new HashMap<>();
-                params.put("id", idBook);
-                params.put("tongdiem", String.valueOf(tongDiem));
-                params.put("landanhgia", String.valueOf(lanDanhgia));
-                params.put("idhoadon", idbill);
-                return params;
-            }
-        };
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-        requestQueue.add(stringRequest);
-    }
 
     private void Addcontrols(){
         ratingbarComment=findViewById(R.id.ratingbarComment);

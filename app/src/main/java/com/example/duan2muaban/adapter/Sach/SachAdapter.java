@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -79,6 +80,7 @@ public class SachAdapter extends RecyclerView.Adapter<SachAdapter.MyViewHolder> 
         private TextView tv_name;
         private TextView tv_phone;
         private TextView tv_sldaban;
+        private RatingBar ratingBar;
         ImageView img, favorite;
 
         public MyViewHolder(@NonNull View itemView) {

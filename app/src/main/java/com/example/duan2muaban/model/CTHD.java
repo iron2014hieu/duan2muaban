@@ -1,6 +1,7 @@
 package com.example.duan2muaban.model;
 
 public class CTHD {
+    int id;
     int mahd;
     int masach;
     String tensach;
@@ -10,7 +11,8 @@ public class CTHD {
     String noidungdanhgia;
     Double diemdanhgia;
 
-    public CTHD(int mahd, int masach, String tensach, int giaban, int soluong, String hinhanh, String noidungdanhgia, Double diemdanhgia) {
+    public CTHD(int id, int mahd, int masach, String tensach, int giaban, int soluong, String hinhanh, String noidungdanhgia, Double diemdanhgia) {
+        this.id = id;
         this.mahd = mahd;
         this.masach = masach;
         this.tensach = tensach;
@@ -19,6 +21,14 @@ public class CTHD {
         this.hinhanh = hinhanh;
         this.noidungdanhgia = noidungdanhgia;
         this.diemdanhgia = diemdanhgia;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getMahd() {

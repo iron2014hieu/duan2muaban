@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -218,7 +219,10 @@ public class CartDetailActivity extends AppCompatActivity {
                             progress_hoadon.setVisibility(View.GONE);
                             btnThanhtoan.setVisibility(View.VISIBLE);
                             sendOnChannel("Hóa đơn: "+mahd,"Xem đơn hàng của bạn");
-                            startActivity(new Intent(getBaseContext(), CartDetailActivity.class));
+//                            startActivity(new Intent(getBaseContext(), CartDetailActivity.class));
+                            Intent intent = new Intent(getBaseContext(), MuahangActivity.class);
+                            intent.putExtra("check", 0);
+                            startActivity(intent);
                         }
                     }
                 }, new Response.ErrorListener() {

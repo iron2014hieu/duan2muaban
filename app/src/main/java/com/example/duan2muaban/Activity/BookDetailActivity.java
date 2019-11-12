@@ -51,21 +51,18 @@ public class BookDetailActivity extends AppCompatActivity {
     SharedPref sharedPref;
     Button btn_themgh,btn_muangay;
     private ImageView img_book;
-    private String idBook, tensach,chitiet,
-            hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage;
-    private Float diemdanhgia;
-    SessionManager sessionManager;
-    private TextView edtTensach, edtGiaban,edtChitiet;
-    private TextView txtDiemdanhgia, textNotify, titleToolbar;
-
-    private RatingBar ratingBar;
-    private Button btnThemvaogio;
-    private Double giabansach = 0.0;
+    private TextView edtTensach, edtGiaban,edtChitiet,txt_numrating_below_deatil,txt_numrating_book_detail, textNotify;
+    private RatingBar ratingbar_book_detail, ratingbar_below_detail;
     private ImageButton btn_Share,btn_Message;
+
     private String URL_INSERT ="http://hieuttpk808.000webhostapp.com/books/cart_bill/insert.php";
     private String URL_CHECK ="https://hieuttpk808.000webhostapp.com/books/cart_bill/checklibrary.php";
     String idUser, name, quyen;
     private int item_count =1;
+    private Double giabansach = 0.0;
+    private Float diemdanhgia;
+    private String idBook, tensach,chitiet,hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage;
+    SessionManager sessionManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -102,8 +99,8 @@ public class BookDetailActivity extends AppCompatActivity {
 
         toolbar.setTitle(tensach);
 
-//        tongdiem= (book.get(sessionManager.TONGDIEM));
-//        landanhgia=book.get(sessionManager.LANDANHGIA);
+        tongdiem= (book.get(sessionManager.TONGDIEM));
+        landanhgia=book.get(sessionManager.LANDANHGIA);
         linkImage = book.get(sessionManager.ANHBIA);
 
         Picasso.with(this)
@@ -116,18 +113,18 @@ public class BookDetailActivity extends AppCompatActivity {
 
             if (quyen.equals("user")){
                 CheckLibrary(idBook, idUser);
-                btnThemvaogio.setVisibility(View.VISIBLE);
             }else {
-                btnThemvaogio.setVisibility(View.GONE);
             }
         }catch (Exception e){
             Log.e("LOG", e.toString());
         }
 
-//        diemdanhgia =(Float.parseFloat(tongdiem)/Float.parseFloat(landanhgia));
-//        ratingBar.setRating(diemdanhgia);
+        diemdanhgia =(Float.parseFloat(tongdiem)/Float.parseFloat(landanhgia));
+        ratingbar_book_detail.setRating(diemdanhgia);
+        ratingbar_below_detail.setRating(diemdanhgia);
 
-//        txtDiemdanhgia.setText("Đánh giá "+(diemdanhgia)+" (với "+landanhgia+" đánh giá)");
+        txt_numrating_book_detail.setText(""+diemdanhgia);
+        txt_numrating_below_deatil.setText(diemdanhgia+" ("+landanhgia+" đánh giá)");
 
         edtTensach.setText(tensach);
         edtGiaban.setText(giaban+" VNĐ");
@@ -295,9 +292,7 @@ public class BookDetailActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         if (response.trim().equals("datontai")){
                             Toast.makeText(BookDetailActivity.this, "Bạn đã mua sách này", Toast.LENGTH_SHORT).show();
-                            btnThemvaogio.setVisibility(View.GONE);
                         }else {
-                            btnThemvaogio.setVisibility(View.VISIBLE);
                         }
                     }
                 }, new Response.ErrorListener() {
@@ -332,15 +327,14 @@ public class BookDetailActivity extends AppCompatActivity {
         edtTensach = findViewById(R.id.edtTensach);
         edtGiaban=findViewById(R.id.edtGiaban);
         edtChitiet=findViewById(R.id.extractEditTextChitiet);
-        txtDiemdanhgia=findViewById(R.id.txtDiemdanhgia);
-        btnThemvaogio=findViewById(R.id.btnThemvaogio);
-        ratingBar = findViewById(R.id.ratingbar);
         btn_themgh=findViewById(R.id.btn_themGH);
         btn_muangay=findViewById(R.id.btn_muangay);
         img_book=findViewById(R.id.imgBook);
         textNotify= findViewById(R.id.textNotify);
-//        titleToolbar= findViewById(R.id.titleToolbar);
-
         btn_Share= findViewById(R.id.btn_Share);
+        ratingbar_below_detail = findViewById(R.id.ratingbar_below_detail);
+        ratingbar_book_detail = findViewById(R.id.ratingbar_book_detail);
+        txt_numrating_below_deatil = findViewById(R.id.numrating_below_deatil);
+        txt_numrating_book_detail = findViewById(R.id.numrating_book_detail);
     }
 }

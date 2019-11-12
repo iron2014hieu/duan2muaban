@@ -18,6 +18,7 @@ import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.hoadoncthd.HoadonAdapter;
+import com.example.duan2muaban.adapter.hoadoncthd.HoadonRatingAdapter;
 import com.example.duan2muaban.model.Hoadon;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ import retrofit2.Callback;
  */
 public class DanhGiaFragment extends Fragment {
     private RecyclerView recyclerview_danhgia;
-    private HoadonAdapter hoadonAdapter;
+    private HoadonRatingAdapter hoadonAdapter;
     private List<Hoadon> listHoadon = new ArrayList<>();
     ApiInTerFaceHoadon apiInTerFaceHoadon;
     private SessionManager sessionManager;
@@ -59,6 +60,7 @@ public class DanhGiaFragment extends Fragment {
         mauser = user.get(sessionManager.ID);
 
         fetchHoadon(mauser);
+
         return v;
     }
     public void fetchHoadon(String miduser){
@@ -76,7 +78,7 @@ public class DanhGiaFragment extends Fragment {
                     recyclerview_danhgia.setVisibility(View.VISIBLE);
                     //progressBar.setVisibility(View.GONE);
                     listHoadon= response.body();
-                    hoadonAdapter = new HoadonAdapter(getContext(),listHoadon);
+                    hoadonAdapter = new HoadonRatingAdapter(getContext(),listHoadon);
                     recyclerview_danhgia.setAdapter(hoadonAdapter);
                     hoadonAdapter.notifyDataSetChanged();
                 }

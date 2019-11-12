@@ -1,17 +1,18 @@
 package com.example.duan2muaban.Activity.hoadon;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.adapter.hoadoncthd.CTHDAdapter;
+import com.example.duan2muaban.adapter.hoadoncthd.CTHD_RatingAdapter;
 import com.example.duan2muaban.model.CTHD;
 
 import java.util.ArrayList;
@@ -20,10 +21,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class ChitiethoadonActivity extends AppCompatActivity {
+public class Chitiethoadon_RatingActivity extends AppCompatActivity {
     RecyclerView recyclerView_cthd;
     List<CTHD> cthdList = new ArrayList<>();
-    CTHDAdapter cthdAdapter;
+    CTHD_RatingAdapter cthdAdapter;
     ApiInTerFaceHoadon apiInTerFaceHoadon;
     public static String mahd, tinhtrang;
     @Override
@@ -34,7 +35,7 @@ public class ChitiethoadonActivity extends AppCompatActivity {
         Intent intent = getIntent();
         mahd = intent.getStringExtra("mahd");
 
-        cthdAdapter = new CTHDAdapter(this, cthdList);
+        cthdAdapter = new CTHD_RatingAdapter(this, cthdList);
 
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
@@ -52,7 +53,7 @@ public class ChitiethoadonActivity extends AppCompatActivity {
             public void onResponse(Call<List<CTHD>> call, retrofit2.Response<List<CTHD>> response) {
                 //progressBar.setVisibility(View.GONE);
                 cthdList= response.body();
-                cthdAdapter = new CTHDAdapter(ChitiethoadonActivity.this,cthdList);
+                cthdAdapter = new CTHD_RatingAdapter(Chitiethoadon_RatingActivity.this,cthdList);
                 recyclerView_cthd.setAdapter(cthdAdapter);
                 cthdAdapter.notifyDataSetChanged();
             }

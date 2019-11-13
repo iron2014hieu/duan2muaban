@@ -218,7 +218,7 @@ public class SearchBooksActivity extends AppCompatActivity {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_UP:
                         mSpeechRecognizer.stopListening();
-                        searchView.setQueryHint("You will see input here");
+                        searchView.setQueryHint("Nhập hoặt nói để tìm kiếm");
                         break;
 
                     case MotionEvent.ACTION_DOWN:

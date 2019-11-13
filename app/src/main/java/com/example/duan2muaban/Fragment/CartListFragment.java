@@ -24,9 +24,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.GetAllBookActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceDatmua;
 import com.example.duan2muaban.CartDetailActivity;
+import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.CartAdapter;
@@ -45,6 +47,8 @@ import retrofit2.Callback;
  * A simple {@link Fragment} subclass.
  */
 public class CartListFragment extends Fragment {
+
+    TextView tvMuatiep, tvTTgiohang;
 
     View view;
     public CartListFragment() {
@@ -69,10 +73,19 @@ public class CartListFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment_cart_list, container, false);
+        tvMuatiep = view.findViewById(R.id.tvMuatiep);
+        tvMuatiep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(getContext(), GetAllBookActivity.class);
+                startActivity(i);
+            }
+        });
 
         cartAdapter  = new CartAdapter(getContext(), listDatmua);
         recyclerView_dat_mua = view.findViewById(R.id.listDatmua);
         txtTongtien=view.findViewById(R.id.txtTongtien);
+        tvTTgiohang = view.findViewById(R.id.tvTTgiohang);
         btnnext = (Button) view.findViewById(R.id.next);
         checkbox_cartlist=(CheckBox) view.findViewById(R.id.checkbox_cartlist);
 
@@ -116,6 +129,25 @@ public class CartListFragment extends Fragment {
                 cartAdapter = new CartAdapter(getContext(),listDatmua);
                 recyclerView_dat_mua.setAdapter(cartAdapter);
                 cartAdapter.notifyDataSetChanged();
+
+                if (listDatmua.size() == 0){
+                    btnnext.setVisibility(View.GONE);
+                    txtTongtien.setVisibility(View.GONE);
+                    tvTTgiohang.setVisibility(View.VISIBLE);
+                }else {
+                    btnnext.setVisibility(View.VISIBLE);
+                    txtTongtien.setVisibility(View.VISIBLE);
+                    tvTTgiohang.setVisibility(View.GONE);
+                    btnnext.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), CartDetailActivity.class);
+                            String tien = txtTongtien.getText().toString();
+                            intent.putExtra("tongtien", tien);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
 
             @Override

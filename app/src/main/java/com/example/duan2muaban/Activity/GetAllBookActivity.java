@@ -1,14 +1,21 @@
 package com.example.duan2muaban.Activity;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
+import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.model.Books;
@@ -32,6 +39,21 @@ public class GetAllBookActivity extends AppCompatActivity {
         recyclerview_book_all=findViewById(R.id.recyclerview_book_all);
 
         sachAdapter = new SachAdapter(this, listBook);
+
+        Toolbar toolbar = findViewById(R.id.toolbargh);
+        ActionBar actionBar = getSupportActionBar();
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
+
+        toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
+        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
 
         // lấy sách
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
@@ -63,5 +85,15 @@ public class GetAllBookActivity extends AppCompatActivity {
                 Log.e("Error Search:","Error on: "+t.toString());
             }
         });
+    }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

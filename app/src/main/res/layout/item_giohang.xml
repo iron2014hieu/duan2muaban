@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:textColor="#3F51B5"
             android:text="Teen sach"
+            android:maxLength="25"
             android:textStyle="bold"
             android:id="@+id/tv_name_book_cart"/>
         <TextView

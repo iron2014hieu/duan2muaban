@@ -1,12 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".CartDetailActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbargh"
+            android:layout_width="match_parent"
+            app:navigationIcon="@drawable/ic_arrow"
+            app:title="Thanh toán"
+            app:titleTextColor="#FFF"
+            android:background="#2196F3"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
     <ProgressBar
+        android:visibility="gone"
         android:id="@+id/progress_hoadon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -73,6 +89,7 @@
             android:layout_height="wrap_content" />
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -92,6 +109,21 @@
                 android:text="Check"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phương thức vận chuyển : "
+            android:textColor="#E91E63"
+            android:textSize="20dp" />
+
+        <Spinner
+            android:id="@+id/spinner_countries"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -120,4 +152,4 @@
 
     </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

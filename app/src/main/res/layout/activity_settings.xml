@@ -20,70 +20,7 @@
             app:navigationIcon="@drawable/ic_close"
             />
     </com.google.android.material.appbar.AppBarLayout>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:cardBackgroundColor="?attr/cardbackground"
-        android:padding="10dp">
-        <TextView
-            android:id="@+id/txtCardview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Card view"
-            android:textColor="?attr/textcolor"
-            android:textSize="25sp"
-            />
-        <TextView
-            android:padding="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:textColor="?attr/textcolor"
 
-            android:text="DDay la trang cai dat, hay adlk adsmas nasd "/>
-    </androidx.cardview.widget.CardView>
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/cardbackground"
-        android:layout_marginTop="15dp">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/cardbackground"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="?attr/textcolor"
-
-                android:text="Some Compenets"
-                android:gravity="center"
-                />
-            <RadioButton
-                android:textColor="?attr/textcolor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Radio Button"
-                android:textColorHint="?attr/textcolor"
-                android:layout_marginTop="10dp"
-                android:buttonTint="?attr/tincolor"/>
-            <CheckBox
-                android:textColor="?attr/textcolor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Check Box"
-                android:buttonTint="?attr/tincolor"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/buttoncolor"
-                android:layout_marginTop="25sp"
-                android:textColor="?attr/textcolor"
-                android:text="Button"/>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -98,7 +35,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Enable Dark Mode"
+                android:text="Tắt/bật chế độ tối"
                 android:textColor="?attr/textcolor"
                 android:textStyle="bold"
                 android:textSize="20dp"/>
@@ -107,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Night Mode"
+                android:text="Chế độ tối"
                 android:textColor="?attr/textcolor"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>

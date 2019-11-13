@@ -12,7 +12,15 @@
         android:orientation="vertical"
         android:padding="5dp"
         android:background="?attr/backgroundcolor">
-
+        <TextView
+            android:background="#FFEB3B"
+            android:gravity="center"
+            android:textColor="#3F51B5"
+            android:textStyle="bold"
+            android:id="@+id/tvTTgiohang"
+            android:text="Giỏ hàng trống"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"/>
         <CheckBox
             android:id="@+id/checkbox_cartlist"
             android:layout_width="wrap_content"
@@ -49,5 +57,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        <TextView
+            android:id="@+id/tvMuatiep"
+            android:textStyle="bold"
+            android:layout_margin="20dp"
+            android:textColor="#E91E63"
+            android:gravity="center"
+            android:textSize="18dp"
+            android:text="Tiếp tục mua sản phẩm >>"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
 </ScrollView>

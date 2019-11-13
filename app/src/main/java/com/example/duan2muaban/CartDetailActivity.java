@@ -13,9 +13,11 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -52,6 +54,9 @@ import retrofit2.Callback;
 import static com.example.duan2muaban.Notif.App.CHANNEL_1_ID;
 public class CartDetailActivity extends AppCompatActivity {
 
+    private ArrayList<CountryItem> countryItems;
+    private CountryAdapter countryAdapter;
+
     EditText edtMaGiamGia, edtSdt, edtDiachi, edtTenkh;
     TextView txtTongtien;
     Button btnCheckMGG,btnThanhtoan;
@@ -65,6 +70,10 @@ public class CartDetailActivity extends AppCompatActivity {
     int sizeList=0;
     SessionManager sessionManager;
     ProgressBar progress_hoadon;
+
+    int Giamgia = 0;
+    int Giatri;
+    int Phivanchuyen = 0;
 
     private NotificationManagerCompat notificationManager;
     @Override
@@ -87,9 +96,62 @@ public class CartDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         tongtien = intent.getStringExtra("tongtien");
 
+        Toast.makeText(this, ""+tongtien, Toast.LENGTH_SHORT).show();
+        Giatri = Integer.valueOf(tongtien);
+        if (Giatri > 100000){
+            Giatri -= Giatri * 0.05 ;
+            txtTongtien.setText(String.valueOf(Giatri));
+        }else if(Giatri>250000) {
+            Toast.makeText(this, "free ship", Toast.LENGTH_SHORT).show();
+        }
+
         txtTongtien.setText(tongtien+ " VNĐ");
 
         cartAdapter = new CartAdapter(this,listDatmua);
+
+        initList();
+        Spinner spinner = findViewById(R.id.spinner_countries);
+        countryAdapter = new CountryAdapter(this, countryItems);
+        spinner.setAdapter(countryAdapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                CountryItem clickItem = (CountryItem) adapterView.getItemAtPosition(i);
+                String clickItemContry = clickItem.getCountryName();
+                String clickItemPrice = clickItem.getPrice();
+                Toast.makeText(CartDetailActivity.this, clickItemContry+clickItemPrice, Toast.LENGTH_SHORT).show();
+                int tt = Integer.valueOf(tongtien);
+                tt+= Integer.valueOf(clickItemPrice);
+                tt-= Giamgia;
+                Phivanchuyen = Integer.valueOf(clickItemPrice);
+                txtTongtien.setText(tt+ " VNĐ");
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
+        final String coupon = "abc";
+
+        btnCheckMGG.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(edtMaGiamGia.getText().toString().equals(coupon)){
+                    final TextView Tv = findViewById(R.id.txtTongtienthanhtoan);
+                    Giamgia = 10000;
+                    int tt = Integer.valueOf(tongtien);
+                    int sp = tt - Giamgia;
+                    sp += Phivanchuyen;
+                    Toast.makeText(CartDetailActivity.this, ""+ sp, Toast.LENGTH_SHORT).show();
+                    Tv.setText(String.valueOf(sp));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Mã không hợp lệ", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         StaggeredGridLayoutManager gridLayoutManager3 =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
@@ -98,22 +160,22 @@ public class CartDetailActivity extends AppCompatActivity {
         fetchTacgia(mauser_session);
         progress_hoadon.setVisibility(View.GONE);
 
-        btnCheckMGG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String s = edtMaGiamGia.getText().toString();
-                if (s.isEmpty()){
-                    Toast.makeText(CartDetailActivity.this, "Không được để trống", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Intent i = new Intent("android.intent.action.CUSTOM_INTENT_BAI3");
-                Bundle bundle = new Bundle();
-                bundle.putString("MA",edtMaGiamGia.getText().toString());
-                i.putExtras(bundle);
-                sendBroadcast(i);
-                edtMaGiamGia.setText("");
-            }
-        });
+//        btnCheckMGG.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                String s = edtMaGiamGia.getText().toString();
+//                if (s.isEmpty()){
+//                    Toast.makeText(CartDetailActivity.this, "Không được để trống", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
+//                Intent i = new Intent("android.intent.action.CUSTOM_INTENT_BAI3");
+//                Bundle bundle = new Bundle();
+//                bundle.putString("MA",edtMaGiamGia.getText().toString());
+//                i.putExtras(bundle);
+//                sendBroadcast(i);
+//                edtMaGiamGia.setText("");
+//            }
+//        });
 
         btnThanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,6 +204,12 @@ public class CartDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+    private void initList(){
+        countryItems = new ArrayList<>();
+        countryItems.add(new CountryItem("Giao hàng tiết kiệm","20000", R.drawable.vanchuyen));
+        countryItems.add(new CountryItem("Giao hàng nhanh", "30000", R.drawable.vanchuyen));
+        countryItems.add(new CountryItem("Giao hàng siêu tốc", "45000", R.drawable.vanchuyen));
     }
     public void fetchTacgia(String mauser){
         apiInTerFaceDatmua = ApiClient.getApiClient().create(ApiInTerFaceDatmua.class);

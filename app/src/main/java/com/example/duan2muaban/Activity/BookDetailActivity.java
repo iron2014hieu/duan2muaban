@@ -136,80 +136,42 @@ public class BookDetailActivity extends AppCompatActivity {
         btn_themgh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new  AlertDialog.Builder(BookDetailActivity.this);
-                alertDialog.setMessage("Bạn có muốn thêm sách "+tensach+" vào giỏ hàng không?");
-                alertDialog.setIcon(R.drawable.ic_check_black_24dp);
-                alertDialog.setTitle("Thêm vào giỏ hàng");
-                alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        try {
-                            HashMap<String,String> user = sessionManager.getUserDetail();
-                            idUser = user.get(sessionManager.ID);
-                            if (idUser==null){
-                                Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
-                            }else {
-                                ThemCart(idBook, idUser, tensach, giaban);
-                                sessionManager.createCart(idBook, idUser, tensach, giaban, "0");
-                            }
-                        }catch (Exception e){
-
-                        }
-
+                try {
+                    HashMap<String,String> user = sessionManager.getUserDetail();
+                    idUser = user.get(sessionManager.ID);
+                    if (idUser==null){
+                        Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
+                    }else {
+                        ThemCart(idBook, idUser, tensach, giaban);
+                        sessionManager.createCart(idBook, idUser, tensach, giaban, "0");
                     }
-                });
-                alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                }catch (Exception e){
 
-                    }
-
-                });
-                alertDialog.show();
-
-
+                }
             }
         });
         btn_muangay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialog = new  AlertDialog.Builder(BookDetailActivity.this);
-                alertDialog.setMessage("Bạn có muốn mua sách "+tensach+" với giá "+giaban+ " không?");
-                alertDialog.setIcon(R.drawable.ic_check_black_24dp);
-                alertDialog.setTitle("Thêm vào giỏ hàng");
-                alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        try {
-                            HashMap<String,String> user = sessionManager.getUserDetail();
-                            idUser = user.get(sessionManager.ID);
-                            if (idUser==null){
-                                Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
-                                startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
-                            }else {
-                                Intent intent=new Intent(getApplicationContext(), DatmuaActivity.class);
-                                intent.putExtra("masach", idBook);
-                                intent.putExtra("tensach", tensach);
-                                intent.putExtra("gia", giaban);
-                                intent.putExtra("hinhanhsach", linkImage);
-                                intent.putExtra("mauser", idUser);
-                                startActivity(intent);
-                            }
-                        }catch (Exception e){
-
-                        }
-
+                try {
+                    HashMap<String,String> user = sessionManager.getUserDetail();
+                    idUser = user.get(sessionManager.ID);
+                    if (idUser==null){
+                        Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
+                    }else {
+                        Intent intent=new Intent(getApplicationContext(), DatmuaActivity.class);
+                        intent.putExtra("masach", idBook);
+                        intent.putExtra("tensach", tensach);
+                        intent.putExtra("gia", giaban);
+                        intent.putExtra("hinhanhsach", linkImage);
+                        intent.putExtra("mauser", idUser);
+                        startActivity(intent);
                     }
-                });
-                alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                }catch (Exception e){
 
-                    }
-
-                });
-                alertDialog.show();
+                }
             }
         });
         //share text

@@ -26,9 +26,9 @@ public interface ApiInTerFace {
     @GET("sach/getBookbyMa.php")
     Call<List<Books>> getBookbyMatheloai(@Query("matheloai") String matheloai);
     @GET("sach/getBookbyMa.php")
-    Call<List<Books>> getBookbyMatacgia(@Query("matheloai") String matheloai);
+    Call<List<Books>> getBookbyMatacgia(@Query("matacgia") String matacgia);
     @GET("sach/getBookbyMa.php")
-    Call<List<Books>> getBookbyManxb(@Query("matheloai") String matheloai);
+    Call<List<Books>> getBookbyManxb(@Query("manxb") String matheloai);
 
     // sachs chi tiet
 

@@ -87,7 +87,7 @@ public class SessionManager {
     public void createSessionSendInfomationBook(String masach,String tensach,
                                                 String manxb,String matheloai,String ngayxb,
                                                 String noidung,String anhbia,String gia,
-                                                String tennxb,String soluong,String tacgia,
+                                                String tennxb,String soluong,String tacgia,String matacgia,
                                                 String tongdiem, String landanhgia){
         editor.putString(MASACH, masach);
         editor.putString(TENSACH, tensach);
@@ -100,6 +100,7 @@ public class SessionManager {
         editor.putString(TENNXB, tennxb);
         editor.putString(SOLUONG, soluong);
         editor.putString(TACGIA, tacgia);
+        editor.putString(MATACGIA, matacgia);
         editor.putString(TONGDIEM, tongdiem);
         editor.putString(LANDANHGIA, landanhgia);
         editor.apply();
@@ -187,6 +188,7 @@ public class SessionManager {
         book.put(TENNXB, sharedPreferences.getString(TENNXB,null));
         book.put(SOLUONG, sharedPreferences.getString(SOLUONG,null));
         book.put(TACGIA, sharedPreferences.getString(TACGIA,null));
+        book.put(MATACGIA, sharedPreferences.getString(MATACGIA,null));
         book.put(TONGDIEM, sharedPreferences.getString(TONGDIEM,null));
         book.put(LANDANHGIA, sharedPreferences.getString(LANDANHGIA,null));
         return book;

@@ -60,6 +60,8 @@
                     android:background="@android:color/transparent"
                     android:enabled="false"
                     android:hint="Teen sacs"
+                    android:textSize="20dp"
+                    android:gravity="center"
                     android:textColor="?attr/textcolor"
                     android:textColorHint="?attr/textcolor" />
 
@@ -92,7 +94,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="15dp"
                         android:textColor="?attr/textcolor"
-                        android:text="4.5"/>
+                        android:text=""/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -107,7 +109,7 @@
                         android:background="@drawable/ic_fatevori"/>
                 </LinearLayout>
                 <TextView
-                    android:id="@+id/extractEditTextChitiet"
+                    android:id="@+id/edtMotaChitiet"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
 
@@ -121,6 +123,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sản phẩm cùng tác giả" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_sach_tacgia"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -153,6 +161,7 @@
             android:layout_marginBottom="40dp">
 
             <LinearLayout
+                android:id="@+id/linnear_nhanxet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

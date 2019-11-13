@@ -107,11 +107,12 @@ public class SearchBooksActivity extends AppCompatActivity {
                 String tennxb= String.valueOf(books.getTennxb());
                 String soluong = String.valueOf(books.getSoluong());
                 String tacgia = books.getTacgia();
+                String matacgia = String.valueOf(books.getMatacgia());
                 String tongdiem = String.valueOf(books.getTongdiem());
                 String landanhgia = String.valueOf(books.getLandanhgia());
 
-                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,
-                        noidung,anhbia,gia,tennxb,soluong,tacgia, tongdiem, landanhgia);
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,
+                        anhbia,gia,tennxb,soluong,tacgia,matacgia, tongdiem, landanhgia);
 
                 startActivity(new Intent(SearchBooksActivity.this, BookDetailActivity.class));
             }

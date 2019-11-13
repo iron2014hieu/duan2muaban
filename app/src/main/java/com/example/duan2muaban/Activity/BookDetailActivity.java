@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,9 +66,10 @@ public class BookDetailActivity extends AppCompatActivity {
     SharedPref sharedPref;
     Button btn_themgh,btn_muangay;
     private ImageView img_book;
-    private TextView edtTensach, edtGiaban,edtChitiet,txt_numrating_below_deatil,txt_numrating_book_detail, textNotify;
+    private TextView edtTensach, edtGiaban,edtMotaChitiet,txt_numrating_below_deatil,txt_numrating_book_detail, textNotify;
     private RatingBar ratingbar_book_detail, ratingbar_below_detail;
     private ImageButton btn_Share,btn_Message;
+    LinearLayout linnear_nhanxet;
 
     private String URL_INSERT ="http://hieuttpk808.000webhostapp.com/books/cart_bill/insert.php";
     private String URL_CHECK ="https://hieuttpk808.000webhostapp.com/books/cart_bill/checklibrary.php";
@@ -75,12 +77,16 @@ public class BookDetailActivity extends AppCompatActivity {
     private int item_count =1;
     private Double giabansach = 0.0;
     private Float diemdanhgia;
-    private String idBook, tensach,chitiet,hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage, masach;
+    private String idBook, tensach,mota,hinhanh, giaban,
+            soluong, landanhgia, tongdiem, linkImage, masach,matacgia;
     SessionManager sessionManager;
-    RecyclerView recyclerview_nhanxet;
+    RecyclerView recyclerview_nhanxet,recyclerview_sach_tacgia;
     List<CTHD> listNhanxet = new ArrayList<>();
+    List<Books> listBooks = new ArrayList<>();
+    SachAdapter sachAdapter;
     NhanxetAdapter nhanxetAdapter;
     ApiInTerFaceHoadon apiInTerFaceHoadon;
+    ApiInTerFace apiInTerFace;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -108,17 +114,18 @@ public class BookDetailActivity extends AppCompatActivity {
 
         HashMap<String,String> book = sessionManager.getBookDetail();
         idBook = book.get(sessionManager.MASACH);
-        chitiet=book.get(sessionManager.NOIDUNG);
+        mota=book.get(sessionManager.NOIDUNG);
         giaban = (book.get(sessionManager.GIA));
         soluong = (book.get(sessionManager.SOLUONG));
         tensach = book.get(sessionManager.TENSACH);
         masach = book.get(sessionManager.MASACH);
+        matacgia = book.get(sessionManager.MATACGIA);
         toolbar.setTitle(tensach);
 
         tongdiem= (book.get(sessionManager.TONGDIEM));
         landanhgia=book.get(sessionManager.LANDANHGIA);
         linkImage = book.get(sessionManager.ANHBIA);
-
+        Toast.makeText(this, ""+matacgia, Toast.LENGTH_SHORT).show();
         Picasso.with(this)
                 .load(linkImage).into(img_book);
         try {
@@ -135,23 +142,39 @@ public class BookDetailActivity extends AppCompatActivity {
             Log.e("LOG", e.toString());
         }
 
-        diemdanhgia =(Float.parseFloat(tongdiem)/Float.parseFloat(landanhgia));
-        ratingbar_book_detail.setRating(diemdanhgia);
-        ratingbar_below_detail.setRating(diemdanhgia);
+        if (Float.valueOf(tongdiem) == 0.0)
+        {
+            ratingbar_book_detail.setVisibility(View.GONE);
+            ratingbar_book_detail.setVisibility(View.GONE);
+            txt_numrating_below_deatil.setVisibility(View.GONE);
+            txt_numrating_below_deatil.setVisibility(View.GONE);
+            linnear_nhanxet.setVisibility(View.GONE);
+        }else {
+            diemdanhgia =(Float.parseFloat(tongdiem)/Float.parseFloat(landanhgia));
+            ratingbar_book_detail.setRating(diemdanhgia);
+            ratingbar_below_detail.setRating(diemdanhgia);
 
-        txt_numrating_book_detail.setText(""+diemdanhgia);
-        txt_numrating_below_deatil.setText(diemdanhgia+" ("+landanhgia+" đánh giá)");
+            txt_numrating_book_detail.setText(""+diemdanhgia);
+            txt_numrating_below_deatil.setText(diemdanhgia+" ("+landanhgia+" đánh giá)");
+        }
 
         edtTensach.setText(tensach);
         edtGiaban.setText(giaban+" VNĐ");
-        edtChitiet.setText(chitiet);
+        edtMotaChitiet.setText(mota);
 
         giabansach = Double.valueOf(giaban);
         StaggeredGridLayoutManager gridLayoutManagerVeticl =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerview_nhanxet.setLayoutManager(gridLayoutManagerVeticl);
         recyclerview_nhanxet.setHasFixedSize(true);
+        //lay sach cung tac gia
+        StaggeredGridLayoutManager gridLayoutManagerVeticl1 =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+        recyclerview_sach_tacgia.setLayoutManager(gridLayoutManagerVeticl1);
+        recyclerview_sach_tacgia.setHasFixedSize(true);
+
         fetchNhanxet(masach);
+        fetchSach_tacgia(matacgia);
         btn_themgh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -315,6 +338,25 @@ public class BookDetailActivity extends AppCompatActivity {
             }
         });
     }
+    private void fetchSach_tacgia(String matacgia){
+        apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
+        Call<List<Books>> call = apiInTerFace.getBookbyMatacgia(matacgia);
+
+        call.enqueue(new Callback<List<Books>>() {
+            @Override
+            public void onResponse(Call<List<Books>> call, retrofit2.Response<List<Books>> response) {
+                listBooks= response.body();
+                sachAdapter = new SachAdapter(BookDetailActivity.this,listBooks);
+                recyclerview_sach_tacgia.setAdapter(sachAdapter);
+                sachAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Books>> call, Throwable t) {
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+    }
     public  void theme(){
         if (sharedPref.loadNightModeState() == true){
             setTheme(R.style.darktheme);
@@ -329,7 +371,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private void addcontrols(){
         edtTensach = findViewById(R.id.edtTensach);
         edtGiaban=findViewById(R.id.edtGiaban);
-        edtChitiet=findViewById(R.id.extractEditTextChitiet);
+        edtMotaChitiet=findViewById(R.id.edtMotaChitiet);
         btn_themgh=findViewById(R.id.btn_themGH);
         btn_muangay=findViewById(R.id.btn_muangay);
         img_book=findViewById(R.id.imgBook);
@@ -340,5 +382,7 @@ public class BookDetailActivity extends AppCompatActivity {
         txt_numrating_below_deatil = findViewById(R.id.numrating_below_deatil);
         txt_numrating_book_detail = findViewById(R.id.numrating_book_detail);
         recyclerview_nhanxet = findViewById(R.id.recyclerview_nhanxet);
+        linnear_nhanxet=findViewById(R.id.linnear_nhanxet);
+        recyclerview_sach_tacgia= findViewById(R.id.recyclerview_sach_tacgia);
     }
 }

@@ -116,7 +116,7 @@ public class LibraryFragment extends Fragment {
                     txtLib_empty.setVisibility(View.VISIBLE);
                     recyclerview_book_library.setVisibility(View.GONE);
                 }else {
-                    txtLib_empty.setVisibility(View.VISIBLE);
+                    txtLib_empty.setVisibility(View.GONE);
                     recyclerview_book_library.setVisibility(View.VISIBLE);
                 }
             }

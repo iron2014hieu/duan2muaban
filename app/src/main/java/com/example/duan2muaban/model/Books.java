@@ -13,10 +13,11 @@ public class Books {
     String tennxb;
     int soluong;
     String tacgia;
+    int matacgia;
     Double tongdiem;
     int landanhgia;
 
-    public Books(int masach, String tensach, int manxb, int matheloai, String ngayxb, String noidung, String anhbia, String linkbook, int gia, String tennxb, int soluong, String tacgia, Double tongdiem, int landanhgia) {
+    public Books(int masach, String tensach, int manxb, int matheloai, String ngayxb, String noidung, String anhbia, String linkbook, int gia, String tennxb, int soluong, String tacgia, int matacgia, Double tongdiem, int landanhgia) {
         this.masach = masach;
         this.tensach = tensach;
         this.manxb = manxb;
@@ -29,6 +30,7 @@ public class Books {
         this.tennxb = tennxb;
         this.soluong = soluong;
         this.tacgia = tacgia;
+        this.matacgia = matacgia;
         this.tongdiem = tongdiem;
         this.landanhgia = landanhgia;
     }
@@ -127,6 +129,14 @@ public class Books {
 
     public void setTacgia(String tacgia) {
         this.tacgia = tacgia;
+    }
+
+    public int getMatacgia() {
+        return matacgia;
+    }
+
+    public void setMatacgia(int matacgia) {
+        this.matacgia = matacgia;
     }
 
     public Double getTongdiem() {

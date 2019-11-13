@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.duan2muaban.R;
+import com.example.duan2muaban.model.CTHD;
 import com.example.duan2muaban.model.Hoadon;
 
 import java.util.List;
@@ -19,9 +20,9 @@ import java.util.List;
 public class NhanxetAdapter extends RecyclerView.Adapter<NhanxetAdapter.MyViewHolder> {
 
     Context context;
-    List<Hoadon> mData;
+    List<CTHD> mData;
 
-    public NhanxetAdapter(Context context, List<Hoadon> mData) {
+    public NhanxetAdapter(Context context, List<CTHD> mData) {
         this.context = context;
         this.mData = mData;
     }
@@ -40,10 +41,10 @@ public class NhanxetAdapter extends RecyclerView.Adapter<NhanxetAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-//        String diem = String.valueOf(mData.get(i).getDiemdanhgia());
-//        myViewHolder.txtNameuser_item.setText(mData.get(i).getTenUser());
-//        myViewHolder.txtLoinhanxet_item.setText(mData.get(i).getNhanxet());
-//        myViewHolder.ratingbar_cuaban_item.setRating(Float.valueOf(diem));
+        String diem = String.valueOf(mData.get(i).getDiemdanhgia());
+        myViewHolder.txtNameuser_item.setText("******");
+        myViewHolder.txtLoinhanxet_item.setText(mData.get(i).getNoidungdanhgia());
+        myViewHolder.ratingbar_cuaban_item.setRating(Float.valueOf(diem));
     }
 
     @Override

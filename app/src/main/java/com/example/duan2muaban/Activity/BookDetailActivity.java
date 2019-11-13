@@ -24,6 +24,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -33,10 +35,17 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.hoadon.HoadonActivity;
+import com.example.duan2muaban.ApiRetrofit.ApiClient;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.LoginRegister.LoginActivity;
 import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
+import com.example.duan2muaban.adapter.NhanxetAdapter;
+import com.example.duan2muaban.adapter.Sach.SachAdapter;
+import com.example.duan2muaban.model.Books;
+import com.example.duan2muaban.model.CTHD;
 import com.example.duan2muaban.nighmode.SharedPref;
 import com.squareup.picasso.Picasso;
 
@@ -44,8 +53,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class BookDetailActivity extends AppCompatActivity {
     SharedPref sharedPref;
@@ -61,15 +75,16 @@ public class BookDetailActivity extends AppCompatActivity {
     private int item_count =1;
     private Double giabansach = 0.0;
     private Float diemdanhgia;
-    private String idBook, tensach,chitiet,hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage;
+    private String idBook, tensach,chitiet,hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage, masach;
     SessionManager sessionManager;
-    String checklibrary = "chuamua";
+    RecyclerView recyclerview_nhanxet;
+    List<CTHD> listNhanxet = new ArrayList<>();
+    NhanxetAdapter nhanxetAdapter;
+    ApiInTerFaceHoadon apiInTerFaceHoadon;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
         theme();
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
         addcontrols();
@@ -97,7 +112,7 @@ public class BookDetailActivity extends AppCompatActivity {
         giaban = (book.get(sessionManager.GIA));
         soluong = (book.get(sessionManager.SOLUONG));
         tensach = book.get(sessionManager.TENSACH);
-
+        masach = book.get(sessionManager.MASACH);
         toolbar.setTitle(tensach);
 
         tongdiem= (book.get(sessionManager.TONGDIEM));
@@ -132,7 +147,11 @@ public class BookDetailActivity extends AppCompatActivity {
         edtChitiet.setText(chitiet);
 
         giabansach = Double.valueOf(giaban);
-
+        StaggeredGridLayoutManager gridLayoutManagerVeticl =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        recyclerview_nhanxet.setLayoutManager(gridLayoutManagerVeticl);
+        recyclerview_nhanxet.setHasFixedSize(true);
+        fetchNhanxet(masach);
         btn_themgh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -313,6 +332,27 @@ public class BookDetailActivity extends AppCompatActivity {
         };
         requestQueue.add(stringRequest);
     }
+    public void fetchNhanxet(String key){
+        apiInTerFaceHoadon = ApiClient.getApiClient().create(ApiInTerFaceHoadon.class);
+        Call<List<CTHD>> call = apiInTerFaceHoadon.get_5_cthd(key);
+
+        call.enqueue(new Callback<List<CTHD>>() {
+            @Override
+            public void onResponse(Call<List<CTHD>> call, retrofit2.Response<List<CTHD>> response) {
+                //progressBar.setVisibility(View.GONE);
+                listNhanxet= response.body();
+                nhanxetAdapter = new NhanxetAdapter(BookDetailActivity.this,listNhanxet);
+                recyclerview_nhanxet.setAdapter(nhanxetAdapter);
+                nhanxetAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<CTHD>> call, Throwable t) {
+                //progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+    }
     public  void theme(){
         if (sharedPref.loadNightModeState() == true){
             setTheme(R.style.darktheme);
@@ -337,5 +377,6 @@ public class BookDetailActivity extends AppCompatActivity {
         ratingbar_book_detail = findViewById(R.id.ratingbar_book_detail);
         txt_numrating_below_deatil = findViewById(R.id.numrating_below_deatil);
         txt_numrating_book_detail = findViewById(R.id.numrating_book_detail);
+        recyclerview_nhanxet = findViewById(R.id.recyclerview_nhanxet);
     }
 }

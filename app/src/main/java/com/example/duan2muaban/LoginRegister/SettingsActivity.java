@@ -63,22 +63,21 @@ public class SettingsActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         HashMap<String,String> theloai = sessionManager.getMAtheloai();
         String matheloai = theloai.get(sessionManager.MATHELOAI);
+        Toast.makeText(this, ""+matheloai, Toast.LENGTH_SHORT).show();
     }
     public void  restartApp(){
         Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         startActivity(intent);
         finish();
     }
-
-    @Override
-    public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-    }
-
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
 }

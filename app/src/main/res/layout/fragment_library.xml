@@ -17,4 +17,15 @@
         android:backgroundTint="?attr/backgroundcolor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    <TextView
+        android:id="@+id/txtLib_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="103dp"
+        android:drawableTop="@drawable/box_64db"
+        android:gravity="center"
+        android:text="Chưa có sách trong thư viện"
+        android:textStyle="bold"
+        android:visibility="gone"  />
 </RelativeLayout>

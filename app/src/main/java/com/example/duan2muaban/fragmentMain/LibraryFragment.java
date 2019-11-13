@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -28,6 +29,7 @@ import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.CTHD;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -47,6 +49,7 @@ public class LibraryFragment extends Fragment {
     ApiInTerFaceHoadon apiInTerFaceHoadon;
     LibraryAdapter libraryAdapter;
     List<CTHD> listLibrary = new ArrayList<>();
+    TextView txtLib_empty;
     public LibraryFragment() {
         // Required empty public constructor
     }
@@ -66,13 +69,16 @@ public class LibraryFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_library, container, false);
         recyclerview_book_library = view.findViewById(R.id.recyclerview_book_library);
         progressBar = view.findViewById(R.id.progress_lib);
+        txtLib_empty=view.findViewById(R.id.txtLib_empty);
         sessionManager = new SessionManager(getContext());
         // the loaij sachs
         StaggeredGridLayoutManager gridLayoutManager =
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
         recyclerview_book_library.setLayoutManager(gridLayoutManager);
         recyclerview_book_library.setHasFixedSize(true);
-        fetchUser("40");
+
+        HashMap<String,String> user = sessionManager.getUserDetail();
+        fetchUser(user.get(sessionManager.ID));
         recyclerview_book_library.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerview_book_library, new RecyclerTouchListener.ClickListener() {
             @Override
@@ -105,7 +111,14 @@ public class LibraryFragment extends Fragment {
                 libraryAdapter = new LibraryAdapter(getContext(), listLibrary);
                 recyclerview_book_library.setAdapter(libraryAdapter);
                 libraryAdapter.notifyDataSetChanged();
-                Toast.makeText(getContext(), ""+listLibrary.size(), Toast.LENGTH_SHORT).show();
+
+                if (listLibrary.size()==0){
+                    txtLib_empty.setVisibility(View.VISIBLE);
+                    recyclerview_book_library.setVisibility(View.GONE);
+                }else {
+                    txtLib_empty.setVisibility(View.VISIBLE);
+                    recyclerview_book_library.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override

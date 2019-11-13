@@ -49,12 +49,16 @@ public class MuahangActivity extends AppCompatActivity {
             tab = tabLayout.getTabAt(Integer.valueOf(check));
             tab.select();
         }
-
-
-
-
-
-
     }
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return  true;
+    }
 }

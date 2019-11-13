@@ -21,4 +21,6 @@ public interface ApiInTerFaceHoadon {
     //cthd
     @GET("hoadon/get_cthd_bymahd.php")
     Call<List<CTHD>> get_cthd_bymahd(@Query("mahd") String keyword);
+    @GET("hoadon/get_library_user.php")
+    Call<List<CTHD>> get_library_user(@Query("mauser") String keyword);
 }

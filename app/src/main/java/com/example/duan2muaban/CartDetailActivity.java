@@ -59,7 +59,7 @@ public class CartDetailActivity extends AppCompatActivity {
     List<DatMua> listDatmua = new ArrayList<>();
     CartAdapter cartAdapter;
     ApiInTerFaceDatmua apiInTerFaceDatmua;
-    String tongtien,mauser;
+    String tongtien,mauser_session;
     String url_insert_cthd="https://bansachonline.xyz/bansach/hoadon/them_cthd.php";
     String url_insert_hoadon ="https://bansachonline.xyz/bansach/hoadon/them_hoadon.php";
     int sizeList=0;
@@ -83,7 +83,7 @@ public class CartDetailActivity extends AppCompatActivity {
         sessionManager = new SessionManager(this);
         notificationManager = NotificationManagerCompat.from(this);
         HashMap<String,String> user = sessionManager.getUserDetail();
-        mauser = user.get(sessionManager.ID);
+        mauser_session = user.get(sessionManager.ID);
         Intent intent = getIntent();
         tongtien = intent.getStringExtra("tongtien");
 
@@ -95,7 +95,7 @@ public class CartDetailActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerview_create_bill.setLayoutManager(gridLayoutManager3);
         recyclerview_create_bill.setHasFixedSize(true);
-        fetchTacgia("40");
+        fetchTacgia(mauser_session);
         progress_hoadon.setVisibility(View.GONE);
 
         btnCheckMGG.setOnClickListener(new View.OnClickListener() {
@@ -127,7 +127,7 @@ public class CartDetailActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         progress_hoadon.setVisibility(View.VISIBLE);
                         btnThanhtoan.setVisibility(View.GONE);
-                        ThemHoadon(mauser,tongtien,"0333756922", url_insert_hoadon);
+                        ThemHoadon(mauser_session,tongtien,"0333756922", url_insert_hoadon);
                     }
                 });
                 alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -242,6 +242,7 @@ public class CartDetailActivity extends AppCompatActivity {
                 params.put("giaban", giaban);
                 params.put("soluong", soluong);
                 params.put("hinhanh", hinhanh);
+                params.put("mauser", mauser_session);
                 return params;
             }
         };

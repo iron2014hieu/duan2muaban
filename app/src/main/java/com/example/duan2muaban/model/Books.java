@@ -8,6 +8,7 @@ public class Books {
     String ngayxb;
     String noidung;
     String anhbia;
+    String linkbook;
     int gia;
     String tennxb;
     int soluong;
@@ -15,7 +16,7 @@ public class Books {
     Double tongdiem;
     int landanhgia;
 
-    public Books(int masach, String tensach, int manxb, int matheloai, String ngayxb, String noidung, String anhbia, int gia, String tennxb, int soluong, String tacgia, Double tongdiem, int landanhgia) {
+    public Books(int masach, String tensach, int manxb, int matheloai, String ngayxb, String noidung, String anhbia, String linkbook, int gia, String tennxb, int soluong, String tacgia, Double tongdiem, int landanhgia) {
         this.masach = masach;
         this.tensach = tensach;
         this.manxb = manxb;
@@ -23,6 +24,7 @@ public class Books {
         this.ngayxb = ngayxb;
         this.noidung = noidung;
         this.anhbia = anhbia;
+        this.linkbook = linkbook;
         this.gia = gia;
         this.tennxb = tennxb;
         this.soluong = soluong;
@@ -85,6 +87,14 @@ public class Books {
 
     public void setAnhbia(String anhbia) {
         this.anhbia = anhbia;
+    }
+
+    public String getLinkbook() {
+        return linkbook;
+    }
+
+    public void setLinkbook(String linkbook) {
+        this.linkbook = linkbook;
     }
 
     public int getGia() {

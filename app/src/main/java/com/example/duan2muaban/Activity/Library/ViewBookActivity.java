@@ -1,16 +1,16 @@
-package com.example.duan2muaban.Activity;
+package com.example.duan2muaban.Activity.Library;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.Manifest;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.webkit.WebView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -49,6 +49,10 @@ public class ViewBookActivity extends AppCompatActivity {
         pdfView=findViewById(R.id.pdf_viewer);
         progressBar=findViewById(R.id.progressbar);
         sessionManager = new SessionManager(this);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_viewpdf);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
 
         HashMap<String, String> book = sessionManager.getLinkbook();
         linkBook = book.get(sessionManager.LINK_BOOK_READ);
@@ -130,6 +134,13 @@ public class ViewBookActivity extends AppCompatActivity {
                         });
 
     }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
     private void LoadBook(){
 
         progressBar.setVisibility(View.VISIBLE);

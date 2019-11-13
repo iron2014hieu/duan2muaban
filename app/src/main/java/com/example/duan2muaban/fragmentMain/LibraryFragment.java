@@ -2,20 +2,37 @@ package com.example.duan2muaban.fragmentMain;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 
+import com.example.duan2muaban.Activity.BookDetailActivity;
+import com.example.duan2muaban.Activity.Library.BookDetailLibActivity;
+import com.example.duan2muaban.ApiRetrofit.ApiClient;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
+import com.example.duan2muaban.adapter.hoadoncthd.LibraryAdapter;
 import com.example.duan2muaban.model.Books;
+import com.example.duan2muaban.model.CTHD;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 /**
@@ -27,6 +44,9 @@ public class LibraryFragment extends Fragment {
     private SessionManager sessionManager;
     private RecyclerView recyclerview_book_library;
     private ProgressBar progressBar;
+    ApiInTerFaceHoadon apiInTerFaceHoadon;
+    LibraryAdapter libraryAdapter;
+    List<CTHD> listLibrary = new ArrayList<>();
     public LibraryFragment() {
         // Required empty public constructor
     }
@@ -47,32 +67,21 @@ public class LibraryFragment extends Fragment {
         recyclerview_book_library = view.findViewById(R.id.recyclerview_book_library);
         progressBar = view.findViewById(R.id.progress_lib);
         sessionManager = new SessionManager(getContext());
-
-
-
+        // the loaij sachs
+        StaggeredGridLayoutManager gridLayoutManager =
+                new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL);
+        recyclerview_book_library.setLayoutManager(gridLayoutManager);
+        recyclerview_book_library.setHasFixedSize(true);
+        fetchUser("40");
         recyclerview_book_library.addOnItemTouchListener(new RecyclerTouchListener(getActivity(),
                 recyclerview_book_library, new RecyclerTouchListener.ClickListener() {
             @Override
             public void onClick(View view, int position) {
-//                Books books =   listBooks.get(position);
-//
-//                String masach = String.valueOf(books.getMasach());
-//                String tensach = String.valueOf(books.getTensach());
-//                String manxb = String.valueOf(books.getManxb());
-//                String matheloai = String.valueOf(books.getMatheloai());
-//                String ngayxb = books.getNgayxb();
-//                String noidung = books.getNoidung();
-//                String anhbia =books.getAnhbia();
-//                String gia = String.valueOf( books.getGia());
-//                String tennxb= String.valueOf(books.getTennxb());
-//                String soluong = String.valueOf(books.getSoluong());
-//                String tacgia = books.getTacgia();
-//                String tongdiem = String.valueOf(books.getTongdiem());
-//                String landanhgia = String.valueOf(books.getLandanhgia());
-//
-//                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,
-//                        anhbia,gia,tennxb,soluong,tacgia, tongdiem, landanhgia);
-//                startActivity(new Intent(getContext(), BookDetailActivity.class));
+                CTHD cthd = listLibrary.get(position);
+                String masach = String.valueOf(cthd.getMasach());
+                Intent intent = new Intent(getContext(), BookDetailLibActivity.class);
+                intent.putExtra("masach",masach);
+                startActivity(intent);
             }
 
             @Override
@@ -84,27 +93,28 @@ public class LibraryFragment extends Fragment {
         return view;
 
     }
-//    public void fetchUser(String key){
-//        apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);
-//        Call<List<Books>> call = apiInTerFace.getBooks(key);
-//
-//        call.enqueue(new Callback<List<Books>>() {
-//            @Override
-//            public void onResponse(Call<List<Books>> call, Response<List<Books>> response) {
-//                progressBar.setVisibility(View.GONE);
-//                listBooks= response.body();
-//                adapter = new SearchBookAdapter(listBooks, getContext());
-//                recyclerView.setAdapter(adapter);
-//                adapter.notifyDataSetChanged();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<Books>> call, Throwable t) {
-//                progressBar.setVisibility(View.GONE);
-//                Log.e("Error Search:","Error on: "+t.toString());
-//            }
-//        });
-//    }
+    public void fetchUser(String key){
+        apiInTerFaceHoadon = ApiClient.getApiClient().create(ApiInTerFaceHoadon.class);
+        Call<List<CTHD>> call = apiInTerFaceHoadon.get_library_user(key);
+
+        call.enqueue(new Callback<List<CTHD>>() {
+            @Override
+            public void onResponse(Call<List<CTHD>> call, Response<List<CTHD>> response) {
+                progressBar.setVisibility(View.GONE);
+                listLibrary= response.body();
+                libraryAdapter = new LibraryAdapter(getContext(), listLibrary);
+                recyclerview_book_library.setAdapter(libraryAdapter);
+                libraryAdapter.notifyDataSetChanged();
+                Toast.makeText(getContext(), ""+listLibrary.size(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<List<CTHD>> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);

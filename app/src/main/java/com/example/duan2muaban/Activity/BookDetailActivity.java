@@ -63,6 +63,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private Float diemdanhgia;
     private String idBook, tensach,chitiet,hinhanh, giaban, soluong, landanhgia, tongdiem, linkImage;
     SessionManager sessionManager;
+    String checklibrary = "chuamua";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);

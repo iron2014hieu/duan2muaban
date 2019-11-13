@@ -1,11 +1,16 @@
 package com.example.duan2muaban;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.duan2muaban.Activity.GetAllBookActivity;
 import com.example.duan2muaban.Fragment.CartListFragment;
 import com.example.duan2muaban.nighmode.SharedPref;
 
@@ -20,9 +25,19 @@ public class Main2Activity extends AppCompatActivity {
         setContentView(R.layout.activity_main2);
 
         Toolbar toolbar = findViewById(R.id.toolbargh);
-        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
-        toolbar.setTitle("Giỏ hàng");
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
+
+        toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
+        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container2,
                 new CartListFragment()).commit();
@@ -39,5 +54,10 @@ public class Main2Activity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

@@ -7,6 +7,21 @@
     tools:context=".Activity.GetAllBookActivity"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbargh"
+            android:layout_width="match_parent"
+            app:navigationIcon="@drawable/ic_arrow"
+            app:title="Danh sách"
+            app:titleTextColor="#FFF"
+            android:background="#2196F3"
+            android:layout_height="wrap_content"
+            />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:layout_gravity="center"
         android:id="@+id/recyclerview_book_all"

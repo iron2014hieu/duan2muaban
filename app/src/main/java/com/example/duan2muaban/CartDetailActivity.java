@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,7 +23,9 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.core.app.RemoteInput;
@@ -95,6 +99,21 @@ public class CartDetailActivity extends AppCompatActivity {
         mauser_session = user.get(sessionManager.ID);
         Intent intent = getIntent();
         tongtien = intent.getStringExtra("tongtien");
+
+        Toolbar toolbar = findViewById(R.id.toolbargh);
+        ActionBar actionBar = getSupportActionBar();
+
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // back button pressed
+                onBackPressed();
+            }
+        });
+
+        toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
+        toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
 
         Toast.makeText(this, ""+tongtien, Toast.LENGTH_SHORT).show();
         Giatri = Integer.valueOf(tongtien);

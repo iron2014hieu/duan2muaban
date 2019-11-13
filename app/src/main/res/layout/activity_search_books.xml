@@ -24,12 +24,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <androidx.appcompat.widget.Toolbar
+
                         android:id="@+id/toolbar_search"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:titleTextColor="?attr/textcolor"
-                        android:background="?attr/backgroundcolor"
-                        app:navigationIcon="@drawable/ic_close"
+                        android:background="#2196F3"
+                        app:navigationIcon="@drawable/ic_arrow"
                         >
                         <androidx.appcompat.widget.SearchView
                             android:id="@+id/search_view_all"

@@ -24,6 +24,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.GetAllBookActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceDatmua;
 import com.example.duan2muaban.CartDetailActivity;
@@ -76,7 +77,7 @@ public class CartListFragment extends Fragment {
         tvMuatiep.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getContext(), MainActivity.class);
+                Intent i = new Intent(getContext(), GetAllBookActivity.class);
                 startActivity(i);
             }
         });

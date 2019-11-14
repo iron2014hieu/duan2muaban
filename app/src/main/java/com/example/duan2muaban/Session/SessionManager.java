@@ -188,6 +188,7 @@ public class SessionManager {
         book.put(TENNXB, sharedPreferences.getString(TENNXB,null));
         book.put(SOLUONG, sharedPreferences.getString(SOLUONG,null));
         book.put(TACGIA, sharedPreferences.getString(TACGIA,null));
+        book.put(MATACGIA, sharedPreferences.getString(MATACGIA,null));
         book.put(TONGDIEM, sharedPreferences.getString(TONGDIEM,null));
         book.put(LANDANHGIA, sharedPreferences.getString(LANDANHGIA,null));
         return book;

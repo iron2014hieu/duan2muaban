@@ -246,6 +246,8 @@ public class HomeFragment extends Fragment {
                 String soluong = String.valueOf(books.getSoluong());
                 String tacgia = books.getTacgia();
                 String matacgia = String.valueOf(books.getMatacgia());
+
+
                 String tongdiem = String.valueOf(books.getTongdiem());
                 String landanhgia = String.valueOf(books.getLandanhgia());
 

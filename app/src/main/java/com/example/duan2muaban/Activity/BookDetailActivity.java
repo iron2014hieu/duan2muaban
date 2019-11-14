@@ -172,7 +172,7 @@ public class BookDetailActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerview_sach_tacgia.setLayoutManager(gridLayoutManagerVeticl1);
         recyclerview_sach_tacgia.setHasFixedSize(true);
-
+        Toast.makeText(this, "Lấy dữ liệu "+matacgia, Toast.LENGTH_SHORT).show();
         fetchNhanxet(masach);
         fetchSach_tacgia(matacgia);
 //        btn_themgh.setOnClickListener(new View.OnClickListener() {

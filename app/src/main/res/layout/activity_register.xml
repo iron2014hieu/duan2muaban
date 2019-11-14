@@ -5,78 +5,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-    android:background="?attr/backgroundcolor"
+    android:background="@drawable/zzzz"
     tools:context=".LoginRegister.RegisterActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarDangky"
         app:navigationIcon="@drawable/ic_close"
         app:title="Đăng ký"
+        android:background="#03A9F4"
+        app:titleTextColor="#FFFFFF"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"/>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_marginTop="80dp"
+
+
+
+    <LinearLayout
+        android:padding="30dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:backgroundTint="?attr/backgroundcolor">
-        <EditText
-            android:id="@+id/edtName"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:textColor="#3F51B5"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:textSize="30dp"
+            android:text="ĐĂNG KÍ TÀI KHOẢN"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:textColor="?attr/textcolor"
-            android:background="@android:color/transparent"
-            android:textColorHint="?attr/textcolor"
-            android:hint="name"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:padding="5dp"
-        android:layout_height="wrap_content">
-        <EditText
-            android:id="@+id/edtEmail"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/edtName"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Tên tài khoản"
+                android:background="@drawable/rounded_edittext"
+                android:padding="5dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress"
-            android:textColor="?attr/textcolor"
-            android:textColorHint="?attr/textcolor"
-            android:background="@android:color/transparent"
-            android:hint="email"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        app:passwordToggleEnabled="true">
-        <EditText
-            android:id="@+id/edtPassword"
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/edtEmail"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="Email"
+                android:background="@drawable/rounded_edittext"
+                android:padding="5dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textPassword"
-            android:textColor="?attr/textcolor"
-            android:textColorHint="?attr/textcolor"
-            android:background="@android:color/transparent"
-            android:hint="password"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
+            app:passwordToggleEnabled="true">
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:hint="Nhập mật khẩu"
+                android:background="@drawable/rounded_edittext"
+                android:padding="5dp"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:passwordToggleEnabled="true">
         <EditText
             android:id="@+id/edtC_Password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:inputType="textPassword"
-            android:hint="confirm password"
-            android:background="@android:color/transparent"
+            android:hint="Nhập lại mật khẩu"
+            android:background="@drawable/rounded_edittext"
             android:padding="5dp"
             />
     </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/btnRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/cutomsbtn"
+            android:layout_marginTop="20dp"
+            android:textColor="#fff"
+            android:text="Đăng ký"/>
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="match_parent"
@@ -86,13 +110,6 @@
         android:textColorHint="?attr/textcolor"
         android:visibility="gone"
         />
-    <Button
-        android:id="@+id/btnRegister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:background="?attr/buttoncolor"
-        android:layout_marginTop="20dp"
-        android:textColor="?attr/textcolor"
-        android:text="Đăng ký"/>
+
+    </LinearLayout>
 </LinearLayout>

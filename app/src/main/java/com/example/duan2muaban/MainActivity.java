@@ -103,10 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         R.string.string_internet_connection_not_available,
                         Snackbar.LENGTH_LONG).show();
             }
-            if (quyen != "shipper"){
-                startActivity(new Intent(getApplicationContext(), ShipperActivity.class));
-                finish();
-            }
 
         //Setup seerch view
         btnSearchView.setOnClickListener(new View.OnClickListener() {

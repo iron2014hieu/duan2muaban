@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Library.BookDetailLibActivity"></activity>
+        <activity android:name=".fragmentVanChuyen.Activity.ChitietVanChuyenActivity"></activity>
+        <activity android:name=".Activity.ShipperActivity" />
+        <activity android:name=".Activity.Library.BookDetailLibActivity" />
         <activity android:name=".FirstStartActivity" />
         <activity android:name=".MuahangActivity" />
         <activity android:name=".Activity.EditGioHangActivity" />

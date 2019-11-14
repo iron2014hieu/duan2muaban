@@ -28,4 +28,7 @@ public interface ApiInTerFaceHoadon {
     Call<List<CTHD>> get_all_cthd(@Query("masach") String keyword);
     @GET("hoadon/get_5_cthd.php")
     Call<List<CTHD>> get_5_cthd(@Query("masach") String keyword);
+
+    @GET("hoadon/get_all_donhang.php")
+    Call<List<Hoadon>> get_all_donhang();
 }

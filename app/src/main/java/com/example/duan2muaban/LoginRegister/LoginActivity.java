@@ -21,6 +21,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.ShipperActivity;
 import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
@@ -108,9 +109,16 @@ public class LoginActivity extends AppCompatActivity {
                                     String id = object.getString("id").trim();
                                     String quyen = object.getString("quyen").trim();
 
+
+
                                     sessionManager.createSession(id, email, name, quyen);
-                                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                    Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(LoginActivity.this, ""+ quyen, Toast.LENGTH_SHORT).show();
+                                    if(quyen == "shipper"){
+                                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                                    }else {
+                                        startActivity(new Intent(LoginActivity.this, ShipperActivity.class));
+                                        Toast.makeText(LoginActivity.this, "Đăng nhập thành công!", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }else {
                                 Toast.makeText(LoginActivity.this, "Sai tài khoản hoặc mật khẩu!", Toast.LENGTH_SHORT).show();

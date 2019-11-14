@@ -26,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.SearchBooksActivity;
+import com.example.duan2muaban.Activity.ShipperActivity;
 import com.example.duan2muaban.LoginRegister.LoginActivity;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.ViewPagerFM.FragmentAdapter;
@@ -92,13 +93,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             String link = intent.getData().toString();
         }
 
+
             HashMap<String,String> user = sessionManager.getUserDetail();
             name = user.get(sessionManager.NAME);
             id = user.get(sessionManager.ID);
+            String quyen = user.get(sessionManager.QUYEN);
             if (!InternetConnection.checkConnection(getApplicationContext())) {
                 Snackbar.make(linearLayoutMain,
                         R.string.string_internet_connection_not_available,
                         Snackbar.LENGTH_LONG).show();
+            }
+            if (quyen != "shipper"){
+                startActivity(new Intent(getApplicationContext(), ShipperActivity.class));
+                finish();
             }
 
         //Setup seerch view

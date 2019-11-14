@@ -7,10 +7,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.example.duan2muaban.Fragment.donhang.ChoLayHangFragment;
 import com.example.duan2muaban.Fragment.donhang.DangGiaoFragment;
 import com.example.duan2muaban.Fragment.donhang.DanhGiaFragment;
+import com.example.duan2muaban.LoginRegister.ProfileActivity;
 import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.adapter.ViewPagerFM.TabViewPagerAdapter;
@@ -24,6 +27,7 @@ public class ShipperActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     TabLayout.Tab tab;
+    ImageView btnLogoutvc;
     String check;
     int select =2;
     @Override
@@ -37,7 +41,13 @@ public class ShipperActivity extends AppCompatActivity {
         final ActionBar actionBar = getSupportActionBar();
         Intent intent = getIntent();
         check = intent.getStringExtra("check");
-
+        btnLogoutvc = findViewById(R.id.btnLogoutvc);
+        btnLogoutvc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
+            }
+        });
         tabViewPagerAdapter = new TabViewPagerAdapter(getSupportFragmentManager());
         //add fragmenr here
         tabViewPagerAdapter.AddFragment(new ChoXacNhanFragment(), "Chờ xác nhận");

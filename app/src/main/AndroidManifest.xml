@@ -15,15 +15,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.Library.BookDetailLibActivity"></activity>
+        <activity android:name=".fragmentVanChuyen.Activity.ChitietGiaoHangActivity"></activity>
+        <activity android:name=".Activity.Library.BookDetailLibActivity" />
         <activity android:name=".FirstStartActivity" />
         <activity android:name=".MuahangActivity" />
         <activity android:name=".Activity.EditGioHangActivity" />
         <activity android:name=".Activity.DatmuaActivity" />
         <activity android:name=".Activity.GetAllBookActivity" />
-        <activity android:name=".Activity.ShipperActivity"/>
-        <activity android:name=".fragmentVanChuyen.Activity.ChitietVanChuyenActivity"/>
-
+        <activity android:name=".Activity.ShipperActivity" />
+        <activity android:name=".fragmentVanChuyen.Activity.ChitietVanChuyenActivity" />
         <activity android:name=".Activity.SearchBooksActivity">
 
             <!-- to identify this activity as "searchable" -->

@@ -31,4 +31,10 @@ public interface ApiInTerFaceHoadon {
 
     @GET("hoadon/get_all_donhang.php")
     Call<List<Hoadon>> get_all_donhang();
+
+    @GET("hoadon/get_all_danggiao.php")
+    Call<List<Hoadon>> get_all_danggiao();
+
+    @GET("hoadon/get_all_danhgia.php")
+    Call<List<Hoadon>> get_all_danhgia();
 }

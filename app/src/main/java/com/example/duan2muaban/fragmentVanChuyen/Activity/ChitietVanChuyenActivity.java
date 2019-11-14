@@ -45,7 +45,7 @@ public class ChitietVanChuyenActivity extends AppCompatActivity {
     ApiInTerFaceHoadon apiInTerFaceHoadon;
     public static String mahd, tenkh, diachi, sdt, tongtien, tinhtrang;
 
-    String URL_UDATE = "https://bansachonline.xyz/bansach/hoadon/update_cthd_share.php";
+    String URL_UDATE = "https://bansachonline.xyz/bansach/hoadon/update_hoadon_tinhtrang.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +87,7 @@ public class ChitietVanChuyenActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (tinhtrang.equals("cholayhang")) {
-                    UpdateTinhtrang( URL_UDATE+"danggiao"+mahd);
+                    UpdateTinhtrang( "danggiao", URL_UDATE);
                 }
 
             }
@@ -114,8 +114,8 @@ public class ChitietVanChuyenActivity extends AppCompatActivity {
             }
         });
     }
-    private void UpdateTinhtrang( String url){
-        StringRequest request = new StringRequest(Request.Method.GET, url,
+    private void UpdateTinhtrang(final String tinhtrang1 ,String url){
+        StringRequest request = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
@@ -132,16 +132,16 @@ public class ChitietVanChuyenActivity extends AppCompatActivity {
             public void onErrorResponse(VolleyError error) {
                     Log.e("update tt er ", error.toString());
             }
-        });
-//        {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String,String> params = new HashMap<>();
-//                params.put("tinhtrang", tinhtrang);
-//                params.put("mahoadon", mahoadon);
-//                return params;
-//            }
-//        };
+        })
+        {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("tinhtrang", tinhtrang1);
+                params.put("mahoadon", mahd);
+                return params;
+            }
+        };
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         requestQueue.add(request);
     }

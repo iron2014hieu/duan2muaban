@@ -235,17 +235,6 @@
             android:textSize="12dp"></ImageButton>
         <Button
             android:layout_weight="1"
-            android:id="@+id/btn_themGH"
-            android:layout_width="wrap_content"
-            android:layout_height="40dp"
-            android:layout_marginLeft="10dp"
-            android:background="#CDDC39"
-            android:text="Thêm vào giỏ"
-            android:visibility="gone"
-            android:textColor="#ffff"
-            android:textSize="12dp" />
-        <Button
-            android:layout_weight="1"
             android:id="@+id/btn_muangay"
             android:layout_width="wrap_content"
             android:layout_height="40dp"

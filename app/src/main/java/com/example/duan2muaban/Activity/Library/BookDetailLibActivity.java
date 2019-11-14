@@ -1,10 +1,15 @@
 package com.example.duan2muaban.Activity.Library;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -22,6 +27,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.CartDetailActivity;
+import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
@@ -53,9 +59,14 @@ public class BookDetailLibActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail_lib);
         addcontrols();
+        Toolbar toolbar = findViewById(R.id.toolbar_lib);
+        setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
         sessionManager = new SessionManager(this);
         Intent intent = getIntent();
         masach = intent.getStringExtra("masach");
+        tensach = intent.getStringExtra("tensach");
+        toolbar.setTitle(tensach);
         getDetailBook(URL+masach);
 
     }
@@ -92,6 +103,22 @@ public class BookDetailLibActivity extends AppCompatActivity {
         });
         requestQueue.add(jsonArrayRequest);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_library, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.share_book:
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     public void DocSach(View view){
         Intent intent = new Intent(getBaseContext(), ViewBookActivity.class);
         startActivity(intent);

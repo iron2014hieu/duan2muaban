@@ -175,24 +175,24 @@ public class BookDetailActivity extends AppCompatActivity {
 
         fetchNhanxet(masach);
         fetchSach_tacgia(matacgia);
-        btn_themgh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                try {
-                    HashMap<String,String> user = sessionManager.getUserDetail();
-                    idUser = user.get(sessionManager.ID);
-                    if (idUser==null){
-                        Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
-                    }else {
-                        ThemCart(idBook, idUser, tensach, giaban);
-                        sessionManager.createCart(idBook, idUser, tensach, giaban, "0");
-                    }
-                }catch (Exception e){
-
-                }
-            }
-        });
+//        btn_themgh.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                try {
+//                    HashMap<String,String> user = sessionManager.getUserDetail();
+//                    idUser = user.get(sessionManager.ID);
+//                    if (idUser==null){
+//                        Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
+//                        startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
+//                    }else {
+//                        ThemCart(idBook, idUser, tensach, giaban);
+//                        sessionManager.createCart(idBook, idUser, tensach, giaban, "0");
+//                    }
+//                }catch (Exception e){
+//
+//                }
+//            }
+//        });
         btn_muangay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -372,7 +372,6 @@ public class BookDetailActivity extends AppCompatActivity {
         edtTensach = findViewById(R.id.edtTensach);
         edtGiaban=findViewById(R.id.edtGiaban);
         edtMotaChitiet=findViewById(R.id.edtMotaChitiet);
-        btn_themgh=findViewById(R.id.btn_themGH);
         btn_muangay=findViewById(R.id.btn_muangay);
         img_book=findViewById(R.id.imgBook);
         textNotify= findViewById(R.id.textNotify);

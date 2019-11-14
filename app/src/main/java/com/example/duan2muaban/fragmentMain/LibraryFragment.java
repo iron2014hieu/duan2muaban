@@ -85,8 +85,10 @@ public class LibraryFragment extends Fragment {
             public void onClick(View view, int position) {
                 CTHD cthd = listLibrary.get(position);
                 String masach = String.valueOf(cthd.getMasach());
+                String tensach = cthd.getTensach();
                 Intent intent = new Intent(getContext(), BookDetailLibActivity.class);
                 intent.putExtra("masach",masach);
+                intent.putExtra("tensach",tensach);
                 startActivity(intent);
             }
 

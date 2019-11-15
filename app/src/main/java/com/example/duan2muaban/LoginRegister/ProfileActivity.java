@@ -35,7 +35,7 @@ import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.QLTKActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
-import com.example.duan2muaban.nighmode.SharedPref;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;

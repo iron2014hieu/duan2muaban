@@ -1,4 +1,4 @@
-package com.example.duan2muaban;
+package com.example.duan2muaban.nighmode_vanchuyen.vanchuyen;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.duan2muaban.R;
 
 import java.util.ArrayList;
 

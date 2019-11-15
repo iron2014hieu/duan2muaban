@@ -1,11 +1,16 @@
-package com.example.duan2muaban;
+package com.example.duan2muaban.Service;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.example.duan2muaban.model.KhuyenMai;
+
+import java.util.List;
+
 public class MaGiamGia extends BroadcastReceiver {
+
     @Override
     public void onReceive(Context context, Intent intent) {
         String ma = intent.getStringExtra("MA");

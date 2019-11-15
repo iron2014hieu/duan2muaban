@@ -5,8 +5,11 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +33,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.SearchBooksActivity;
-import com.example.duan2muaban.Activity.ShipperActivity;
 import com.example.duan2muaban.LoginRegister.LoginActivity;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.ViewPagerFM.FragmentAdapter;
@@ -39,16 +41,16 @@ import com.example.duan2muaban.fragmentMain.TheloaiFragment;
 import com.example.duan2muaban.fragmentMain.NotificationFragment;
 import com.example.duan2muaban.fragmentMain.LibraryFragment;
 import com.example.duan2muaban.fragmentMain.CanhanFragment;
-import com.example.duan2muaban.nighmode.SharedPref;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.example.duan2muaban.publicString.URL.UrlSql;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
 
 import java.util.HashMap;
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     SharedPref sharedPref;
@@ -70,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
         theme();
+        setAppLocale(sharedPref.loadLanguage());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -111,6 +114,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (check.equals("4")) {
                 viewPager.setCurrentItem(4);
                 navigation.setSelectedItemId(R.id.nav_notif);
+            }else if (check.equals("5")){
+                viewPager.setCurrentItem(5);
+                navigation.setSelectedItemId(R.id.nav_profile);
             }
         }
 
@@ -133,7 +139,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
     }
-
+    // thay đổi ngôn ngữ
+    private void setAppLocale(String localeCode){
+        Resources res = getResources();
+        DisplayMetrics dm = res.getDisplayMetrics();
+        Configuration conf =    res.getConfiguration();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            conf.setLocale(new Locale(localeCode.toLowerCase()));
+        }else {
+            conf.locale = new Locale(localeCode.toLowerCase());
+        }
+        res.updateConfiguration(conf, dm);
+    }
     public static void setupFm(FragmentManager fragmentManager, ViewPager viewPager){
         FragmentAdapter Adapter = new FragmentAdapter(fragmentManager);
         //Add All Fragment To List

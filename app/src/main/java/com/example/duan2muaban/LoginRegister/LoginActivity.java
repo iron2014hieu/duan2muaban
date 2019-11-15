@@ -25,7 +25,7 @@ import com.example.duan2muaban.Activity.ShipperActivity;
 import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
-import com.example.duan2muaban.nighmode.SharedPref;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 
 import org.json.JSONArray;
 import org.json.JSONException;

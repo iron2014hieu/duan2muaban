@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Book</string>
+    <string name="hello_blank_fragment">ddd</string>
+    <string name="string_internet_connection_not_available">No Connect Internet!</string>
+    <string name="thaydoingonngu">Language</string>
+    <string name="chedotoi">Enable Darkmode</string>
+    <string name="tatBatchedotoi">On/Off Darkmode</string>
+</resources>

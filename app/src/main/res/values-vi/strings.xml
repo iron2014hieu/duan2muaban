@@ -2,10 +2,7 @@
     <string name="app_name">Sách</string>
     <string name="hello_blank_fragment">ddd</string>
     <string name="string_internet_connection_not_available">Không có kết nối internet!</string>
-    <string name="thaydoingonngu">Ngôn ngữ</string>
+    <string name="thaydoingonngu">Thay đổi ngôn ngữ</string>
     <string name="chedotoi">Chế độ tối</string>
     <string name="tatBatchedotoi">Tắt/bật chế độ tối</string>
-    <string name="thay_doi_ngon_ngu">Thay đổi ngôn ngữ</string>
-
-
 </resources>

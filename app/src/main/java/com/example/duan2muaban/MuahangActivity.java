@@ -13,7 +13,7 @@ import com.example.duan2muaban.Fragment.donhang.ChoXacNhanFragment;
 import com.example.duan2muaban.Fragment.donhang.DangGiaoFragment;
 import com.example.duan2muaban.Fragment.donhang.DanhGiaFragment;
 import com.example.duan2muaban.adapter.ViewPagerFM.TabViewPagerAdapter;
-import com.example.duan2muaban.nighmode.SharedPref;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.google.android.material.tabs.TabLayout;
 
 public class MuahangActivity extends AppCompatActivity {

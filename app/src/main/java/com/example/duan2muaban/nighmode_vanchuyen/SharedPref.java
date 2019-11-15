@@ -1,4 +1,4 @@
-package com.example.duan2muaban.nighmode;
+package com.example.duan2muaban.nighmode_vanchuyen;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -18,5 +18,16 @@ public class SharedPref {
     public Boolean loadNightModeState(){
         Boolean state = myPreferences.getBoolean("NightMode", false);
         return state;
+    }
+
+    public void setLanguage(String lang){
+        SharedPreferences.Editor editor= myPreferences.edit();
+        editor.putString("language", lang);
+        editor.commit();
+    }
+    //this mode will load The noght mode
+    public String loadLanguage(){
+        String lang = myPreferences.getString("language", "vi");
+        return lang;
     }
 }

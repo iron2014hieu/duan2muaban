@@ -3,8 +3,12 @@ package com.example.duan2muaban;
 import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
@@ -24,6 +28,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
+import androidx.core.app.RemoteInput;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -36,12 +41,16 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceDatmua;
+import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.CartAdapter;
+import com.example.duan2muaban.adapter.KhuyenMai.KhuyenMaiAdapter;
+import com.example.duan2muaban.adapter.ListSPAdapter;
 import com.example.duan2muaban.model.DatMua;
+import com.example.duan2muaban.model.KhuyenMai;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.example.duan2muaban.nighmode_vanchuyen.vanchuyen.CountryAdapter;
 import com.example.duan2muaban.nighmode_vanchuyen.vanchuyen.CountryItem;
-import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,15 +68,19 @@ public class CartDetailActivity extends AppCompatActivity {
     private ArrayList<CountryItem> countryItems;
     private CountryAdapter countryAdapter;
 
+    private KhuyenMaiAdapter khuyenMaiAdapter;
+    private List<KhuyenMai> listKhuyenMai = new ArrayList<>();
+    ApiInTerFaceHoadon apiInTerFaceHoadon;
+
     EditText edtMaGiamGia, edtSdt, edtDiachi, edtTenkh;
     TextView txtTongtien;
     Button btnCheckMGG,btnThanhtoan;
     RecyclerView recyclerview_create_bill;
     List<DatMua> listDatmua = new ArrayList<>();
-    CartAdapter cartAdapter;
+    ListSPAdapter cartAdapter;
     ApiInTerFaceDatmua apiInTerFaceDatmua;
-    String tongtien,mauser_session;
-    String url_insert_cthd="https://bansachonline.xyz/bansach/hoadon/them_cthd.php";
+    int tongtien;
+    String url_insert_cthd="https://bansachonline.xyz/bansach/hoadon/them_cthd.php",mauser_session;
     String url_insert_hoadon ="https://bansachonline.xyz/bansach/hoadon/them_hoadon.php";
     int sizeList=0;
     SessionManager sessionManager;
@@ -98,11 +111,10 @@ public class CartDetailActivity extends AppCompatActivity {
         HashMap<String,String> user = sessionManager.getUserDetail();
         mauser_session = user.get(sessionManager.ID);
         Intent intent = getIntent();
-        tongtien = intent.getStringExtra("tongtien");
+        tongtien = Integer.valueOf(intent.getStringExtra("tongtien"));
 
         Toolbar toolbar = findViewById(R.id.toolbargh);
         ActionBar actionBar = getSupportActionBar();
-
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,8 +127,6 @@ public class CartDetailActivity extends AppCompatActivity {
         toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).start();
         toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).start();
 
-        Toast.makeText(this, ""+tongtien, Toast.LENGTH_SHORT).show();
-
         Giatri = Integer.valueOf(tongtien);
         if (Giatri > 100000){
             Giatri -= Giatri * 0.05 ;
@@ -127,7 +137,7 @@ public class CartDetailActivity extends AppCompatActivity {
 
         txtTongtien.setText(tongtien+ " VNĐ");
 
-        cartAdapter = new CartAdapter(this,listDatmua);
+        cartAdapter = new ListSPAdapter(this,listDatmua);
 
         initList();
         Spinner spinner = findViewById(R.id.spinner_countries);
@@ -139,37 +149,15 @@ public class CartDetailActivity extends AppCompatActivity {
                 CountryItem clickItem = (CountryItem) adapterView.getItemAtPosition(i);
                 String clickItemContry = clickItem.getCountryName();
                 String clickItemPrice = clickItem.getPrice();
-                Toast.makeText(CartDetailActivity.this, clickItemContry+clickItemPrice, Toast.LENGTH_SHORT).show();
                 int tt = Integer.valueOf(tongtien);
                 tt+= Integer.valueOf(clickItemPrice);
                 tt-= Giamgia;
                 Phivanchuyen = Integer.valueOf(clickItemPrice);
                 txtTongtien.setText(tt+ " VNĐ");
-
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
 
-            }
-        });
-
-        final String coupon = "abc";
-
-        btnCheckMGG.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if(edtMaGiamGia.getText().toString().equals(coupon)){
-                    final TextView Tv = findViewById(R.id.txtTongtienthanhtoan);
-                    Giamgia = 10000;
-                    int tt = Integer.valueOf(tongtien);
-                    int sp = tt - Giamgia;
-                    sp += Phivanchuyen;
-                    Toast.makeText(CartDetailActivity.this, ""+ sp, Toast.LENGTH_SHORT).show();
-                    Tv.setText(String.valueOf(sp));
-                } else {
-                    Toast.makeText(getApplicationContext(), "Mã không hợp lệ", Toast.LENGTH_LONG).show();
-                }
             }
         });
 
@@ -180,22 +168,41 @@ public class CartDetailActivity extends AppCompatActivity {
         fetchTacgia(mauser_session);
         progress_hoadon.setVisibility(View.GONE);
 
-//        btnCheckMGG.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                String s = edtMaGiamGia.getText().toString();
-//                if (s.isEmpty()){
-//                    Toast.makeText(CartDetailActivity.this, "Không được để trống", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//                Intent i = new Intent("android.intent.action.CUSTOM_INTENT_BAI3");
-//                Bundle bundle = new Bundle();
-//                bundle.putString("MA",edtMaGiamGia.getText().toString());
-//                i.putExtras(bundle);
-//                sendBroadcast(i);
-//                edtMaGiamGia.setText("");
-//            }
-//        });
+        apiInTerFaceHoadon = ApiClient.getApiClient().create(ApiInTerFaceHoadon.class);
+        Call<List<KhuyenMai>> call = apiInTerFaceHoadon.get_all_khuyenmai();
+
+        call.enqueue(new Callback<List<KhuyenMai>>() {
+            @Override
+            public void onResponse(Call<List<KhuyenMai>> call, retrofit2.Response<List<KhuyenMai>> response) {
+                listKhuyenMai = response.body();
+                if (listKhuyenMai.size() == 0) {
+                    Toast.makeText(CartDetailActivity.this, "Không có khuyến mãi", Toast.LENGTH_SHORT).show();
+                } else {
+                    btnCheckMGG.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            for (int i = 0; i < listKhuyenMai.size(); i++) {
+                                String makm = listKhuyenMai.get(i).getMaKM();
+                                String phantram = listKhuyenMai.get(i).getTinhChat();
+                                String s = edtMaGiamGia.getText().toString();
+                                if (makm.equals(s)) {
+                                    Toast.makeText(CartDetailActivity.this, "Hợp lệ " + makm, Toast.LENGTH_SHORT).show();
+                                    Double tt = tongtien * Double.valueOf(phantram) + Phivanchuyen;
+                                    txtTongtien.setText(tt+ " VNĐ");
+                                } else {
+                                    Toast.makeText(CartDetailActivity.this, "Mã không tồn tại", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+            @Override
+            public void onFailure(Call<List<KhuyenMai>> call, Throwable t) {
+                Log.e("Error Search:","Error on: "+t.toString());
+            }
+        });
+
 
         btnThanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,7 +216,7 @@ public class CartDetailActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         progress_hoadon.setVisibility(View.VISIBLE);
                         btnThanhtoan.setVisibility(View.GONE);
-                        ThemHoadon(mauser_session,tongtien,"0333756922", url_insert_hoadon);
+                        ThemHoadon(mauser_session,String.valueOf(tongtien),"0333756922", url_insert_hoadon);
                     }
                 });
                 alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -221,10 +228,10 @@ public class CartDetailActivity extends AppCompatActivity {
 
                 });
                 alertDialog.show();
-
             }
         });
     }
+
     //settheme
     public  void theme(){
         if (sharedPref.loadNightModeState() == true){
@@ -237,6 +244,7 @@ public class CartDetailActivity extends AppCompatActivity {
         countryItems.add(new CountryItem("Giao hàng nhanh", "30000", R.drawable.vanchuyen));
         countryItems.add(new CountryItem("Giao hàng siêu tốc", "45000", R.drawable.vanchuyen));
     }
+
     public void fetchTacgia(String mauser){
         apiInTerFaceDatmua = ApiClient.getApiClient().create(ApiInTerFaceDatmua.class);
         Call<List<DatMua>> call = apiInTerFaceDatmua.getDatMuaThanhtoan(mauser);
@@ -247,7 +255,7 @@ public class CartDetailActivity extends AppCompatActivity {
                 progress_hoadon.setVisibility(View.GONE);
                 listDatmua= response.body();
                 sizeList = listDatmua.size();
-                cartAdapter = new CartAdapter(CartDetailActivity.this,listDatmua);
+                cartAdapter = new ListSPAdapter(CartDetailActivity.this,listDatmua);
                 recyclerview_create_bill.setAdapter(cartAdapter);
                 cartAdapter.notifyDataSetChanged();
             }
@@ -268,15 +276,15 @@ public class CartDetailActivity extends AppCompatActivity {
                             JSONObject jsonObject = new JSONObject(response);
                             int mahoadon =Integer.valueOf(jsonObject.getString("mahoadon"));
                             mahoadon++;
-                                for (int n = 0; n < sizeList; n++) {
-                                    String masach = String.valueOf(listDatmua.get(n).getMasach());
-                                    String tensach = listDatmua.get(n).getSanpham();
-                                    String giaban = String.valueOf(listDatmua.get(n).getGia());
-                                    String soluong = String.valueOf(listDatmua.get(n).getSoluong());
-                                    String hinhanh = listDatmua.get(n).getHinhanh();
-                                    ThemCTHD(String.valueOf(mahoadon), masach, tensach, giaban, soluong, hinhanh, url_insert_cthd);
-                                }
-                                Toast.makeText(CartDetailActivity.this, "Thêm tc hóa đơn: " + mahoadon, Toast.LENGTH_SHORT).show();
+                            for (int n = 0; n < sizeList; n++) {
+                                String masach = String.valueOf(listDatmua.get(n).getMasach());
+                                String tensach = listDatmua.get(n).getSanpham();
+                                String giaban = String.valueOf(listDatmua.get(n).getGia());
+                                String soluong = String.valueOf(listDatmua.get(n).getSoluong());
+                                String hinhanh = listDatmua.get(n).getHinhanh();
+                                ThemCTHD(String.valueOf(mahoadon), masach, tensach, giaban, soluong, hinhanh, url_insert_cthd);
+                            }
+                            Toast.makeText(CartDetailActivity.this, "Thêm tc hóa đơn: " + mahoadon, Toast.LENGTH_SHORT).show();
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }

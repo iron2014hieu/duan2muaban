@@ -14,7 +14,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thành viên :"
+            android:text="@string/thanhvien"
             android:textColor="#F44336"
             android:textSize="30dp"
             android:textStyle="bold"

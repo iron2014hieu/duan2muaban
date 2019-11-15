@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:titleTextColor="#000"
-            app:title="sach"
+            app:title="@string/app_name"
             app:navigationIcon="@drawable/ic_close"
             android:background="?attr/backgroundcolor"/>
     </com.google.android.material.appbar.AppBarLayout>

@@ -49,7 +49,7 @@
             android:layout_gravity="center"
             android:padding="5dp"
             android:textColor="#FF0000"
-            android:text="Xem chi tiết"/>
+            android:text="@string/xemchitiet"/>
     </LinearLayout>
         <TextView
             android:id="@+id/txtUoctinhnhan"

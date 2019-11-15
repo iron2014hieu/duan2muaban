@@ -59,7 +59,7 @@
                 android:textSize="18dp"
                 android:id="@+id/textView1"
                 android:layout_below="@id/cartview"
-                android:text="Thể loại"
+                android:text="@string/theloai"
                 android:layout_width="match_parent"
                 android:layout_height="30dp">
             </TextView>
@@ -84,7 +84,7 @@
                     android:textSize="18dp"
                     android:id="@+id/textView"
                     android:layout_below="@id/recyclerview_theloai"
-                    android:text="Truyện mới cập nhật"
+                    android:text="@string/truyenmoicapnhat"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp">
                 </TextView>
@@ -95,7 +95,7 @@
                     android:layout_marginRight="10dp"
                     android:gravity="right"
                     android:textColor="?attr/textcolor"
-                    android:text="Xem thêm >>"
+                    android:text="@string/xemthem"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                 </TextView>
@@ -115,7 +115,7 @@
                 android:textSize="18dp"
                 android:id="@+id/textView2"
                 android:layout_below="@id/recyclerview_book_home"
-                android:text="Nhà xuất bản"
+                android:text="@string/nhaxuatban"
                 android:layout_width="wrap_content"
                 android:layout_height="30dp"/>
             <androidx.recyclerview.widget.RecyclerView
@@ -135,7 +135,7 @@
                 android:layout_below="@+id/recyclerview_nxb_home"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Tác giả"/>
+                android:text="@string/tacgia"/>
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_gravity="center"
                 android:id="@+id/recyclerview_tacgia_home"

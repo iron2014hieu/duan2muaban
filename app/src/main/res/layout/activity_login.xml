@@ -27,7 +27,7 @@
             android:textStyle="bold"
             android:gravity="center"
             android:textSize="30dp"
-            android:text="ĐĂNG NHẬP"
+            android:text="@string/dangnhap"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -75,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="Đăng nhập"
+        android:text="@string/dangnhaps"
         android:background="@drawable/cutomsbtn"
         android:textColor="#fff"
         android:layout_marginTop="20dp"
@@ -87,7 +87,7 @@
         android:layout_alignParentRight="true"
         android:textColor="#E91E63"
         android:layout_marginTop="10dp"
-        android:text="Ghi nhớ"
+        android:text="@string/ghinholuachon"
         android:backgroundTint="?attr/backgroundcolor"
         android:id="@+id/cbRemember"/>
 
@@ -95,7 +95,7 @@
         android:id="@+id/link_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Chưa có tài khoản! Đăng ký ngay"
+        android:text="@string/dangkytaikhoan"
         android:textColor="#3F51B5"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

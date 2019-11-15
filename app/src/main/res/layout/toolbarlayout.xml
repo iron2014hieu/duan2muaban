@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toLeftOf="@id/cartButtonIV"
-                android:hint="Khuyến mãi cực chất!..."
+                android:hint="@string/khuyenmaicucchat"
                 android:textSize="17sp"
                 android:gravity="left"
                 android:drawableRight="@drawable/ic_search_black_24dp"

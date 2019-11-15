@@ -54,7 +54,7 @@
         android:id="@+id/txtDocsach"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:text="Đọc sách"
+        android:text="@string/docsach"
         android:layout_marginTop="10dp"
         android:padding="10dp"
         android:textStyle="bold"
@@ -73,5 +73,5 @@
         android:gravity="center"
         android:layout_marginTop="15dp"
         android:drawableRight="@drawable/ic_chevron_right"
-        android:text="Xem đánh giá của bạn"/>
+        android:text="@string/danhgia_doc"/>
 </LinearLayout>

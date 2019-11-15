@@ -14,7 +14,7 @@
         android:gravity="center">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            app:title="Trang cá nhân"
+            app:title="@string/trangcanhan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?attr/backgroundcolor"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:enabled="false"
-            android:hint="Tên"
+            android:hint="@string/ten"
             android:textSize="30dp"
             android:textColorHint="?attr/textcolor"
             android:textColor="?attr/textcolor"
@@ -49,7 +49,7 @@
             android:layout_marginTop="25sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Email"
+            android:hint="@string/email"
             android:textSize="30dp"
             android:drawableLeft="@drawable/ic_email_black_24dp"
             android:textColorHint="?attr/textcolor"
@@ -82,6 +82,6 @@
             android:layout_height="wrap_content"
             android:background="?attr/buttoncolor"
             android:textColor="?attr/textcolor"
-            android:text="Đăng xuất"/>
+            android:text="@string/dangxuat"/>
     </LinearLayout>
 </ScrollView>

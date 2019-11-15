@@ -29,7 +29,7 @@
             android:layout_marginTop="30dp"
             android:gravity="center"
             android:textSize="30dp"
-            android:text="ĐĂNG KÍ TÀI KHOẢN"
+            android:text="@string/dangkytaikhaon"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
         <com.google.android.material.textfield.TextInputLayout
@@ -99,7 +99,7 @@
             android:background="@drawable/cutomsbtn"
             android:layout_marginTop="20dp"
             android:textColor="#fff"
-            android:text="Đăng ký"/>
+            android:text="@string/dangky"/>
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="match_parent"

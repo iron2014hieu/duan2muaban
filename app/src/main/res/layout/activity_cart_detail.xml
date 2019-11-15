@@ -19,7 +19,7 @@
             android:id="@+id/toolbargh"
             android:layout_width="match_parent"
             app:navigationIcon="@drawable/ic_arrow"
-            app:title="Thanh toán"
+            app:title="@string/thanhtoanhang"
             app:titleTextColor="#FFF"
             android:background="#2196F3"
             android:layout_height="wrap_content"
@@ -47,7 +47,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tên khách hàng"
+            android:text="@string/tenkhachhang"
             android:textColor="#E91E63"
             android:textSize="20dp" />
         <com.google.android.material.textfield.TextInputLayout
@@ -66,7 +66,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ"
+            android:text="@string/diachi"
             android:textColor="#E91E63"
             android:textSize="20dp" />
 
@@ -86,7 +86,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Số điện thoại"
+            android:text="@string/sodienthoaikhach"
             android:textColor="#E91E63"
             android:textSize="20dp" />
 
@@ -106,7 +106,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sản phẩm"
+            android:text="@string/sanphammua"
             android:textColor="#E91E63"
             android:textSize="20dp" />
 
@@ -133,7 +133,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="#2196F3"
-                android:text="Check"
+                android:text="@string/kientrama"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 
@@ -141,7 +141,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Phương thức vận chuyển"
+            android:text="@string/phuongthucvanchuyen"
             android:textColor="#E91E63"
             android:textSize="20dp" />
 
@@ -164,7 +164,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Tổng tiền: 10 VND"
+                android:text="@string/tongtien"
                 android:textColor="#E91E63"
                 android:textSize="20dp" />
 
@@ -174,7 +174,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="#2196F3"
-                android:text="Thanh toán"
+                android:text="@string/thanhtoanhang"
                 android:textColor="#FFFFFF" />
         </LinearLayout>
 

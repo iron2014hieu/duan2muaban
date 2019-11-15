@@ -4,5 +4,5 @@
 
     <item
         android:id="@+id/ivQLTK"
-        android:title="Quản lý tài khoản" />
+        android:title="@string/quanlytaikhoan" />
 </menu>

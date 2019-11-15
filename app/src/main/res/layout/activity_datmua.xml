@@ -29,7 +29,7 @@
             android:textColor="#E91E63"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Sản phẩm :"
+            android:text="@string/sanphams"
             android:textStyle="bold"
             android:textSize="17dip" />
         <EditText
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:paddingTop="10dip"
-            android:text="Giá :"
+            android:text="@string/gias"
             android:textStyle="bold"
             android:textSize="17dip" />
         <EditText
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:paddingTop="10dip"
-            android:text="Số lượng :"
+            android:text="@string/soluongs"
             android:textStyle="bold"
             android:textSize="17dip" />
         <LinearLayout
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:inputType="number"
             android:paddingTop="10dip"
-            android:text="Tổng tiền :"
+            android:text="@string/tongtiens"
             android:textStyle="bold"
             android:textSize="17dip" />
         <EditText
@@ -101,7 +101,7 @@
             android:textStyle="bold"
             android:textColor="#fff"
             android:background="#2196F3"
-            android:text="Thêm sản phẩm"
+            android:text="@string/them_sanpham"
             android:layout_width="match_parent"
             android:layout_marginTop="8dp"
             android:layout_height="wrap_content"

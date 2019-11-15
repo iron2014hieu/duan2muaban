@@ -10,7 +10,7 @@
         android:id="@+id/toolbarQLTK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Quản lý tài khoản"
+        app:title="@string/quanlytaikhoan"
         app:navigationIcon="@drawable/ic_close"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_QLTK"

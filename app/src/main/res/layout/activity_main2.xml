@@ -14,7 +14,7 @@
             android:id="@+id/toolbargh"
             android:layout_width="match_parent"
             app:navigationIcon="@drawable/ic_arrow"
-            app:title="Giỏ hàng"
+            app:title="@string/giohang"
             app:titleTextColor="#FFF"
             android:background="#2196F3"
             android:layout_height="wrap_content"

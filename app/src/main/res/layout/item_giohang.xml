@@ -87,7 +87,7 @@
         android:id="@+id/btn_iv_Xoa_giohang"
         android:layout_width="50dp"
         android:layout_height="match_parent"
-        android:text="Xóa"/>
+        android:text="@string/xoa"/>
 </LinearLayout>
 </LinearLayout>
 </LinearLayout>

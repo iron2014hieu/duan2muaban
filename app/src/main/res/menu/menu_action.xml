@@ -15,6 +15,6 @@
     <item
         app:showAsAction="always"
         android:id="@+id/logout"
-        android:title="Giỏ hàng"
+        android:title="@string/giohang"
         android:icon="@drawable/ic_shopping_cart"/>
 </menu>

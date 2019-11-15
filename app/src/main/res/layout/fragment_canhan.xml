@@ -33,14 +33,14 @@
                            android:layout_weight="1"
                            android:background="?attr/buttoncolor"
                            android:textColor="?attr/textcolor"
-                           android:text="Đăng nhập"/>
+                           android:text="@string/dangnhaps"/>
                        <Button
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
                            android:background="?attr/buttoncolor"
                            android:textColor="?attr/textcolor"
-                           android:text="Đăng ký"/>
+                           android:text="@string/dangky"/>
                    </LinearLayout>
                </androidx.cardview.widget.CardView>
                <androidx.cardview.widget.CardView
@@ -60,7 +60,7 @@
                        <TextView
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text="Đơn hàng"
+                           android:text="@string/donhang"
                            android:textStyle="bold"
                            android:textSize="15dp"
                            android:gravity="center"
@@ -70,7 +70,7 @@
                        <TextView
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text="Lịch sử mua hàng"
+                           android:text="@string/lichsumua"
                            android:textSize="15dp"
                            android:gravity="right"
                            android:textColor="?attr/textcolor"
@@ -92,7 +92,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Chờ xác nhận"
+                            android:text="@string/choxacnhan"
                             android:textColor="?attr/textcolor"
                             android:gravity="center"
                             android:drawableTop="@drawable/choxacnhan"/>
@@ -101,7 +101,7 @@
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
-                           android:text="Chờ lấy hàng"
+                           android:text="@string/cholayhang"
                            android:textColor="?attr/textcolor"
                            android:gravity="center"
                            android:drawableTop="@drawable/cholayhang"/>
@@ -110,7 +110,7 @@
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
-                           android:text="Đang giao"
+                           android:text="@string/danggiao"
                            android:textColor="?attr/textcolor"
                            android:gravity="center"
                            android:drawableTop="@drawable/danggiao"/>
@@ -119,7 +119,7 @@
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
-                           android:text="Đánh giá"
+                           android:text="@string/danhgia"
                            android:textColor="?attr/textcolor"
                            android:gravity="center"
                            android:drawableTop="@drawable/rating"/>
@@ -127,7 +127,7 @@
                        <TextView
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text="Sách đã thích"
+                           android:text="@string/sachdathich"
                            android:textStyle="bold"
                            android:textSize="15dp"
                            android:gravity="left"
@@ -139,7 +139,7 @@
                        <TextView
                            android:layout_width="match_parent"
                            android:layout_height="wrap_content"
-                           android:text="Đánh giá của tôi"
+                           android:text="@string/danhgiacutoi"
                            android:padding="5dp"
                            android:textStyle="bold"
                            android:textSize="15dp"
@@ -169,7 +169,7 @@
             android:id="@+id/txtTaikhoan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Thiết lập tài khoản"
+            android:text="@string/thietlaptaikhoan"
             android:layout_marginTop="25dp"
             android:textStyle="bold"
             android:textSize="15dp"
@@ -183,7 +183,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_settings"
                 android:drawableRight="@drawable/ic_chevron_right"
-                android:text="Cài đặt khác"
+                android:text="@string/caidatkhac"
                 android:visibility="visible"
                 android:gravity="left"
                 android:padding="5dp"

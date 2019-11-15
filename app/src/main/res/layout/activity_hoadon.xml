@@ -12,7 +12,7 @@
         android:textSize="25dp"
         android:textColor="#F44336"
         android:gravity="center"
-        android:text="Hóa đơn"
+        android:text="@string/hoadon"
         />
     <LinearLayout
         android:layout_width="match_parent"

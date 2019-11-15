@@ -5,28 +5,28 @@
         android:id="@+id/nav_home"
         android:iconTint="?attr/textcolor"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Trang chủ"/>
+        android:title="@string/trangchu"/>
     <item
         android:id="@+id/nav_library"
         android:icon="@drawable/sale"
         android:iconTint="?attr/textcolor"
-        android:title="Khuyến mãi"/>
+        android:title="@string/khuyenmai"/>
 
     <item
         android:id="@+id/nav_search"
         android:icon="@drawable/ic_library_books_black_24dp"
         android:iconTint="?attr/textcolor"
-        android:title="Thư viện"
+        android:title="@string/thuvien"
         android:titleCondensed="#555"/>
     <item
         android:id="@+id/nav_notif"
         android:icon="@drawable/ic_notifications"
         android:iconTint="?attr/textcolor"
-        android:title="Thông báo"
+        android:title="@string/thongbao"
         android:titleCondensed="#555"/>
     <item
         android:id="@+id/nav_profile"
         android:icon="@drawable/ic_person"
         android:iconTint="?attr/textcolor"
-        android:title="Cá nhân"/>
+        android:title="@string/canhan"/>
 </menu>

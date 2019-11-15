@@ -33,7 +33,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Khách hàng :"/>
+            android:text="@string/tenkhachhangs"/>
 
         <TextView
             android:id="@+id/tvtenKH"
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Địa chỉ :"/>
+            android:text="@string/diachis"/>
 
         <TextView
             android:id="@+id/tvDiaChi"
@@ -83,7 +83,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="SĐT :"/>
+            android:text="@string/SDT"/>
 
         <TextView
             android:id="@+id/tvSDT"
@@ -112,7 +112,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tổng tiền :"/>
+            android:text="@string/tongtiens"/>
 
         <TextView
             android:id="@+id/tvTongTien"
@@ -137,7 +137,7 @@
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tình trạng :"/>
+            android:text="@string/tinhtranghang"/>
 
         <TextView
             android:id="@+id/tvTinhTrang"
@@ -155,7 +155,7 @@
         android:layout_marginTop="10dp"
         android:textColor="#fff"
         android:background="@drawable/cutomsbtn"
-        android:text="Xác nhận đơn hàng"
+        android:text="@string/xacnhandonhang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     </LinearLayout>

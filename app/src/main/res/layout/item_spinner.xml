@@ -23,7 +23,7 @@
             android:layout_marginLeft="20dp"
             android:layout_toEndOf="@+id/image_view_flag"
             android:gravity="center"
-            android:text="vận chuyển"
+            android:text="@string/vanchuyen"
             android:textColor="#3F51B5"
             android:textSize="20dp" />
 
@@ -40,7 +40,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_toEndOf="@+id/image_view_flag"
                 android:gravity="center"
-                android:text="cước"
+                android:text="@string/cuoc"
                 android:textColor="#F44336"
                 android:textSize="20dp" />
 

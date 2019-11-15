@@ -10,7 +10,7 @@
         android:id="@+id/toolbar_muahang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="Mua hàng"
+        app:title="@string/muahang"
         app:navigationIcon="@drawable/danggiao"/>
     <com.google.android.material.tabs.TabLayout
         android:layout_width="match_parent"

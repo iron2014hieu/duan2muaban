@@ -1,5 +1,8 @@
 package com.example.duan2muaban;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public static boolean firstStart;
     String id,name;
     TabLayout.Tab tab;
+    public  static ClipboardManager clipboardManager;
+    public static ClipData clipData;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
@@ -72,6 +77,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cartButtonIV= findViewById(R.id.cartButtonIV);
         linearLayoutMain= findViewById(R.id.linearLayoutMain);
         btnSearchView = findViewById(R.id.btnSearch);
+        clipboardManager = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
+
         prefs = getSharedPreferences("prefs", MODE_PRIVATE);
         firstStart = prefs.getBoolean("firstStart", true);
         if (firstStart){

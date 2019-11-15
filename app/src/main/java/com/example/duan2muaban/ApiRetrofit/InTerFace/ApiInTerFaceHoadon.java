@@ -2,6 +2,7 @@ package com.example.duan2muaban.ApiRetrofit.InTerFace;
 
 import com.example.duan2muaban.model.CTHD;
 import com.example.duan2muaban.model.Hoadon;
+import com.example.duan2muaban.model.KhuyenMai;
 
 import java.util.List;
 
@@ -37,4 +38,8 @@ public interface ApiInTerFaceHoadon {
 
     @GET("hoadon/get_all_danhgia.php")
     Call<List<Hoadon>> get_all_danhgia();
+
+
+    @GET("khuyenmai/get_all_khuyenmai.php")
+    Call<List<KhuyenMai>> get_all_khuyenmai();
 }

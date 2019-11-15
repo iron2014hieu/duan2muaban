@@ -5,33 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:padding="5dp"
     tools:context=".fragmentMain.TheloaiFragment"
     android:background="?attr/backgroundcolor">
 
-    <TextView
-        android:textStyle="bold"
-        android:textColor="#000000"
-        android:text="Nhập mã khuyến mãi"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerview_khuyenmai"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:textColor="#000000"
-        android:text="MEM537128 : Khuyến mãi 10%"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:textColor="#000000"
-        android:text="MEM537129 : Khuyến mãi 20%"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:textColor="#000000"
-        android:text="VIP537128 : Khuyến mãi 30%"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <TextView
-        android:textColor="#000000"
-        android:text="VIP537129 : Khuyến mãi 50%"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"/>
 </LinearLayout>

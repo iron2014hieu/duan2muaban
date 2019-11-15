@@ -9,9 +9,10 @@
         <item name="backgroundcolor">#fcfcfc</item>
         <item name="backgroundcolor2">#C0BFBF</item>
         <item name="cardbackground">#F0EBEB</item>
-        <item name="textcolor">#000000</item>
+        <item name="textcolor">#331F1F</item>
         <item name="tincolor">#000000</item>
         <item name="buttoncolor">#BFDDF7</item>
+        <item name="topbottomcolor">#2196F3</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
@@ -27,7 +28,8 @@
         <item name="cardbackground">#2B2828</item>
         <item name="textcolor">#ffffff</item>
         <item name="tincolor">#FCF6F6</item>
-        <item name="buttoncolor">#141418</item>
+        <item name="buttoncolor">#1D1D20</item>
+        <item name="topbottomcolor">#2C2727</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
     <style name="WindowAnimationTransition">

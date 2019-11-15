@@ -16,14 +16,18 @@ import com.example.duan2muaban.Fragment.donhang.ChoXacNhanFragment;
 import com.example.duan2muaban.Fragment.donhang.DangGiaoFragment;
 import com.example.duan2muaban.Fragment.donhang.DanhGiaFragment;
 import com.example.duan2muaban.adapter.ViewPagerFM.TabViewPagerAdapter;
+import com.example.duan2muaban.nighmode.SharedPref;
 import com.google.android.material.tabs.TabLayout;
 
 public class FirstStartActivity extends AppCompatActivity {
     TabViewPagerAdapter tabViewPagerAdapter;
     ViewPager viewPager;
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_first_start);
         viewPager = findViewById(R.id.fragment_container_first_appstart);
 
@@ -34,5 +38,12 @@ public class FirstStartActivity extends AppCompatActivity {
         tabViewPagerAdapter.AddFragment(new FirstStart3Fragment(), "");
         viewPager.setAdapter(tabViewPagerAdapter);
 //        tabLayout.setupWithViewPager(viewPager);
+
+    }
+    //settheme
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
     }
 }

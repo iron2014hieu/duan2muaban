@@ -13,6 +13,7 @@ import com.example.duan2muaban.Fragment.donhang.ChoXacNhanFragment;
 import com.example.duan2muaban.Fragment.donhang.DangGiaoFragment;
 import com.example.duan2muaban.Fragment.donhang.DanhGiaFragment;
 import com.example.duan2muaban.adapter.ViewPagerFM.TabViewPagerAdapter;
+import com.example.duan2muaban.nighmode.SharedPref;
 import com.google.android.material.tabs.TabLayout;
 
 public class MuahangActivity extends AppCompatActivity {
@@ -22,9 +23,12 @@ public class MuahangActivity extends AppCompatActivity {
     TabLayout.Tab tab;
     String check;
     int select =2;
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_muahang);
         viewPager = findViewById(R.id.fragment_container_muahang);
         tabLayout = findViewById(R.id.tablayout_id);
@@ -55,7 +59,12 @@ public class MuahangActivity extends AppCompatActivity {
     public void onBackPressed() {
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
-
+    //settheme
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
+    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

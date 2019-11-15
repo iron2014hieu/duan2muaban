@@ -30,7 +30,7 @@
                 android:layout_height="wrap_content"
                 android:text="name"
                 android:padding="5dp"
-                android:textColor="#E91E63"
+                android:textColor="?attr/textcolor"
                 android:textSize="15dp"
                 android:maxLength="10"
                 android:textStyle="bold" />

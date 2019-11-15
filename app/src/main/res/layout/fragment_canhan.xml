@@ -4,17 +4,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="?attr/backgroundcolor"
     tools:context=".fragmentMain.CanhanFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/backgroundcolor"
         android:orientation="vertical">
        <androidx.cardview.widget.CardView
            android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+           android:layout_height="wrap_content"
+           android:backgroundTint="?attr/backgroundcolor"
+           >
            <LinearLayout
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
@@ -26,16 +25,21 @@
                    <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
+                       android:background="?attr/backgroundcolor"
                        android:orientation="horizontal">
                        <Button
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
+                           android:background="?attr/buttoncolor"
+                           android:textColor="?attr/textcolor"
                            android:text="Đăng nhập"/>
                        <Button
                            android:layout_width="wrap_content"
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
+                           android:background="?attr/buttoncolor"
+                           android:textColor="?attr/textcolor"
                            android:text="Đăng ký"/>
                    </LinearLayout>
                </androidx.cardview.widget.CardView>
@@ -47,6 +51,7 @@
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
                        android:padding="10dp"
+                       android:background="?attr/backgroundcolor"
                        android:orientation="vertical">
                    <LinearLayout
                        android:layout_width="match_parent"
@@ -60,6 +65,7 @@
                            android:textSize="15dp"
                            android:gravity="center"
                            android:layout_weight="3"
+                           android:textColor="?attr/textcolor"
                            android:drawableLeft="@drawable/bill" />
                        <TextView
                            android:layout_width="match_parent"
@@ -67,6 +73,7 @@
                            android:text="Lịch sử mua hàng"
                            android:textSize="15dp"
                            android:gravity="right"
+                           android:textColor="?attr/textcolor"
                            android:layout_weight="2"
                            android:drawableRight="@drawable/ic_chevron_right"/>
                    </LinearLayout>
@@ -74,7 +81,7 @@
                            android:layout_width="match_parent"
                            android:layout_height="1dp"
                            android:layout_marginTop="10dp"
-                           android:background="#7A7676"/>
+                           android:background="?attr/textcolor"/>
                    <LinearLayout
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
@@ -86,6 +93,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Chờ xác nhận"
+                            android:textColor="?attr/textcolor"
                             android:gravity="center"
                             android:drawableTop="@drawable/choxacnhan"/>
                        <TextView
@@ -94,6 +102,7 @@
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
                            android:text="Chờ lấy hàng"
+                           android:textColor="?attr/textcolor"
                            android:gravity="center"
                            android:drawableTop="@drawable/cholayhang"/>
                        <TextView
@@ -102,6 +111,7 @@
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
                            android:text="Đang giao"
+                           android:textColor="?attr/textcolor"
                            android:gravity="center"
                            android:drawableTop="@drawable/danggiao"/>
                        <TextView
@@ -110,6 +120,7 @@
                            android:layout_height="wrap_content"
                            android:layout_weight="1"
                            android:text="Đánh giá"
+                           android:textColor="?attr/textcolor"
                            android:gravity="center"
                            android:drawableTop="@drawable/rating"/>
                    </LinearLayout>
@@ -121,6 +132,7 @@
                            android:textSize="15dp"
                            android:gravity="left"
                            android:padding="5dp"
+                           android:textColor="?attr/textcolor"
                            android:layout_marginTop="25dp"
                            android:drawableLeft="@drawable/ic_fatevori"
                            android:drawableRight="@drawable/ic_chevron_right"/>
@@ -132,6 +144,7 @@
                            android:textStyle="bold"
                            android:textSize="15dp"
                            android:layout_marginTop="25dp"
+                           android:textColor="?attr/textcolor"
                            android:gravity="left"
                            android:drawableLeft="@drawable/rating"
                            android:drawableRight="@drawable/ic_chevron_right"/>
@@ -149,7 +162,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="5dp"
+            android:padding="15dp"
+            android:background="?attr/backgroundcolor"
             android:orientation="vertical">
         <TextView
             android:id="@+id/txtTaikhoan"
@@ -160,6 +174,7 @@
             android:textStyle="bold"
             android:textSize="15dp"
             android:padding="5dp"
+            android:textColor="?attr/textcolor"
             android:drawableLeft="@drawable/ic_person"
             android:drawableRight="@drawable/ic_chevron_right"/>
             <TextView
@@ -172,6 +187,7 @@
                 android:visibility="visible"
                 android:gravity="left"
                 android:padding="5dp"
+                android:textColor="?attr/textcolor"
                 android:layout_marginTop="15dp"
                 android:textSize="15dp"
                 android:textStyle="bold" />

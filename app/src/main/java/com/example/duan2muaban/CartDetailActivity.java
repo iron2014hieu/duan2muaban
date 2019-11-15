@@ -44,6 +44,7 @@ import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceDatmua;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.CartAdapter;
 import com.example.duan2muaban.model.DatMua;
+import com.example.duan2muaban.nighmode.SharedPref;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,11 +79,13 @@ public class CartDetailActivity extends AppCompatActivity {
     int Giamgia = 0;
     int Giatri;
     int Phivanchuyen = 0;
-
+    SharedPref sharedPref;
     private NotificationManagerCompat notificationManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_cart_detail);
         progress_hoadon=findViewById(R.id.progress_hoadon);
         edtMaGiamGia = findViewById(R.id.edtMaGiamGia);
@@ -223,6 +226,12 @@ public class CartDetailActivity extends AppCompatActivity {
 
             }
         });
+    }
+    //settheme
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
     }
     private void initList(){
         countryItems = new ArrayList<>();

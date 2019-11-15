@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f5f5"
+    android:background="?attr/backgroundcolor"
     tools:context=".fragmentMain.HomeFragment">
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -53,7 +53,7 @@
             </androidx.appcompat.widget.SearchView>
             <TextView
                 android:layout_marginLeft="5dp"
-                android:textColor="#E91E63"
+                android:textColor="?attr/textcolor"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textSize="18dp"
@@ -78,7 +78,7 @@
                 android:orientation="horizontal">
                 <TextView
                     android:layout_marginLeft="5dp"
-                    android:textColor="#E91E63"
+                    android:textColor="?attr/textcolor"
                     android:layout_marginTop="10dp"
                     android:textStyle="bold"
                     android:textSize="18dp"
@@ -94,7 +94,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:gravity="right"
-                    android:textColor="#3F51B5"
+                    android:textColor="?attr/textcolor"
                     android:text="Xem thêm >>"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -109,7 +109,7 @@
                 android:layout_height="match_parent"/>
             <TextView
                 android:layout_marginLeft="5dp"
-                android:textColor="#E91E63"
+                android:textColor="?attr/textcolor"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textSize="18dp"
@@ -128,7 +128,7 @@
             <TextView
                 android:id="@+id/texttacgia"
                 android:layout_marginLeft="5dp"
-                android:textColor="#E91E63"
+                android:textColor="?attr/textcolor"
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textSize="18dp"

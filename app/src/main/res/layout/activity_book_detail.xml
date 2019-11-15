@@ -13,6 +13,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/backgroundcolor"
         android:orientation="vertical">
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -22,8 +23,8 @@
                 android:layout_width="match_parent"
                 app:navigationIcon="@drawable/ic_arrow"
                 app:title="Chi tiết"
-                app:titleTextColor="#FFF"
-                android:background="#2196F3"
+                app:titleTextColor="?attr/textcolor"
+                android:background="?attr/topbottomcolor"
                 android:layout_height="wrap_content"
                 />
         </com.google.android.material.appbar.AppBarLayout>
@@ -214,10 +215,10 @@
         android:layout_height="40dp"
         android:layout_gravity="bottom|end"
         android:layout_weight="3"
-        android:background="#ffff"
+        android:background="?attr/buttoncolor"
         android:orientation="horizontal">
         <ImageButton
-            android:background="@drawable/cutomsimage"
+            android:background="?attr/buttoncolor"
             android:id="@+id/btn_Share"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -226,22 +227,22 @@
             android:textSize="12dp"></ImageButton>
         <ImageButton
             android:layout_marginLeft="5dp"
-            android:background="@drawable/cutomsimage"
+            android:background="?attr/buttoncolor"
             android:id="@+id/btn_chat"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:src="@drawable/ic_chat"
-            android:textSize="12dp"></ImageButton>
+            android:textSize="12dp"/>
         <Button
             android:layout_weight="1"
             android:id="@+id/btn_muangay"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
-            android:background="#FA0909"
+            android:background="?attr/buttoncolor"
             android:text="Mua ngay"
-            android:textColor="#ffff"
+            android:textColor="?attr/textcolor"
             android:textSize="12dp" />
     </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

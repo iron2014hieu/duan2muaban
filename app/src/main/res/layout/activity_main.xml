@@ -20,8 +20,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/topbottomcolor"
-        app:itemIconTint="?attr/textcolor"
-        app:itemTextColor="?attr/textcolor"
+        app:itemIconTint="?attr/textBottomNav"
+        app:itemTextColor="?attr/textBottomNav"
         app:labelVisibilityMode="selected"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_navigation" />

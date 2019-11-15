@@ -13,6 +13,7 @@
         <item name="tincolor">#000000</item>
         <item name="buttoncolor">#BFDDF7</item>
         <item name="topbottomcolor">#2196F3</item>
+        <item name="textBottomNav">#FFFFFF</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
 
@@ -30,6 +31,7 @@
         <item name="tincolor">#FCF6F6</item>
         <item name="buttoncolor">#1D1D20</item>
         <item name="topbottomcolor">#2C2727</item>
+        <item name="textBottomNav">#FFFFFF</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
     <style name="WindowAnimationTransition">

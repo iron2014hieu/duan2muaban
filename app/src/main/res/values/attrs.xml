@@ -8,5 +8,7 @@
         <attr name="tincolor" format="color"/>
         <attr name="buttoncolor" format="color"/>
         <attr name="topbottomcolor" format="color"/>
+
+        <attr name="textBottomNav" format="color"/>
     </declare-styleable>
 </resources>

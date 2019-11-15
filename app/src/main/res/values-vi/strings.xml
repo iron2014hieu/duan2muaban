@@ -86,6 +86,10 @@
     <string name="thuvien">Thư viện</string>
     <string name="thongbao">Thông báo</string>
     <string name="canhan">Cá nhân</string>
+    <string name="nhapnhanxet">Nhập nhận xét</string>
+    <string name="guinhanxet">Gửi nhận xét</string>
 
-
+    <string name="xacnhantruoc">Xác nhận trước</string>
+    <string name="chuyenditruoc">Chuyển đi trước </string>
+    <string name="nhanhangtruoc">Nhận hàng trước</string>
 </resources>

@@ -185,13 +185,20 @@ public class CartDetailActivity extends AppCompatActivity {
                                 String makm = listKhuyenMai.get(i).getMaKM();
                                 String phantram = listKhuyenMai.get(i).getTinhChat();
                                 String s = edtMaGiamGia.getText().toString();
-                                if (makm.equals(s)) {
-                                    Toast.makeText(CartDetailActivity.this, "Hợp lệ " + makm, Toast.LENGTH_SHORT).show();
-                                    Double tt = tongtien * Double.valueOf(phantram) + Phivanchuyen;
-                                    txtTongtien.setText(tt+ " VNĐ");
+                                if (!s.equals("")) {
+                                    if (makm.equals(s)) {
+                                        Toast.makeText(CartDetailActivity.this, "Hợp lệ " + makm, Toast.LENGTH_SHORT).show();
+                                        Double tt = tongtien * Double.valueOf(phantram) + Phivanchuyen;
+                                        txtTongtien.setText(tt + " VNĐ");
+                                        break;
+                                    } else {
+                                        Toast.makeText(CartDetailActivity.this, "Mã không tồn tại", Toast.LENGTH_SHORT).show();
+                                        break;
+                                    }
+                                }
+                                else {
+                                    Toast.makeText(CartDetailActivity.this, "Bạn chưa nhập mã", Toast.LENGTH_SHORT).show();
                                     break;
-                                } else {
-                                    Toast.makeText(CartDetailActivity.this, "Mã không tồn tại", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         }
@@ -215,9 +222,14 @@ public class CartDetailActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        progress_hoadon.setVisibility(View.VISIBLE);
-                        btnThanhtoan.setVisibility(View.GONE);
-                        ThemHoadon(mauser_session,String.valueOf(tongtien),"0333756922", url_insert_hoadon);
+                        if (!edtDiachi.getText().toString().trim().equals("")||
+                        !edtSdt.getText().toString().trim().equals("") || !edtTenkh.getText().toString().trim().equals("")) {
+                            progress_hoadon.setVisibility(View.VISIBLE);
+                            btnThanhtoan.setVisibility(View.GONE);
+                            ThemHoadon(mauser_session, String.valueOf(tongtien), "0333756922", url_insert_hoadon);
+                        }else {
+                            Toast.makeText(CartDetailActivity.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
                 alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {

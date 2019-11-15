@@ -203,6 +203,9 @@ public class ProfileActivity extends AppCompatActivity {
 
                         action.findItem(R.id.menu_edit).setVisible(false);
                         action.findItem(R.id.menu_save).setVisible(true);
+
+                        txtEmail.setEnabled(true);
+                        txtName.setEnabled(true);
                         return  true;
                     case R.id.menu_save:
                         saveDetail();
@@ -213,6 +216,9 @@ public class ProfileActivity extends AppCompatActivity {
                         txtEmail.setFocusableInTouchMode(false);
                         txtName.setFocusable(false);
                         txtEmail.setFocusable(false);
+
+                        txtEmail.setEnabled(false);
+                        txtName.setEnabled(false);
                         return true;
                     case R.id.logout:
                         startActivity(new Intent(getBaseContext(), Main2Activity.class));

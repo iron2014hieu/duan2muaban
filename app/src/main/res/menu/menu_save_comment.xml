@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/menu_send"
-        android:title="Gửi nhận xét"
+        android:title="@string/guinhanxet"
         app:showAsAction="always"/>
 </menu>

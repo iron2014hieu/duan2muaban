@@ -36,6 +36,7 @@ import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.LoginRegister.LoginActivity;
+import com.example.duan2muaban.Main2Activity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.NhanxetAdapter;
@@ -44,6 +45,9 @@ import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.model.CTHD;
 import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.squareup.picasso.Picasso;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -69,6 +73,8 @@ public class BookDetailActivity extends AppCompatActivity {
 
     private String URL_INSERT ="http://hieuttpk808.000webhostapp.com/books/cart_bill/insert.php";
     private String URL_CHECK ="https://hieuttpk808.000webhostapp.com/books/cart_bill/checklibrary.php";
+
+    String URL_INSERT_GIOHANG ="https://bansachonline.xyz/bansach/giohang/create_carts.php";
     String idUser, name, quyen;
     private int item_count =1;
     private Double giabansach = 0.0;
@@ -182,13 +188,8 @@ public class BookDetailActivity extends AppCompatActivity {
                         Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
                     }else {
-                        Intent intent=new Intent(getApplicationContext(), DatmuaActivity.class);
-                        intent.putExtra("masach", idBook);
-                        intent.putExtra("tensach", tensach);
-                        intent.putExtra("gia", giaban);
-                        intent.putExtra("hinhanhsach", linkImage);
-                        intent.putExtra("mauser", idUser);
-                        startActivity(intent);
+                        ThemDatmua(masach, tensach, linkImage,idUser);
+                        //final String masach, final String sp, final String hinhanhsach, final String mauser
                     }
                 }catch (Exception e){
 
@@ -237,24 +238,33 @@ public class BookDetailActivity extends AppCompatActivity {
         });
     }
 
-    private void ThemCart(final String idBook, final String idUser, final String tensach, final String giaban){
-        RequestQueue requestQueue = Volley.newRequestQueue(BookDetailActivity.this);
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INSERT,
-                new Response.Listener<String>() {
+    private void ThemDatmua(final String masach, final String sp, final String hinhanhsach, final String mauser){
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INSERT_GIOHANG,
+                new com.android.volley.Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        if (response.trim().equals("datontai")){
-                            Toast.makeText(BookDetailActivity.this, "Bạn đã mua sách này", Toast.LENGTH_SHORT).show();
-                        }else if (response.trim().equals("success")){
-                            Toast.makeText(BookDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
-                            item_count +=1;
-                            textNotify.setText(String.valueOf(item_count));
-//                            startActivity(new Intent(BookDetailActivity.this, Main2Activity.class));
+                        try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("success");
+                            String check = jsonObject.getString("check");
+
+                            if(check.equals("chuatontai")){
+
+                                if (success.equals("1")){
+                                  Toast.makeText(BookDetailActivity.this, "Đã thêm vào giỏ hàng", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(getApplicationContext(), Main2Activity.class));
+                                }
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Log.e("printStackTrace", e.toString());
                         }
                     }
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                Toast.makeText(BookDetailActivity.this, "Loi roi nhe", Toast.LENGTH_SHORT).show();
                 Log.d("MYSQL", "Lỗi! \n" +error.toString());
             }
         }
@@ -262,10 +272,12 @@ public class BookDetailActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String > params = new HashMap<>();
-                params.put("masach", idBook);
-                params.put("mauser", idUser);
-                params.put("tensach", tensach);
-                    params.put("giaban",giaban);
+                params.put("masach", masach);
+                params.put("sanpham", sp);
+                params.put("hinhanh", hinhanhsach);
+                params.put("gia", giaban);
+                params.put("soluong", "1");
+                params.put("mauser", mauser);
                 return params;
             }
         };

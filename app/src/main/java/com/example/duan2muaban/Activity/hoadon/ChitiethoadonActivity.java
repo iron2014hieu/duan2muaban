@@ -13,6 +13,7 @@ import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.adapter.hoadoncthd.CTHDAdapter;
 import com.example.duan2muaban.model.CTHD;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +27,12 @@ public class ChitiethoadonActivity extends AppCompatActivity {
     CTHDAdapter cthdAdapter;
     ApiInTerFaceHoadon apiInTerFaceHoadon;
     public static String mahd, tinhtrang;
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_chitiethoadon);
         Anhxa();
         Intent intent = getIntent();
@@ -42,6 +46,12 @@ public class ChitiethoadonActivity extends AppCompatActivity {
         recyclerView_cthd.setHasFixedSize(true);
 
         fetchcthdbymahd(mahd);
+    }
+    //settheme
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
     }
     public void fetchcthdbymahd(String mahd){
         apiInTerFaceHoadon = ApiClient.getApiClient().create(ApiInTerFaceHoadon.class);

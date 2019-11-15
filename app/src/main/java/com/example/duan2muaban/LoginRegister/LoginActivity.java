@@ -110,7 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                                     String quyen = object.getString("quyen").trim();
 
                                     sessionManager.createSession(id, email, name, quyen);
-                                    Toast.makeText(LoginActivity.this, ""+ quyen, Toast.LENGTH_SHORT).show();
 
 
                                     if(quyen.equals("shipper")){

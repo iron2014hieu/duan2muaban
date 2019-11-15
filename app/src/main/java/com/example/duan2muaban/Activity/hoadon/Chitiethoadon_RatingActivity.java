@@ -32,9 +32,10 @@ public class Chitiethoadon_RatingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_chitiethoadon);
         sharedPref = new SharedPref(this);
         theme();
+        setContentView(R.layout.activity_chitiethoadon);
+
         Anhxa();
         Intent intent = getIntent();
         mahd = intent.getStringExtra("mahd");

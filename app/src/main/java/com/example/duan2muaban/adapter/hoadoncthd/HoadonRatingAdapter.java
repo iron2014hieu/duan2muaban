@@ -64,6 +64,7 @@ public class HoadonRatingAdapter extends RecyclerView.Adapter<HoadonRatingAdapte
                 context.startActivity(intent);
             }
         });
+        holder.txtUoctinh.setVisibility(View.GONE);
     }
 
     @Override

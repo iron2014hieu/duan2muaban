@@ -29,6 +29,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,11 +43,14 @@ public class RatingBookCommentActivity extends AppCompatActivity {
     private String nameuser,masach,idcthd, diemnhanxet;
     private EditText edtNhanxet;
     private String URL_THEMNHATXET ="https://bansachonline.xyz/bansach/hoadon/them_nhanxet.php";
-
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_rating_book_comment);
+
         Addcontrols();
         sessionManager = new SessionManager(this);
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbarComment);
@@ -66,7 +70,12 @@ public class RatingBookCommentActivity extends AppCompatActivity {
         }
 
     }
-
+    //settheme
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
+    }
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -101,9 +110,14 @@ public class RatingBookCommentActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.menu_send:
-                diemnhanxet =String.valueOf(ratingbarComment.getRating());
-                LuuNhanxet(masach,diemnhanxet, idcthd);
-                break;
+                if (!edtNhanxet.getText().toString().trim().equals("") && ratingbarComment.getRating()>0){
+                    diemnhanxet =String.valueOf(ratingbarComment.getRating());
+                    LuuNhanxet(masach,diemnhanxet, idcthd);
+                    break;
+                }else {
+                    Toast.makeText(this, "Bạn phải nhập nhận xét và cho điểm đánh giá", Toast.LENGTH_SHORT).show();
+                }
+
         }
         return super.onOptionsItemSelected(item);
     }
@@ -118,7 +132,7 @@ public class RatingBookCommentActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         progressDialog.dismiss();
                         if (response.equals("tc")){
-                            onBackPressed();
+                            finish();
                         }
                     }
                 },

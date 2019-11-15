@@ -42,6 +42,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Tên tài khoản"
+                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/textcolor"
                 android:background="@drawable/rounded_edittext"
                 android:padding="5dp"
                 />
@@ -56,6 +58,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Email"
+                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/textcolor"
                 android:background="@drawable/rounded_edittext"
                 android:padding="5dp"
                 />
@@ -72,6 +76,8 @@
                 android:layout_height="50dp"
                 android:inputType="textPassword"
                 android:hint="Nhập mật khẩu"
+                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/textcolor"
                 android:background="@drawable/rounded_edittext"
                 android:padding="5dp"
                 />
@@ -96,9 +102,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:textColor="?attr/textcolor"
+            android:textColorHint="?attr/textcolor"
             android:background="@drawable/cutomsbtn"
             android:layout_marginTop="20dp"
-            android:textColor="#fff"
             android:text="@string/dangky"/>
     <ProgressBar
         android:id="@+id/loading"

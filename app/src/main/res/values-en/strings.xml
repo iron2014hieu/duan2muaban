@@ -86,7 +86,12 @@
             <string name = "thuvien"> Library </string>
             <string name = "thongbao"> Notice </string>
             <string name = "canhan"> Individual </string>
+            <string name="nhapnhanxet">Enter a comment</string>
+            <string name="guinhanxet">Post a comment</string>
 
 
+            <string name="xacnhantruoc">Confirm in advance </string>
+            <string name="chuyenditruoc">Delivery before </string>
+            <string name="nhanhangtruoc">Received before </string>
     </resources>
 

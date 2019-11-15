@@ -9,6 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="?attr/backgroundcolor"
+        android:background="?attr/backgroundcolor"
         android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,8 +22,8 @@
             android:layout_width="match_parent"
             app:navigationIcon="@drawable/ic_arrow"
             app:title="@string/thanhtoanhang"
-            app:titleTextColor="#FFF"
-            android:background="#2196F3"
+            app:titleTextColor="?attr/textcolor"
+            android:background="?attr/topbottomcolor"
             android:layout_height="wrap_content"
             />
     </com.google.android.material.appbar.AppBarLayout>
@@ -48,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/tenkhachhang"
-            android:textColor="#E91E63"
+            android:textColor="?attr/textcolor"
             android:textSize="20dp" />
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -58,6 +60,7 @@
                 android:id="@+id/edtTenkh"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:textColor="?attr/textcolor"
                 android:background="@drawable/rounded_edittext" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/diachi"
-            android:textColor="#E91E63"
+            android:textColor="?attr/textcolor"
             android:textSize="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -78,6 +81,7 @@
                 android:id="@+id/edtDiachi"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:textColor="?attr/textcolor"
                 android:background="@drawable/rounded_edittext" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,7 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sodienthoaikhach"
-            android:textColor="#E91E63"
+            android:textColor="?attr/textcolor"
             android:textSize="20dp" />
 
         <com.google.android.material.textfield.TextInputLayout
@@ -98,6 +102,7 @@
                 android:id="@+id/edtSdt"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:textColor="?attr/textcolor"
                 android:background="@drawable/rounded_edittext" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -107,7 +112,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/sanphammua"
-            android:textColor="#E91E63"
+            android:textColor="?attr/textcolor"
             android:textSize="20dp" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -119,6 +124,7 @@
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="?attr/backgroundcolor"
             android:orientation="horizontal">
 
             <EditText
@@ -126,6 +132,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:textColor="?attr/textcolor"
+                android:textColorHint="?attr/textcolor"
                 android:hint="Nhập mã khuyến mãi" />
 
             <Button
@@ -142,7 +150,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/phuongthucvanchuyen"
-            android:textColor="#E91E63"
+            android:textColor="?attr/textcolor"
             android:textSize="20dp" />
 
         <Spinner
@@ -157,6 +165,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:background="?attr/backgroundcolor"
             android:orientation="horizontal">
 
             <TextView
@@ -175,7 +184,8 @@
                 android:layout_weight="1"
                 android:background="#2196F3"
                 android:text="@string/thanhtoanhang"
-                android:textColor="#FFFFFF" />
+                android:backgroundTint="?attr/buttoncolor"
+                android:textColor="?attr/textcolor" />
         </LinearLayout>
 
     </LinearLayout>

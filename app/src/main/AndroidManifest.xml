@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".fragmentVanChuyen.Activity.ChitietGiaoHangActivity"></activity>
+        <activity android:name=".Activity.hoadon.ListAllCommentActivity"></activity>
+        <activity android:name=".fragmentVanChuyen.Activity.ChitietGiaoHangActivity" />
         <activity android:name=".Activity.Library.BookDetailLibActivity" />
         <activity android:name=".FirstStartActivity" />
         <activity android:name=".MuahangActivity" />
@@ -88,13 +89,11 @@
             </intent-filter>
         </receiver>
 
-
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/khuyenmai_x32" />
-
-        <meta-data     android:name="com.google.firebase.messaging.default_notification_color"
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/colorAccent" />
 
         <service android:name=".Service.MyFirebaseMessagingService">
@@ -103,7 +102,9 @@
             </intent-filter>
         </service>
 
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

@@ -5,11 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/backgroundcolor"
     tools:context=".MuahangActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_muahang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/topbottomcolor"
+        app:titleTextColor="?attr/textcolor"
         app:title="@string/muahang"
         app:navigationIcon="@drawable/danggiao"/>
     <com.google.android.material.tabs.TabLayout
@@ -24,6 +27,7 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/fragment_container_muahang"
         android:layout_below="@id/tablayout_id"
+        android:background="?attr/backgroundcolor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

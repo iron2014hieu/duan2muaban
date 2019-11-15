@@ -201,6 +201,7 @@
                         android:text="4.7(2 đánh giá)"/>
 
                     <TextView
+                        android:id="@+id/txtXemtataca"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"

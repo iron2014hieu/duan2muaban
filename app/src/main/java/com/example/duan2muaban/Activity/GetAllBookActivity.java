@@ -12,13 +12,17 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
+import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
+import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.model.Books;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,15 +35,18 @@ public class GetAllBookActivity extends AppCompatActivity {
     private ApiInTerFace apiInTerFace;
     SachAdapter sachAdapter;
     private List<Books> listBook = new ArrayList<>();
-
+    SessionManager sessionManager;
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_get_all_book);
         recyclerview_book_all=findViewById(R.id.recyclerview_book_all);
 
         sachAdapter = new SachAdapter(this, listBook);
-
+        sessionManager = new SessionManager(this);
         Toolbar toolbar = findViewById(R.id.toolbargh);
         ActionBar actionBar = getSupportActionBar();
 
@@ -64,6 +71,44 @@ public class GetAllBookActivity extends AppCompatActivity {
 
         fetchBookall();
 
+        recyclerview_book_all.addOnItemTouchListener(new RecyclerTouchListener(this,
+                recyclerview_book_all, new RecyclerTouchListener.ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+                Books books =   listBook.get(position);
+                String masach = String.valueOf(books.getMasach());
+                String tensach = String.valueOf(books.getTensach());
+                String manxb = String.valueOf(books.getManxb());
+                String matheloai = String.valueOf(books.getMatheloai());
+                String ngayxb = books.getNgayxb();
+                String noidung = books.getNoidung();
+                String anhbia =books.getAnhbia();
+                String gia = String.valueOf( books.getGia());
+                String tennxb= String.valueOf(books.getTennxb());
+                String soluong = String.valueOf(books.getSoluong());
+                String tacgia = books.getTacgia();
+                String matacgia = String.valueOf(books.getMatacgia());
+
+
+                String tongdiem = String.valueOf(books.getTongdiem());
+                String landanhgia = String.valueOf(books.getLandanhgia());
+
+                sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,
+                        anhbia,gia,tennxb,soluong,tacgia,matacgia, tongdiem, landanhgia);
+                startActivity(new Intent(GetAllBookActivity.this, BookDetailActivity.class));
+            }
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
+
+    }
+    //settheme
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
     }
     public void fetchBookall() {
         apiInTerFace = ApiClient.getApiClient().create(ApiInTerFace.class);

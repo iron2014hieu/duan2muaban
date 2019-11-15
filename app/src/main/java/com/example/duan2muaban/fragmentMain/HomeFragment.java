@@ -253,7 +253,6 @@ public class HomeFragment extends Fragment {
 
                 sessionManager.createSessionSendInfomationBook(masach,tensach,manxb,matheloai,ngayxb,noidung,
                         anhbia,gia,tennxb,soluong,tacgia,matacgia, tongdiem, landanhgia);
-                Toast.makeText(getContext(), ""+masach, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getContext(), BookDetailActivity.class));
             }
             @Override

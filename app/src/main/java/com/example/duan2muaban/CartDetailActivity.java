@@ -189,6 +189,7 @@ public class CartDetailActivity extends AppCompatActivity {
                                     Toast.makeText(CartDetailActivity.this, "Hợp lệ " + makm, Toast.LENGTH_SHORT).show();
                                     Double tt = tongtien * Double.valueOf(phantram) + Phivanchuyen;
                                     txtTongtien.setText(tt+ " VNĐ");
+                                    break;
                                 } else {
                                     Toast.makeText(CartDetailActivity.this, "Mã không tồn tại", Toast.LENGTH_SHORT).show();
                                 }

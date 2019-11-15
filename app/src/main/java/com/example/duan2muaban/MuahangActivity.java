@@ -57,7 +57,9 @@ public class MuahangActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        Intent intent = (new Intent(getApplicationContext(), MainActivity.class));
+        intent.putExtra("check", "5");
+        startActivity(intent);
     }
     //settheme
     public  void theme(){

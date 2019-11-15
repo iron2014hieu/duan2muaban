@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.github.barteksc.pdfviewer.PDFView;
 import com.github.barteksc.pdfviewer.listener.OnDrawListener;
 import com.github.barteksc.pdfviewer.listener.OnPageChangeListener;
@@ -42,9 +43,12 @@ public class ViewBookActivity extends AppCompatActivity {
 
     PDFView pdfView;
     ProgressBar progressBar;
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_view_book);
         pdfView=findViewById(R.id.pdf_viewer);
         progressBar=findViewById(R.id.progressbar);
@@ -56,6 +60,7 @@ public class ViewBookActivity extends AppCompatActivity {
 
         HashMap<String, String> book = sessionManager.getLinkbook();
         linkBook = book.get(sessionManager.LINK_BOOK_READ);
+
 
         Dexter.withActivity(this)
                 .withPermissions(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -140,7 +145,11 @@ public class ViewBookActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
-
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
+    }
     private void LoadBook(){
 
         progressBar.setVisibility(View.VISIBLE);

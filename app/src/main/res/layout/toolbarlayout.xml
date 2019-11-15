@@ -28,8 +28,9 @@
                 android:hint="@string/khuyenmaicucchat"
                 android:textSize="17sp"
                 android:gravity="left"
+                android:textColorHint="?attr/textcolor"
                 android:drawableRight="@drawable/ic_search_black_24dp"
-                android:backgroundTint="#fff"/>
+                android:backgroundTint="?attr/buttoncolor"/>
             <ImageButton
                 android:id="@+id/cartButtonIV"
                 android:layout_width="wrap_content"

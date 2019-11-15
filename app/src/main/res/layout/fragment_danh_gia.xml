@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundcolor"
     tools:context=".Fragment.donhang.DanhGiaFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -16,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_marginTop="103dp"
+        android:textColor="?attr/textcolor"
         android:drawableTop="@drawable/box_64db"
         android:gravity="center"
         android:text="Chưa có đơn hàng"

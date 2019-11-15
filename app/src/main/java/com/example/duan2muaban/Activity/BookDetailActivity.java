@@ -31,6 +31,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.duan2muaban.Activity.hoadon.ListAllCommentActivity;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
@@ -61,6 +62,7 @@ public class BookDetailActivity extends AppCompatActivity {
     Button btn_themgh,btn_muangay;
     private ImageView img_book;
     private TextView edtTensach, edtGiaban,edtMotaChitiet,txt_numrating_below_deatil,txt_numrating_book_detail, textNotify;
+    private TextView txtXemtataca;
     private RatingBar ratingbar_book_detail, ratingbar_below_detail;
     private ImageButton btn_Share,btn_Message;
     LinearLayout linnear_nhanxet;
@@ -116,10 +118,10 @@ public class BookDetailActivity extends AppCompatActivity {
         matacgia = book.get(sessionManager.MATACGIA);
         toolbar.setTitle(tensach);
 
+        Log.d("Masach", masach);
         tongdiem= (book.get(sessionManager.TONGDIEM));
         landanhgia=book.get(sessionManager.LANDANHGIA);
         linkImage = book.get(sessionManager.ANHBIA);
-        Toast.makeText(this, ""+matacgia, Toast.LENGTH_SHORT).show();
         Picasso.with(this)
                 .load(linkImage).into(img_book);
         try {
@@ -166,27 +168,10 @@ public class BookDetailActivity extends AppCompatActivity {
                 new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
         recyclerview_sach_tacgia.setLayoutManager(gridLayoutManagerVeticl1);
         recyclerview_sach_tacgia.setHasFixedSize(true);
-        Toast.makeText(this, "Lấy dữ liệu "+matacgia, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Lấy dữ liệu "+matacgia, Toast.LENGTH_SHORT).show();
         fetchNhanxet(masach);
         fetchSach_tacgia(matacgia);
-//        btn_themgh.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                try {
-//                    HashMap<String,String> user = sessionManager.getUserDetail();
-//                    idUser = user.get(sessionManager.ID);
-//                    if (idUser==null){
-//                        Toast.makeText(BookDetailActivity.this, "Bạn chưa đăng nhập!", Toast.LENGTH_SHORT).show();
-//                        startActivity(new Intent(BookDetailActivity.this, LoginActivity.class));
-//                    }else {
-//                        ThemCart(idBook, idUser, tensach, giaban);
-//                        sessionManager.createCart(idBook, idUser, tensach, giaban, "0");
-//                    }
-//                }catch (Exception e){
-//
-//                }
-//            }
-//        });
+
         btn_muangay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -228,12 +213,8 @@ public class BookDetailActivity extends AppCompatActivity {
                     fOut.flush();
                     fOut.close();
                     file.setReadable(true, false);
-
                     //sharing intent
                     Intent intent = new Intent(Intent.ACTION_SEND);
-
-//                    intent.putExtra(Intent.EXTRA_SUBJECT, "Wirite subject here");
-//                    intent.putExtra(Intent.EXTRA_TEXT, tensach);
 
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file));
@@ -247,7 +228,15 @@ public class BookDetailActivity extends AppCompatActivity {
                 }
             }
         });
+        txtXemtataca.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), ListAllCommentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
+
     private void ThemCart(final String idBook, final String idUser, final String tensach, final String giaban){
         RequestQueue requestQueue = Volley.newRequestQueue(BookDetailActivity.this);
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_INSERT,
@@ -377,5 +366,6 @@ public class BookDetailActivity extends AppCompatActivity {
         recyclerview_nhanxet = findViewById(R.id.recyclerview_nhanxet);
         linnear_nhanxet=findViewById(R.id.linnear_nhanxet);
         recyclerview_sach_tacgia= findViewById(R.id.recyclerview_sach_tacgia);
+        txtXemtataca= findViewById(R.id.txtXemtataca);
     }
 }

@@ -33,6 +33,7 @@ import com.example.duan2muaban.RecycerViewTouch.RecyclerTouchListener;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.model.Books;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,10 +53,13 @@ public class SearchBooksActivity extends AppCompatActivity {
     SessionManager sessionManager;
     TextView txtSearch_null;
     ProgressBar progressBar;
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_books);
+        sharedPref = new SharedPref(this);
+        theme();
         addControl();
         checkPermission();
         sessionManager = new SessionManager(this);
@@ -219,7 +223,7 @@ public class SearchBooksActivity extends AppCompatActivity {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_UP:
                         mSpeechRecognizer.stopListening();
-                        searchView.setQueryHint("Nhập hoặt nói để tìm kiếm");
+                        searchView.setQueryHint("Nhập hoặc nói để tìm kiếm");
                         break;
 
                     case MotionEvent.ACTION_DOWN:
@@ -231,7 +235,12 @@ public class SearchBooksActivity extends AppCompatActivity {
             }
         });
     }
-
+    //settheme
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
+    }
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();

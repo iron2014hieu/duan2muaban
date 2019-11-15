@@ -32,6 +32,7 @@ import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.model.Books;
+import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -54,9 +55,12 @@ public class BookDetailLibActivity extends AppCompatActivity {
     RatingBar ratingbar_book_detail_lib;
     String URL ="https://bansachonline.xyz/bansach/sach/getBookDetail.php/?masach=";
     SessionManager sessionManager;
+    SharedPref sharedPref;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPref = new SharedPref(this);
+        theme();
         setContentView(R.layout.activity_book_detail_lib);
         addcontrols();
         Toolbar toolbar = findViewById(R.id.toolbar_lib);
@@ -66,10 +70,23 @@ public class BookDetailLibActivity extends AppCompatActivity {
         Intent intent = getIntent();
         masach = intent.getStringExtra("masach");
         tensach = intent.getStringExtra("tensach");
+        Log.d("tensach_lib", tensach);
         toolbar.setTitle(tensach);
         getDetailBook(URL+masach);
 
     }
+    public  void theme(){
+        if (sharedPref.loadNightModeState() == true){
+            setTheme(R.style.darktheme);
+        }else setTheme(R.style.AppTheme);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return  true;
+    }
+
     public void getDetailBook(String url){
         RequestQueue requestQueue = Volley.newRequestQueue(BookDetailLibActivity.this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,

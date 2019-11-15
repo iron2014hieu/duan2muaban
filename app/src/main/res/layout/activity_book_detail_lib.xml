@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="?attr/backgroundcolor"
     tools:context=".Activity.Library.BookDetailLibActivity">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -12,7 +13,10 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar_lib"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            app:titleTextColor="?attr/textcolor"
+            app:title="Sách"
+            app:navigationIcon="@drawable/ic_close"/>
     </com.google.android.material.appbar.AppBarLayout>
     <ImageView
         android:id="@+id/imgBook_lib_acti"

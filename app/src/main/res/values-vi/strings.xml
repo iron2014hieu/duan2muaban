@@ -61,7 +61,7 @@
     <string name="caidatkhac">Cài đặt khác</string>
     <string name="giohangtrong">Giỏ hàng trống</string>
     <string name="thanhtoan">Thanh toán</string>
-    <string name="tieptucmua"><![CDATA[Tiếp tục mua sản phẩm >>]]></string>
+    <string name="tieptucmua">Tiếp tục mua sản phẩm</string>
     <string name="bansachonline">Bán sách online</string>
     <string name="thanhvien">Thành viên :</string>
     <string name="chaomung">CHÀO MỪNG</string>
@@ -69,7 +69,7 @@
     <string name="batdaunao">Đắt đầu nào</string>
     <string name="theloai">Thể loại</string>
     <string name="truyenmoicapnhat">Truyện mới cập nhật</string>
-    <string name="xemthem"><![CDATA[Xem thêm >>]]></string>
+    <string name="xemthem">Xem thêm</string>
     <string name="nhaxuatban">Nhà xuất bản</string>
     <string name="tacgia">Tác giả</string>
     <string name="themdanhgia">Thêm đánh giá</string>

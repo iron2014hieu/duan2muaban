@@ -3,6 +3,7 @@ package com.example.duan2muaban;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
@@ -21,6 +22,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
@@ -33,6 +35,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.Activity.SearchBooksActivity;
+import com.example.duan2muaban.Activity.hoadon.RatingBookCommentActivity;
 import com.example.duan2muaban.LoginRegister.LoginActivity;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.ViewPagerFM.FragmentAdapter;
@@ -117,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }else if (check.equals("5")){
                 viewPager.setCurrentItem(5);
                 navigation.setSelectedItemId(R.id.nav_profile);
+            }else if (check.equals("2")){
+                viewPager.setCurrentItem(2);
+                navigation.setSelectedItemId(R.id.nav_library);
             }
         }
 
@@ -276,7 +282,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Bạn có muốn thoát ứng dụng không?")
+                .setCancelable(false)
+                .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MainActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
     }
 
     @Override

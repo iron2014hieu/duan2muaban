@@ -7,6 +7,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Build;
 import android.util.Log;
@@ -87,6 +88,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.drawable.khuyenmai_x32)
+                .setLargeIcon(BitmapFactory.decodeResource( getResources(), R.drawable.sach3))
                 .setTicker("Hearty365")
                 .setContentTitle(title)
                 .setContentText(body)

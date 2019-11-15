@@ -59,7 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
     private static String URL_READ ="https://bansachonline.xyz/bansach/loginregister/read_detail.php";
     private static String URL_EDIT ="https://bansachonline.xyz/bansach/loginregister/edit_detail.php";
     private static String URL_UPLOAD ="https://bansachonline.xyz/bansach/loginregister/upload.php";
-    String email,strid,name,quyen;
+    String email,strid,name,quyen,linh_img;
 
     private Menu action;
     Bitmap bitmap;

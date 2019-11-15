@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
@@ -23,6 +25,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -114,6 +117,7 @@ public class CartDetailActivity extends AppCompatActivity {
         tongtien = Integer.valueOf(intent.getStringExtra("tongtien"));
 
         Toolbar toolbar = findViewById(R.id.toolbargh);
+        setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -256,6 +260,23 @@ public class CartDetailActivity extends AppCompatActivity {
         countryItems.add(new CountryItem("Giao hàng tiết kiệm","20000", R.drawable.vanchuyen));
         countryItems.add(new CountryItem("Giao hàng nhanh", "30000", R.drawable.vanchuyen));
         countryItems.add(new CountryItem("Giao hàng siêu tốc", "45000", R.drawable.vanchuyen));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_thanhtoan, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.iv_khuyenmai:
+                Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                intent.putExtra("check","2");
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void fetchTacgia(String mauser){

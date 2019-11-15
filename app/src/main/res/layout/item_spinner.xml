@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:orientation="vertical"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/text_view_name"
@@ -29,19 +29,8 @@
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/image_view_flag"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="20dp"
-                android:layout_toEndOf="@+id/image_view_flag"
-                android:gravity="center"
-                android:text="Phí :"
-                android:textColor="#F44336"
-                android:textSize="20dp" />
             <TextView
                 android:id="@+id/text_view_price"
                 android:layout_width="wrap_content"

@@ -93,4 +93,12 @@
     <string name="xacnhantruoc">Xác nhận trước</string>
     <string name="chuyenditruoc">Chuyển đi trước </string>
     <string name="nhanhangtruoc">Nhận hàng trước</string>
+
+    <string-array name="query_suggestions">
+        <item>Doraemon tập 1</item>
+        <item>Doraemon tập 2</item>
+        <item>Lật đổ ông vua trì hoãn</item>
+        <item>Khéo ăn nói sẽ có được thiên hạ</item>
+        <item>Đời ngắn đừng ngủ dài</item>
+    </string-array>
 </resources>

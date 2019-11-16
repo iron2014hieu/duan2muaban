@@ -32,11 +32,10 @@
                         android:background="?attr/topbottomcolor"
                         app:navigationIcon="@drawable/ic_arrow"
                         >
-                        <androidx.appcompat.widget.SearchView
+                        <com.miguelcatalan.materialsearchview.MaterialSearchView
                             android:id="@+id/search_view_all"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"/>
+                            android:layout_height="wrap_content"/>
                     </androidx.appcompat.widget.Toolbar>
                 </com.google.android.material.appbar.AppBarLayout>
                         <ProgressBar
@@ -48,12 +47,11 @@
                                android:layout_width="match_parent"
                                android:layout_height="match_parent"
                                android:layout_below="@id/appbar"
-                               android:background="?attr/cardbackground"
+                               android:background="?attr/backgroundcolor"
                                android:orientation="vertical">
                                <androidx.recyclerview.widget.RecyclerView
                                    android:layout_gravity="center"
                                    android:id="@+id/recyclerview_book_search"
-                                   android:backgroundTint="?attr/backgroundcolor"
                                    android:layout_marginTop="5dp"
                                    android:layout_width="match_parent"
                                    android:padding="5dp"

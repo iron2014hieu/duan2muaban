@@ -1,5 +1,6 @@
 package com.example.duan2muaban.Activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -19,6 +20,8 @@ import android.speech.RecognitionListener;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageButton;
@@ -34,6 +37,12 @@ import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.model.Books;
 import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.MultiplePermissionsReport;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.multi.BaseMultiplePermissionsListener;
+import com.miguelcatalan.materialsearchview.MaterialSearchView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 public class SearchBooksActivity extends AppCompatActivity {
-    SearchView searchView;
+    MaterialSearchView searchView;
     ApiInTerFace apiInTerFace;
     private SachAdapter sachAdapter;
     private List<Books> listBookSearch = new ArrayList<>();
@@ -61,14 +70,26 @@ public class SearchBooksActivity extends AppCompatActivity {
         sharedPref = new SharedPref(this);
         theme();
         addControl();
-        checkPermission();
+//        checkPermission();
         sessionManager = new SessionManager(this);
         buttonRecord.setVisibility(View.GONE);
         Toolbar toolbar = findViewById(R.id.toolbar_search);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
+        Dexter.withActivity(this)
+                .withPermissions(Manifest.permission.RECORD_AUDIO)
+                .withListener(new BaseMultiplePermissionsListener(){
+                    @Override
+                    public void onPermissionsChecked(MultiplePermissionsReport report) {
+                        super.onPermissionsChecked(report);
+                    }
 
+                    @Override
+                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                        super.onPermissionRationaleShouldBeShown(permissions, token);
+                    }
+                }).check();
 
 
         sachAdapter = new SachAdapter(SearchBooksActivity.this, listBookSearch);
@@ -79,20 +100,32 @@ public class SearchBooksActivity extends AppCompatActivity {
         recyclerview_book_search.setHasFixedSize(true);
 
         fetchBookRandom("");
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                fetchBookRandom(query);
+                return false;
+            }
 
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    fetchBookRandom(query);
-                    return false;
-                }
-
-                @Override
-                public boolean onQueryTextChange(String newText) {
-                    fetchBookRandom(newText);
-                    return false;
-                }
-            });
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                fetchBookRandom(newText);
+                return false;
+            }
+        });
+//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                @Override
+//                public boolean onQueryTextSubmit(String query) {
+//                    fetchBookRandom(query);
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onQueryTextChange(String newText) {
+//                    fetchBookRandom(newText);
+//                    return false;
+//                }
+//            });
 
 
         recyclerview_book_search.addOnItemTouchListener(new RecyclerTouchListener(this,
@@ -128,17 +161,17 @@ public class SearchBooksActivity extends AppCompatActivity {
         }));
 
 
-        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
-            @Override
-            public boolean onSuggestionSelect(int position) {
-                return false;
-            }
-
-            @Override
-            public boolean onSuggestionClick(int position) {
-                return false;
-            }
-        });
+//        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
+//            @Override
+//            public boolean onSuggestionSelect(int position) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onSuggestionClick(int position) {
+//                return false;
+//            }
+//        });
 
         //speech to text
         final SpeechRecognizer mSpeechRecognizer = SpeechRecognizer.createSpeechRecognizer(this);
@@ -148,19 +181,16 @@ public class SearchBooksActivity extends AppCompatActivity {
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         mSpeechRecognizerIntent.putExtra(RecognizerIntent.EXTRA_LANGUAGE,
                 Locale.getDefault());
-
-        searchView.setOnSearchClickListener(new View.OnClickListener() {
+        searchView.setOnSearchViewListener(new MaterialSearchView.SearchViewListener() {
             @Override
-            public void onClick(View v) {
+            public void onSearchViewShown() {
                 searchView.clearFocus(); // close the keyboard on load
                 buttonRecord.setVisibility(View.VISIBLE);
             }
-        });
-        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+
             @Override
-            public boolean onClose() {
+            public void onSearchViewClosed() {
                 buttonRecord.setVisibility(View.GONE);
-                return false;
             }
         });
 
@@ -223,12 +253,12 @@ public class SearchBooksActivity extends AppCompatActivity {
                 switch (motionEvent.getAction()) {
                     case MotionEvent.ACTION_UP:
                         mSpeechRecognizer.stopListening();
-                        searchView.setQueryHint("Nhập hoặc nói để tìm kiếm");
+//                        searchView.setQueryHint("Nhập hoặc nói để tìm kiếm");
                         break;
 
                     case MotionEvent.ACTION_DOWN:
                         mSpeechRecognizer.startListening(mSpeechRecognizerIntent);
-                        searchView.setQueryHint("");
+//                        searchView.setQueryHint("");
                         break;
                 }
                 return false;
@@ -273,15 +303,24 @@ public class SearchBooksActivity extends AppCompatActivity {
             }
         });
     }
-    private void checkPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (!(ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED)) {
-                Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                        Uri.parse("package:" + getPackageName()));
-                startActivity(intent);
-                finish();
-            }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.material_searchview, menu);
+        MenuItem item = menu.findItem(R.id.action_search);
+        searchView.setMenuItem(item);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.action_search:
+                return true;
+            default:
         }
+        return super.onOptionsItemSelected(item);
+
     }
     private void addControl() {
         searchView = findViewById(R.id.search_view_all);

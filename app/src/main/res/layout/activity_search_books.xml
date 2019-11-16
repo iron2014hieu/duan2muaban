@@ -30,7 +30,7 @@
                         android:layout_height="wrap_content"
                         app:titleTextColor="?attr/textcolor"
                         android:background="?attr/topbottomcolor"
-                        app:navigationIcon="@drawable/ic_arrow"
+                        app:navigationIcon="@drawable/ic_close"
                         >
                         <com.miguelcatalan.materialsearchview.MaterialSearchView
                             android:id="@+id/search_view_all"

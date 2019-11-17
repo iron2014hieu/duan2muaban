@@ -1,7 +1,7 @@
 package com.example.duan2muaban.LoginRegister;
 
 import android.app.ProgressDialog;
-import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,14 +13,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -31,11 +31,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.duan2muaban.Main2Activity;
-import com.example.duan2muaban.QLTKActivity;
+import com.example.duan2muaban.Activity.hoadon.RatingBookCommentActivity;
 import com.example.duan2muaban.R;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -51,7 +51,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileActivity extends AppCompatActivity {
     SharedPref sharedPref;
-    EditText txtEmail, txtName, txtPassword;
+    TextView txtEmail, txtName;
     Button btnLogout;
     SessionManager sessionManager;
     private String TAG = "TAG_PROFILE";
@@ -59,19 +59,20 @@ public class ProfileActivity extends AppCompatActivity {
     private static String URL_READ ="https://bansachonline.xyz/bansach/loginregister/read_detail.php";
     private static String URL_EDIT ="https://bansachonline.xyz/bansach/loginregister/edit_detail.php";
     private static String URL_UPLOAD ="https://bansachonline.xyz/bansach/loginregister/upload.php";
-    String email,strid,name,quyen,linh_img;
+    String email,strid,name,quyen,linh_img,phone;
 
     private Menu action;
     Bitmap bitmap;
     CircleImageView profile_image;
+    Boolean replayedt = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         sharedPref = new SharedPref(this);
         theme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.drawable.ic_close);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_profile);
+
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
 
@@ -83,7 +84,6 @@ public class ProfileActivity extends AppCompatActivity {
         txtEmail=findViewById(R.id.txtEmail);
         txtName=findViewById(R.id.txtName);
         txtEmail=findViewById(R.id.txtEmail);
-        txtPassword=findViewById(R.id.txtPassword);
         btnLogout=findViewById(R.id.btnLogout);
         profile_image = findViewById(R.id.profile_image);
 
@@ -92,12 +92,14 @@ public class ProfileActivity extends AppCompatActivity {
         name = user.get(sessionManager.NAME);
         String id = user.get(sessionManager.ID);
         quyen = user.get(sessionManager.QUYEN);
-
+        phone = user.get(sessionManager.PHONE);
+        getDetail(email);
 
         btnLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 sessionManager.Logout();
+                FirebaseAuth.getInstance().signOut();
             }
         });
     }
@@ -107,6 +109,29 @@ public class ProfileActivity extends AppCompatActivity {
         onBackPressed();
         return true;
     }
+
+    @Override
+    public void onBackPressed() {
+        if (replayedt) {
+            AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+            builder.setMessage("Bạn muốn hủy thay đổi?")
+                    .setCancelable(false)
+                    .setPositiveButton("Có", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            ProfileActivity.this.finish();
+                        }
+                    })
+                    .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }else
+            ProfileActivity.this.finish();
+    }
+
     public void getImage(View v){
         chooseFile();
     }
@@ -166,20 +191,14 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        getDetail(email);
-    }
-
-    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         try {
-            if (quyen.equals("user")||quyen.equals("store")){
+            if (quyen.equals("user")){
                 MenuInflater menuInflater = getMenuInflater();
                 menuInflater.inflate(R.menu.menu_action, menu);
                 action = menu;
                 action.findItem(R.id.menu_save).setVisible(false);
-            }else if (quyen.equals("admin")){
+            }else {
                 getMenuInflater().inflate(R.menu.menu_action_admin, menu);
             }
         }catch (Exception e){
@@ -192,43 +211,15 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         try {
-            if (quyen.equals("user")||quyen.equals("store")){
+            if (quyen.equals("user")){
                 switch (item.getItemId()){
-                    case R.id.menu_edit:
-                        txtName.setFocusableInTouchMode(true);
-                        txtEmail.setFocusableInTouchMode(true);
-
-                        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.showSoftInput(txtName, InputMethodManager.SHOW_IMPLICIT);
-
-                        action.findItem(R.id.menu_edit).setVisible(false);
-                        action.findItem(R.id.menu_save).setVisible(true);
-
-                        txtEmail.setEnabled(true);
-                        txtName.setEnabled(true);
-                        return  true;
                     case R.id.menu_save:
                         saveDetail();
-                        action.findItem(R.id.menu_edit).setVisible(true);
-                        action.findItem(R.id.menu_save).setVisible(false);
-
-                        txtName.setFocusableInTouchMode(false);
-                        txtEmail.setFocusableInTouchMode(false);
-                        txtName.setFocusable(false);
-                        txtEmail.setFocusable(false);
-
-                        txtEmail.setEnabled(false);
-                        txtName.setEnabled(false);
-                        return true;
-                    case R.id.logout:
-                        startActivity(new Intent(getBaseContext(), Main2Activity.class));
-                        return true;
-
+                      return  true;
                 }
-            }else if (quyen.equals("admin")){
+            }else {
                 switch (item.getItemId()){
                     case R.id.ivQLTK:
-                        startActivity(new Intent(getBaseContext(), QLTKActivity.class));
                         break;
                 }
             }

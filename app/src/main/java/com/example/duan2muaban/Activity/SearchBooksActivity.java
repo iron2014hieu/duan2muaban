@@ -160,7 +160,7 @@ public class SearchBooksActivity extends AppCompatActivity {
             }
         }));
 
-
+        searchView.setSuggestions(getResources().getStringArray(R.array.query_suggestions));
 //        searchView.setOnSuggestionListener(new SearchView.OnSuggestionListener() {
 //            @Override
 //            public boolean onSuggestionSelect(int position) {
@@ -321,6 +321,13 @@ public class SearchBooksActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
+    }
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()){
+            searchView.closeSearch();
+        }else
+            super.onBackPressed();
     }
     private void addControl() {
         searchView = findViewById(R.id.search_view_all);

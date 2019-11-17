@@ -91,6 +91,9 @@ public class LoginActivity extends AppCompatActivity {
                 }
             });
         }
+        public void loginsms(View view){
+        startActivity(new Intent(getBaseContext(), VerifyPhoneActivity.class));
+        }
     private void Login(final String email, final String password){
         StringRequest stringRequest = new StringRequest(Request.Method.POST, URL_LOGIN,
                 new Response.Listener<String>() {
@@ -106,10 +109,11 @@ public class LoginActivity extends AppCompatActivity {
                                     JSONObject object = jsonArray.getJSONObject(i);
                                     String name = object.getString("name").trim();
                                     String email = object.getString("email").trim();
+                                    String phone = object.getString("phone").trim();
                                     String id = object.getString("id").trim();
                                     String quyen = object.getString("quyen").trim();
 
-                                    sessionManager.createSession(id, email, name, quyen);
+                                    sessionManager.createSession(id, email,phone, name, quyen);
 
 
                                     if(quyen.equals("shipper")){

@@ -1,6 +1,7 @@
 package com.example.duan2muaban;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -12,14 +13,17 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,6 +49,9 @@ import com.android.volley.toolbox.Volley;
 import com.example.duan2muaban.ApiRetrofit.ApiClient;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceDatmua;
 import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFaceHoadon;
+import com.example.duan2muaban.LoginRegister.CountryData;
+import com.example.duan2muaban.LoginRegister.LoginWithSMSActivity;
+import com.example.duan2muaban.LoginRegister.VerifyPhoneActivity;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.CartAdapter;
 import com.example.duan2muaban.adapter.KhuyenMai.KhuyenMaiAdapter;
@@ -54,6 +61,14 @@ import com.example.duan2muaban.model.KhuyenMai;
 import com.example.duan2muaban.nighmode_vanchuyen.SharedPref;
 import com.example.duan2muaban.nighmode_vanchuyen.vanchuyen.CountryAdapter;
 import com.example.duan2muaban.nighmode_vanchuyen.vanchuyen.CountryItem;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskExecutors;
+import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -62,22 +77,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import static com.example.duan2muaban.Notif.App.CHANNEL_1_ID;
 public class CartDetailActivity extends AppCompatActivity {
-
+    private FirebaseAuth mAuth;
     private ArrayList<CountryItem> countryItems;
     private CountryAdapter countryAdapter;
-
     private KhuyenMaiAdapter khuyenMaiAdapter;
     private List<KhuyenMai> listKhuyenMai = new ArrayList<>();
     ApiInTerFaceHoadon apiInTerFaceHoadon;
-
-    EditText edtMaGiamGia, edtSdt, edtDiachi, edtTenkh;
+    ProgressBar progressBar;
+    private String verificationId;
+    EditText edtMaGiamGia, edtSdt, edtDiachi, edtTenkh,  edtEnterPhone,editTextCode_dialog;
     TextView txtTongtien;
-    Button btnCheckMGG,btnThanhtoan;
+    Button btnCheckMGG,btnThanhtoan  ,btnTieptuc;
     RecyclerView recyclerview_create_bill;
     List<DatMua> listDatmua = new ArrayList<>();
     ListSPAdapter cartAdapter;
@@ -88,7 +104,7 @@ public class CartDetailActivity extends AppCompatActivity {
     int sizeList=0;
     SessionManager sessionManager;
     ProgressBar progress_hoadon;
-
+    String phoneNumber;
     int Giamgia = 0;
     int Giatri;
     int Phivanchuyen = 0;
@@ -108,9 +124,12 @@ public class CartDetailActivity extends AppCompatActivity {
         edtTenkh=findViewById(R.id.edtTenkh);
         btnCheckMGG = findViewById(R.id.CheckMGG);
         btnThanhtoan= findViewById(R.id.btnThanhtoan);
+
         recyclerview_create_bill= findViewById(R.id.recyclerview_create_bill);
         sessionManager = new SessionManager(this);
         notificationManager = NotificationManagerCompat.from(this);
+        mAuth = FirebaseAuth.getInstance();
+
         HashMap<String,String> user = sessionManager.getUserDetail();
         mauser_session = user.get(sessionManager.ID);
         Intent intent = getIntent();
@@ -214,8 +233,6 @@ public class CartDetailActivity extends AppCompatActivity {
                 Log.e("Error Search:","Error on: "+t.toString());
             }
         });
-
-
         btnThanhtoan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,14 +243,15 @@ public class CartDetailActivity extends AppCompatActivity {
                 alertDialog.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        if (!edtDiachi.getText().toString().trim().equals("")||
-                        !edtSdt.getText().toString().trim().equals("") || !edtTenkh.getText().toString().trim().equals("")) {
-                            progress_hoadon.setVisibility(View.VISIBLE);
-                            btnThanhtoan.setVisibility(View.GONE);
-                            ThemHoadon(mauser_session, String.valueOf(tongtien), "0333756922", url_insert_hoadon);
-                        }else {
-                            Toast.makeText(CartDetailActivity.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
-                        }
+                        displayAlertDialog();
+//                        if (!edtDiachi.getText().toString().trim().equals("")||
+//                        !edtSdt.getText().toString().trim().equals("") || !edtTenkh.getText().toString().trim().equals("")) {
+//                            progress_hoadon.setVisibility(View.VISIBLE);
+//
+//                            ThemHoadon(mauser_session, String.valueOf(tongtien), edtSdt.getText().toString(), url_insert_hoadon);
+//                        }else {
+//                            Toast.makeText(CartDetailActivity.this, "Nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
+//                        }
                     }
                 });
                 alertDialog.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -407,4 +425,121 @@ public class CartDetailActivity extends AppCompatActivity {
         SystemClock.sleep(1000);
         notificationManager.notify(2, summaryNotification);
     }
+
+    // phần xác minh
+    public void displayAlertDialog() {
+        // custom dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.dialog_xacminh_hoadon);
+        dialog.setTitle("Title...");
+
+        // set the custom dialog components - text, image and button
+         edtEnterPhone = (EditText) dialog.findViewById(R.id.editTextPhone_dialog);
+         btnTieptuc = (Button) dialog.findViewById(R.id.btnxacminhsdt_dialog);
+        editTextCode_dialog =(EditText)dialog.findViewById(R.id.editTextCode_dialog);
+        final Spinner spinner = (Spinner) dialog.findViewById(R.id.spinner_dialog_Countries);
+        final Button btnHoanthanh = dialog.findViewById(R.id.buttonsuccess_dialog);
+         progressBar =(ProgressBar) dialog.findViewById(R.id.progressbar_dialog);
+        final TextView txtVuilongdoi =(TextView) dialog.findViewById(R.id.textView_dialog);
+
+        final LinearLayout linearLayout_nhap =(LinearLayout) dialog.findViewById(R.id.linearLayoutdialog_Nhap);
+        final LinearLayout linearLayout_xacminh =(LinearLayout) dialog.findViewById(R.id.container_dialog);
+        spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CountryData.countryAreaCodes));
+
+        // if button is clicked, close the custom dialog
+        btnTieptuc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = CountryData.countryAreaCodes[spinner.getSelectedItemPosition()];
+
+                String number = edtEnterPhone.getText().toString().trim();
+
+                if (number.isEmpty() || number.length() < 10) {
+                    edtEnterPhone.setError("Vui lòng nhập số hợp lệ");
+                    edtEnterPhone.requestFocus();
+                    return;
+                }
+
+                phoneNumber = "+" + code + number;
+                linearLayout_nhap.setVisibility(View.GONE);
+                linearLayout_xacminh.setVisibility(View.VISIBLE);
+                sendVerificationCode(phoneNumber);
+            }
+        });
+        btnHoanthanh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String code = editTextCode_dialog.getText().toString().trim();
+
+                if (code.isEmpty() || code.length() < 6) {
+
+                    editTextCode_dialog.setError("Enter code...");
+                    editTextCode_dialog.requestFocus();
+                    return;
+                }
+                verifyCode(code);
+            }
+        });
+        dialog.show();
+    }
+
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        signInWithCredential(credential);
+    }
+
+    private void signInWithCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+
+                            Intent intent = new Intent(CartDetailActivity.this, MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+                            startActivity(intent);
+
+                        } else {
+                            Toast.makeText(CartDetailActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+    }
+
+    private void sendVerificationCode(String number) {
+        progressBar.setVisibility(View.VISIBLE);
+        PhoneAuthProvider.getInstance().verifyPhoneNumber(
+                number,
+                60,
+                TimeUnit.SECONDS,
+                TaskExecutors.MAIN_THREAD,
+                mCallBack
+        );
+
+    }
+
+    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+
+        @Override
+        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+            super.onCodeSent(s, forceResendingToken);
+            verificationId = s;
+        }
+
+        @Override
+        public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
+            String code = phoneAuthCredential.getSmsCode();
+            if (code != null) {
+                editTextCode_dialog.setText(code);
+                verifyCode(code);
+            }
+        }
+
+        @Override
+        public void onVerificationFailed(FirebaseException e) {
+            Toast.makeText(CartDetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    };
 }

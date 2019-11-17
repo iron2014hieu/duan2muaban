@@ -4,9 +4,20 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.session.MediaSession;
 import android.os.Bundle;
+import android.support.v4.media.session.MediaSessionCompat;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,6 +40,7 @@ import com.example.duan2muaban.ApiRetrofit.InTerFace.ApiInTerFace;
 import com.example.duan2muaban.CartDetailActivity;
 import com.example.duan2muaban.MainActivity;
 import com.example.duan2muaban.R;
+import com.example.duan2muaban.Service.App;
 import com.example.duan2muaban.Session.SessionManager;
 import com.example.duan2muaban.adapter.Sach.SachAdapter;
 import com.example.duan2muaban.model.Books;
@@ -39,6 +51,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -51,11 +64,13 @@ public class BookDetailLibActivity extends AppCompatActivity {
     String masach, linkbook,hinhanh, tensach, tongdiem, landanhgia;
 
     ImageView imgBook_lib;
-    TextView txtTensach_lib,numrating_book_detail_lib,txtDocsach,txtXemnhanxet;
+    TextView txtTensach_lib,numrating_book_detail_lib,txtDocsach,txtXemnhanxet,txtNgheaudio;
     RatingBar ratingbar_book_detail_lib;
     String URL ="https://bansachonline.xyz/bansach/sach/getBookDetail.php/?masach=";
     SessionManager sessionManager;
     SharedPref sharedPref;
+    NotificationManagerCompat notificationManagerCompat;
+    MediaSessionCompat mediaSessionCompat;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,7 +88,45 @@ public class BookDetailLibActivity extends AppCompatActivity {
         Log.d("tensach_lib", tensach);
         toolbar.setTitle(tensach);
         getDetailBook(URL+masach);
+        notificationManagerCompat = NotificationManagerCompat.from(this);
+        mediaSessionCompat = new MediaSessionCompat(this, "tag");
+        Intent intent1 = new Intent(this, MainActivity.class);
+        intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        String check = "4";
+        intent.putExtra("check", check);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this,
+                0,
+                intent,
+                0
+        );
+        mediaSessionCompat.setSessionActivity(pendingIntent);
 
+        txtNgheaudio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sendNotification();
+            }
+        });
+
+    }
+    private void sendNotification(){
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.sach3);
+        Notification channel = new NotificationCompat.Builder(getApplicationContext(), App.CHANNEL_ID_1)
+                .setSmallIcon(R.drawable.ic_music)
+                .setContentTitle("2 con vit")
+                .setContentText("By Hoang dang luaan")
+                .setLargeIcon(bitmap)
+                .addAction(R.drawable.ic_fast_rewind, "xx10", null)
+                .addAction(R.drawable.ic_skip_previous, "prev", null)
+                .addAction(R.drawable.ic_pause_circle_outline, "next", null)
+                .addAction(R.drawable.ic_skip_next, "xx10", null)
+                .addAction(R.drawable.ic_fast_forward, "pause", null)
+                .setStyle(new androidx.media.app.NotificationCompat.MediaStyle()
+                .setShowActionsInCompactView(1,2,3)
+                .setMediaSession(mediaSessionCompat.getSessionToken()))
+                .setSubText("Sub text")
+                .build();
+        notificationManagerCompat.notify(1, channel);
     }
     public  void theme(){
         if (sharedPref.loadNightModeState() == true){
@@ -147,5 +200,6 @@ public class BookDetailLibActivity extends AppCompatActivity {
         txtDocsach= findViewById(R.id.txtDocsach);
         txtXemnhanxet= findViewById(R.id.txtXemnhanxet);
         ratingbar_book_detail_lib = findViewById(R.id.ratingbar_book_detail_lib);
+        txtNgheaudio= findViewById(R.id.txtNgheaudio);
     }
 }

@@ -15,7 +15,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.hoadon.ListAllCommentActivity"></activity>
+        <activity android:name=".LoginRegister.VerifyPhoneActivity" />
+        <activity android:name=".LoginRegister.LoginWithSMSActivity" />
+        <activity android:name=".Activity.hoadon.ListAllCommentActivity" />
         <activity android:name=".fragmentVanChuyen.Activity.ChitietGiaoHangActivity" />
         <activity android:name=".Activity.Library.BookDetailLibActivity" />
         <activity android:name=".FirstStartActivity" />
@@ -35,7 +37,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".CartDetailActivity" />
-        <activity android:name=".QLTKActivity" />
         <activity android:name=".Activity.hoadon.RatingBookCommentActivity" />
         <activity android:name=".Activity.BookDetailActivity" />
         <activity android:name=".Activity.GetBookByTheloaiActivity" />

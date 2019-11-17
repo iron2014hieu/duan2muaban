@@ -7,14 +7,4 @@
         android:id="@+id/menu_save"
         app:showAsAction="always"
         android:title="Save" />
-    <item
-        android:icon="@drawable/ic_edit_black_24dp"
-        android:id="@+id/menu_edit"
-        app:showAsAction="always"
-        android:title="Edit" />
-    <item
-        app:showAsAction="always"
-        android:id="@+id/logout"
-        android:title="@string/giohang"
-        android:icon="@drawable/ic_shopping_cart"/>
 </menu>

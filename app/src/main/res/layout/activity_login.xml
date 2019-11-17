@@ -90,7 +90,21 @@
         android:text="@string/ghinholuachon"
         android:backgroundTint="?attr/backgroundcolor"
         android:id="@+id/cbRemember"/>
-
+        <Button
+            android:id="@+id/btnSmsLogin"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:text="Đăng nhập bằng sms"
+            android:textColor="?attr/textcolor"
+            android:background="#69CC8A"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:onClick="loginsms"
+            android:drawableLeft="@drawable/ic_sms"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"/>
     <TextView
         android:id="@+id/link_register"
         android:layout_width="wrap_content"

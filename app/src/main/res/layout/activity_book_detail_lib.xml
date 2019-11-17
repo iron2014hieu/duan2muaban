@@ -70,6 +70,19 @@
         android:onClick="DocSach"
         />
     <TextView
+        android:id="@+id/txtNgheaudio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nghe Audio"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:textStyle="bold"
+        android:gravity="left"
+        android:textSize="20dp"
+        android:textColor="?attr/textcolor"
+        android:drawableRight="@drawable/ic_remove_red_eye_black_24dp"
+        android:layout_gravity="center"/>
+    <TextView
         android:id="@+id/txtXemnhanxet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
